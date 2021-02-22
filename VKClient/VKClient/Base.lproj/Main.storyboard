@@ -41,6 +41,9 @@
                         <viewLayoutGuide key="safeArea" id="pUB-5n-Br2"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <connections>
+                        <outlet property="LogInButton" destination="2VS-te-87a" id="xpa-pU-UaH"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9eD-Nc-1rm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
