@@ -29,6 +29,8 @@ class LoginFormController: UIViewController {
         let info = notification.userInfo! as NSDictionary
         let kbSize = (info.value(forKey: UIResponder.keyboardFrameEndUserInfoKey) as! NSValue).cgRectValue.size
         
+        print(kbSize.height)
+        
         let contentInsets = UIEdgeInsets(
             top: 0.0,
             left: 0.0,
