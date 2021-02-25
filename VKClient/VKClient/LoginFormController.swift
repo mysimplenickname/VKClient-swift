@@ -12,24 +12,40 @@ class LoginFormController: UIViewController {
     @IBOutlet weak var loginField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     
-    @IBAction func startTapped(_ sender: UIButton) {
+    //MARK: - Authorizing
+    
+    func validateCredentials() -> Bool {
         let login = "admin",
             password = "password"
         
-        if loginField.text == login && passwordField.text == password {
-            print("Logged in")
-        } else {
-            print("Wrong login or password")
-        }
+        return loginField.text == login && passwordField.text == password
     }
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        guard identifier == "TapBarIdentifier1" else { return true }
+        
+        let isValid = validateCredentials()
+        if !isValid {
+            showFailedLoginAlert()
+        }
+        return isValid
+    }
+    
+    func showFailedLoginAlert() {
+        let alert = UIAlertController(title: "Error", message: "Incorrect login or password", preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+        
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
+    }
+    
+    //MARK: - Keyboard
     
     @IBOutlet weak var scrollView: UIScrollView!
     
     @objc func keyboardWasShown(notification: Notification) {
         let info = notification.userInfo! as NSDictionary
         let kbSize = (info.value(forKey: UIResponder.keyboardFrameEndUserInfoKey) as! NSValue).cgRectValue.size
-        
-        print(kbSize.height)
         
         let contentInsets = UIEdgeInsets(
             top: 0.0,
@@ -46,7 +62,13 @@ class LoginFormController: UIViewController {
         let contentInsets = UIEdgeInsets.zero
         scrollView?.contentInset = contentInsets
     }
+    
+    @objc func hideKeyboard() {
+        self.scrollView?.endEditing(true)
+    }
 
+    //MARK: - Standard methods
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -80,14 +102,10 @@ class LoginFormController: UIViewController {
             object: nil
         )
     }
-    
-    @objc func hideKeyboard() {
-        self.scrollView?.endEditing(true)
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-     
+        
         let hideKeyboardGesture = UITapGestureRecognizer(
             target: self,
             action: #selector(hideKeyboard)
