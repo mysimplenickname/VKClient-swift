@@ -10,10 +10,5 @@ import Foundation
 struct User {
     var name: String,
         surname: String,
-        id: UInt
-}
-
-struct Group {
-    var name: String,
-        id: UInt
+        images: [String]
 }

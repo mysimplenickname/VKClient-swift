@@ -10,9 +10,9 @@ import UIKit
 class FriendsViewController: UITableViewController {
 
     let friends: [User] = [
-        User(name: "Adam", surname: "Willson", id: 1),
-        User(name: "Alex", surname: "Smith", id: 2),
-        User(name: "John", surname: "Snow", id: 3)
+        User(name: "Adam", surname: "Willson", images: []),
+        User(name: "Alex", surname: "Smith", images: []),
+        User(name: "John", surname: "Snow", images: ["johnsnow1", "johnsnow2", "johnsnow3"])
     ]
     
     // MARK: - Life cycle
@@ -21,6 +21,14 @@ class FriendsViewController: UITableViewController {
         super.viewDidLoad()
     }
 
+    // MARK: - Segues
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let controller = segue.destination as? PhotosViewController, let indexPath = tableView.indexPathForSelectedRow {
+            controller.images = friends[indexPath.row].images
+        }
+    }
+    
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -28,8 +36,18 @@ class FriendsViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "FriendsCell", for: indexPath) as! FriendsCell
-        cell.friendLabel?.text = friends[indexPath.row].name + " " + friends[indexPath.row].surname
+        let cell = tableView.dequeueReusableCell(withIdentifier: "friendsCell", for: indexPath) as! FriendsCell
+        
+        let friend = friends[indexPath.row]
+        
+        cell.friendLabel.text = friend.name + " " + friend.surname
+        
+        if friend.images.count > 0 {
+            cell.friendImage.image = UIImage(named: friend.images[0])
+        } else {
+            cell.friendImage.image = UIImage(systemName: "person")
+        }
+        
         return cell
     }
 }

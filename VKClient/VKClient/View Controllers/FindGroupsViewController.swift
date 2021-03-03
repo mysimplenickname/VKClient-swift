@@ -10,8 +10,8 @@ import UIKit
 class FindGroupsViewController: UITableViewController {
     
     let groups: [Group] = [
-        Group(name: "Admins", id: 1),
-        Group(name: "Users", id: 2)
+        Group(name: "Admins", image: nil),
+        Group(name: "Users",  image: nil)
     ]
     
     // MARK: - Life cycle
@@ -27,8 +27,18 @@ class FindGroupsViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "FindGroupsCell", for: indexPath) as! FindGroupsCell
-        cell.findGroupsLabel?.text = groups[indexPath.row].name
+        let cell = tableView.dequeueReusableCell(withIdentifier: "findGroupsCell", for: indexPath) as! FindGroupsCell
+        
+        let group = groups[indexPath.row]
+        
+        cell.findGroupsLabel.text = group.name
+        
+        if let image = group.image {
+            cell.findGroupsImage.image = UIImage(named: image)
+        } else {
+            cell.findGroupsImage.image = UIImage(systemName: "person.3")
+        }
+        
         return cell
     }
     
