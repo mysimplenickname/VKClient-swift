@@ -9,7 +9,7 @@ import UIKit
 
 class PhotosViewController: UICollectionViewController {
     
-    var images: [String] = []
+    var images: [Photo] = []
     
     // MARK: - Life cycle
     
@@ -17,19 +17,19 @@ class PhotosViewController: UICollectionViewController {
         super.viewDidLoad()
     }
 
-    // MARK: UICollectionViewDataSource
+    // MARK: - UICollectionViewDataSource
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return images.count
     }
 
+    // MARK: - UICollectionViewDelegate
+    
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photosCell", for: indexPath) as! PhotosCell
-        
         let image = images[indexPath.row]
-
-        cell.photosImage.image = UIImage(named: image)
-    
+        cell.photosImage.image = UIImage(named: image.name)
         return cell
     }
+    
 }
