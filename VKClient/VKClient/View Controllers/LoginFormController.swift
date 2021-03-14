@@ -18,7 +18,8 @@ class LoginFormController: UIViewController {
         let login = "admin",
             password = "password"
         
-        return loginField.text == login && passwordField.text == password
+       // return loginField.text == login && passwordField.text == password
+        return true
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
