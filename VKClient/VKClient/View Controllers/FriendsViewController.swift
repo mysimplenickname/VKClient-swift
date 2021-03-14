@@ -40,4 +40,22 @@ class FriendsViewController: UIViewController, UITableViewDataSource, UITableVie
         cell.configureCell(friend: friends[indexPath.row])
         return cell
     }
+    
+    // MARK: - Actions
+    
+    @IBAction func choosenFriend(_ sender: FriendsSelectorControl) {
+        
+        var index: UInt = 0
+        for friend in friends {
+            if sender.selectedValue?.surname == friend.surname {
+                break
+            }
+            index += 1
+        }
+        
+        let indexPath = IndexPath(row: Int(index), section: 0)
+        tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+        
+    }
+    
 }

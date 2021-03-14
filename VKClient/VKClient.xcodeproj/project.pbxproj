@@ -28,6 +28,7 @@
 		31DE203A25FCEE8800037264 /* LikesControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DE203925FCEE8800037264 /* LikesControl.swift */; };
 		31DE203E25FE730200037264 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DE203D25FE730200037264 /* Photo.swift */; };
 		31DE204125FE991500037264 /* FriendsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DE204025FE991500037264 /* FriendsTableView.swift */; };
+		31DE204525FE9BF000037264 /* FriendsSelectorControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DE204425FE9BF000037264 /* FriendsSelectorControl.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,7 @@
 		31DE203925FCEE8800037264 /* LikesControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikesControl.swift; sourceTree = "<group>"; };
 		31DE203D25FE730200037264 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		31DE204025FE991500037264 /* FriendsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsTableView.swift; sourceTree = "<group>"; };
+		31DE204425FE9BF000037264 /* FriendsSelectorControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsSelectorControl.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +123,7 @@
 			isa = PBXGroup;
 			children = (
 				31DE204025FE991500037264 /* FriendsTableView.swift */,
+				31DE204425FE9BF000037264 /* FriendsSelectorControl.swift */,
 				3144156525FAAFA300965D3A /* FriendImageView.swift */,
 				31DE203425FCCDE200037264 /* ShadowView.swift */,
 				31DE203925FCEE8800037264 /* LikesControl.swift */,
@@ -240,6 +243,7 @@
 			files = (
 				3196DF3225EBF86A0014B9C4 /* FriendsViewController.swift in Sources */,
 				31B989C025E413B600016838 /* LoginFormController.swift in Sources */,
+				31DE204525FE9BF000037264 /* FriendsSelectorControl.swift in Sources */,
 				3147E22225DDBA82005A0306 /* AppDelegate.swift in Sources */,
 				3196DF5525EED2B30014B9C4 /* FindGroupsCell.swift in Sources */,
 				3196DF4725EC0FFA0014B9C4 /* GroupsCell.swift in Sources */,
