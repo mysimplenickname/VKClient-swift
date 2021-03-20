@@ -11,13 +11,13 @@ class FriendsSelectorControl: UIControl {
 
     private var friends: [User] = User.loadUsers()
     
-    private var letters: [Character] = []
-    private var buttons: [UIButton] = []
     private var stackView: UIStackView!
     
     var selectedValue: User?
     
     func setup() {
+        
+        var letters: [Character] = []
         
         for friend in friends {
             let string = friend.surname
@@ -28,6 +28,8 @@ class FriendsSelectorControl: UIControl {
         }
         
         letters.sort()
+        
+        var buttons: [UIButton] = []
         
         for letter in letters {
             let button = UIButton(type: .system)

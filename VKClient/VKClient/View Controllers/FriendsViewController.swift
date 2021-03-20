@@ -15,6 +15,9 @@ class FriendsViewController: UIViewController, UITableViewDataSource, UITableVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print(FriendsCell.reusableId)
+        tableView.register(UINib(nibName: "FriendsCell", bundle: nil), forCellReuseIdentifier: FriendsCell.reusableId)
     }
 
     // MARK: - Segues
@@ -27,6 +30,14 @@ class FriendsViewController: UIViewController, UITableViewDataSource, UITableVie
         }
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "ToPhotosSegue", sender: nil)
+    }
+    
+    @IBAction func unwindFromPhotos(_ segue: UIStoryboardSegue) {
+        performSegue(withIdentifier: "FromPhotosSegue", sender: nil)
+    }
+    
     // MARK: - Table view data source
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -36,7 +47,7 @@ class FriendsViewController: UIViewController, UITableViewDataSource, UITableVie
     // MARK: - Table view delegate
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "friendsCell", for: indexPath) as! FriendsCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: FriendsCell.reusableId, for: indexPath) as! FriendsCell
         cell.configureCell(friend: friends[indexPath.row])
         return cell
     }
@@ -44,7 +55,6 @@ class FriendsViewController: UIViewController, UITableViewDataSource, UITableVie
     // MARK: - Actions
     
     @IBAction func choosenFriend(_ sender: FriendsSelectorControl) {
-        
         var index: UInt = 0
         for friend in friends {
             if sender.selectedValue?.surname == friend.surname {
@@ -52,10 +62,8 @@ class FriendsViewController: UIViewController, UITableViewDataSource, UITableVie
             }
             index += 1
         }
-        
         let indexPath = IndexPath(row: Int(index), section: 0)
         tableView.scrollToRow(at: indexPath, at: .top, animated: true)
-        
     }
     
 }
