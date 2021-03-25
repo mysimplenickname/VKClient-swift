@@ -5,7 +5,7 @@
 //  Created by Lev on 3/2/21.
 //
 
-import Foundation
+import UIKit
 
 struct User {
     
@@ -35,9 +35,11 @@ extension User {
                user8 = User(name: "Sam", surname: "Hammer", images: []),
                user9 = User(name: "Anna", surname: "Taylor", images: []),
                user10 = User(name: "Lisa", surname: "Brown", images: [])
-        
+}
+
+extension User {
     static func loadUsers() -> [User] {
-        return
+        return sortUsers(unsortedArray:
             [
                 User.user1,
                 User.user2,
@@ -50,5 +52,60 @@ extension User {
                 User.user9,
                 User.user10
             ]
+        )
+    }
+    
+    static func sortUsers(unsortedArray: [User]) -> [User] {
+        var surnamesArray: [String] = []
+        for user in unsortedArray {
+            surnamesArray.append(user.surname)
+        }
+        surnamesArray.sort()
+        
+        var sortedArray: [User] = []
+        for surname in surnamesArray {
+            for elem in unsortedArray {
+                if elem.surname == surname {
+                    sortedArray.append(elem)
+                }
+            }
+        }
+        
+        return sortedArray
+    }
+    
+    static func firstLetters(users: [User]) -> [Character] {
+        var letters: [Character] = []
+        for user in users {
+            let letter = firstLetter(user: user)
+            if letters.firstIndex(of: letter) == nil {
+                letters.append(letter)
+            }
+        }
+        return letters
+    }
+    
+    static func firstLetter(user: User) -> Character {
+        let surname = user.surname
+        return surname[surname.index(surname.startIndex, offsetBy: 0)]
+    }
+    
+    static func arrangeUsers(users: [User]) -> [[User]] {
+        let letters: [Character] = firstLetters(users: users)
+        
+        var arrangedArray: [[User]] = []
+        for _ in 0..<letters.count {
+            arrangedArray.append([])
+        }
+        
+        var userIndex: Int = 0
+        for i in 0..<letters.count {
+            while userIndex < users.count && letters[i] == firstLetter(user: users[userIndex]) {
+                arrangedArray[i].append(users[userIndex])
+                userIndex += 1
+            }
+        }
+        
+        return arrangedArray
     }
 }

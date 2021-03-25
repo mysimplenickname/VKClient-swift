@@ -16,18 +16,8 @@ class FriendsSelectorControl: UIControl {
     var selectedValue: User?
     
     func setup() {
-        
-        var letters: [Character] = []
-        
-        for friend in friends {
-            let string = friend.surname
-            let letter = string[string.index(string.startIndex, offsetBy: 0)]
-            if letters.firstIndex(of: letter) == nil {
-                letters.append(letter)
-            }
-        }
-        
-        letters.sort()
+            
+        let letters: [Character] = User.firstLetters(users: friends)
         
         var buttons: [UIButton] = []
         
