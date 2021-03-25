@@ -27,7 +27,7 @@ class TestViewController: UIViewController {
     private func animateView(_ dotImageView: UIImageView, _ delay: TimeInterval) {
         dotImageView.alpha = 0.3
         
-        UIImageView.animateKeyframes(
+        UIImageView.animate(
             withDuration: 1,
             delay: delay,
             options: [.repeat, .autoreverse],
