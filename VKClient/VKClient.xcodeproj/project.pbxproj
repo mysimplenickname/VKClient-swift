@@ -31,6 +31,7 @@
 		31E10DDD2607C4530086C348 /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E10DDC2607C4530086C348 /* NewsViewController.swift */; };
 		31E10DE12607C4770086C348 /* NewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E10DDF2607C4770086C348 /* NewsCell.swift */; };
 		31E10DE22607C4770086C348 /* NewsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31E10DE02607C4770086C348 /* NewsCell.xib */; };
+		31E10DE8260B1B280086C348 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E10DE7260B1B280086C348 /* TestViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +61,7 @@
 		31E10DDC2607C4530086C348 /* NewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
 		31E10DDF2607C4770086C348 /* NewsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCell.swift; sourceTree = "<group>"; };
 		31E10DE02607C4770086C348 /* NewsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsCell.xib; sourceTree = "<group>"; };
+		31E10DE7260B1B280086C348 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +100,7 @@
 				3196DF4225EBFC190014B9C4 /* Views */,
 				3196DF4025EBFB970014B9C4 /* View Controllers */,
 				3196DF4325EBFC3B0014B9C4 /* Resources */,
+				31E10DE5260B18A80086C348 /* Test */,
 			);
 			path = VKClient;
 			sourceTree = "<group>";
@@ -185,6 +188,14 @@
 			path = Headers;
 			sourceTree = "<group>";
 		};
+		31E10DE5260B18A80086C348 /* Test */ = {
+			isa = PBXGroup;
+			children = (
+				31E10DE7260B1B280086C348 /* TestViewController.swift */,
+			);
+			path = Test;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -259,6 +270,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3196DF3225EBF86A0014B9C4 /* FriendsViewController.swift in Sources */,
+				31E10DE8260B1B280086C348 /* TestViewController.swift in Sources */,
 				31E10DD22606601B0086C348 /* FriendsHeaderView.swift in Sources */,
 				31DA9E6626060B9D00DB9390 /* FriendsCell.swift in Sources */,
 				31B989C025E413B600016838 /* LoginFormController.swift in Sources */,
