@@ -42,13 +42,11 @@
                     <constraint firstItem="7EF-np-0dw" firstAttribute="trailing" secondItem="Ffw-WK-G3I" secondAttribute="trailing" id="3eN-3e-Sc1"/>
                     <constraint firstItem="Ffw-WK-G3I" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="KHo-6V-16T"/>
                     <constraint firstItem="TYY-xd-52s" firstAttribute="leading" secondItem="Ffw-WK-G3I" secondAttribute="trailing" constant="20" id="OvS-hY-tHB"/>
-                    <constraint firstItem="Ffw-WK-G3I" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="UL9-LQ-AmT"/>
                     <constraint firstItem="Ffw-WK-G3I" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="WEi-Im-bV3"/>
                     <constraint firstItem="7EF-np-0dw" firstAttribute="bottom" secondItem="Ffw-WK-G3I" secondAttribute="bottom" id="Z4o-89-mxF"/>
                     <constraint firstItem="TYY-xd-52s" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="mrq-UR-slB"/>
                     <constraint firstItem="7EF-np-0dw" firstAttribute="leading" secondItem="Ffw-WK-G3I" secondAttribute="leading" id="osC-l0-aec"/>
                     <constraint firstItem="7EF-np-0dw" firstAttribute="top" secondItem="Ffw-WK-G3I" secondAttribute="top" id="t5b-Um-1KI"/>
-                    <constraint firstAttribute="bottom" secondItem="Ffw-WK-G3I" secondAttribute="bottom" constant="10" id="vzl-vP-kdG"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
@@ -62,7 +60,7 @@
     </objects>
     <resources>
         <systemColor name="systemBackgroundColor">
-            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
     </resources>
 </document>

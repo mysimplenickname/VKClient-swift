@@ -456,55 +456,15 @@
                                                 <constraint firstAttribute="height" constant="128" id="Vb8-rq-tnO"/>
                                             </constraints>
                                         </imageView>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lmG-pX-deR">
-                                            <rect key="frame" x="0.0" y="96" width="128" height="32"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nzg-p0-670">
-                                                    <rect key="frame" x="20" y="1" width="30" height="30"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="30" id="8nn-uY-yW4"/>
-                                                        <constraint firstAttribute="height" constant="30" id="wn8-sO-kZT"/>
-                                                    </constraints>
-                                                    <state key="normal" image="heart" catalog="system"/>
-                                                    <connections>
-                                                        <action selector="buttonTapped:" destination="zly-cj-081" eventType="touchUpInside" id="bp5-WS-De7"/>
-                                                    </connections>
-                                                </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4AN-vU-WfK">
-                                                    <rect key="frame" x="70" y="1" width="38" height="30"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="30" id="hIR-7T-hVY"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" systemColor="systemBlueColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="4AN-vU-WfK" secondAttribute="trailing" constant="20" id="25T-bD-sv4"/>
-                                                <constraint firstAttribute="height" constant="32" id="4t5-ye-GYd"/>
-                                                <constraint firstItem="4AN-vU-WfK" firstAttribute="leading" secondItem="Nzg-p0-670" secondAttribute="trailing" constant="20" id="AUE-5R-aLk"/>
-                                                <constraint firstItem="4AN-vU-WfK" firstAttribute="centerY" secondItem="lmG-pX-deR" secondAttribute="centerY" id="Srr-hZ-IRP"/>
-                                                <constraint firstItem="Nzg-p0-670" firstAttribute="leading" secondItem="lmG-pX-deR" secondAttribute="leading" constant="20" id="l3T-2N-PSe"/>
-                                                <constraint firstItem="Nzg-p0-670" firstAttribute="centerY" secondItem="lmG-pX-deR" secondAttribute="centerY" id="xYX-8n-fwo"/>
-                                            </constraints>
-                                        </view>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="lmG-pX-deR" firstAttribute="leading" secondItem="Vwc-pZ-xuP" secondAttribute="leading" id="3TC-iK-YPp"/>
                                         <constraint firstItem="C0g-Ac-LgH" firstAttribute="top" secondItem="Vwc-pZ-xuP" secondAttribute="top" id="Oi1-f0-AM6"/>
-                                        <constraint firstAttribute="trailing" secondItem="lmG-pX-deR" secondAttribute="trailing" id="W6L-g6-abG"/>
                                         <constraint firstItem="C0g-Ac-LgH" firstAttribute="leading" secondItem="Vwc-pZ-xuP" secondAttribute="leading" id="bwz-J6-8J9"/>
-                                        <constraint firstAttribute="bottom" secondItem="lmG-pX-deR" secondAttribute="bottom" id="hoA-Zf-5Mm"/>
                                         <constraint firstAttribute="trailing" secondItem="C0g-Ac-LgH" secondAttribute="trailing" id="lwf-5N-tBY"/>
-                                        <constraint firstItem="lmG-pX-deR" firstAttribute="centerX" secondItem="Vwc-pZ-xuP" secondAttribute="centerX" id="vCK-tU-WYv"/>
                                         <constraint firstAttribute="bottom" secondItem="C0g-Ac-LgH" secondAttribute="bottom" id="zKE-uI-Aow"/>
                                     </constraints>
                                 </collectionViewCellContentView>
                                 <connections>
-                                    <outlet property="likeButton" destination="Nzg-p0-670" id="GhF-Uh-8mg"/>
-                                    <outlet property="likeLabel" destination="4AN-vU-WfK" id="jxU-Yx-oNu"/>
                                     <outlet property="photosImage" destination="C0g-Ac-LgH" id="T1h-ik-pNm"/>
                                 </connections>
                             </collectionViewCell>
@@ -517,12 +477,55 @@
                     <navigationItem key="navigationItem" title="Photos" id="Okh-k5-e61"/>
                     <connections>
                         <segue destination="G7J-eK-y7m" kind="unwind" identifier="FromPhotosSegue" unwindAction="unwindFromPhotos:" id="d1C-sa-db8"/>
+                        <segue destination="G4L-UV-0QV" kind="show" identifier="ToPhotoBrowsingSegue" id="egA-cM-aYc"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kZH-Lo-zeu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="G7J-eK-y7m" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="4748" y="-118"/>
+            <point key="canvasLocation" x="4768" y="-117"/>
+        </scene>
+        <!--Photo Browsing View Controller-->
+        <scene sceneID="ngb-a3-s0Z">
+            <objects>
+                <viewController interfaceStyle="dark" id="G4L-UV-0QV" customClass="PhotoBrowsingViewController" customModule="VKClient" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Eus-UK-f8Q">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UJE-af-8dh">
+                                <rect key="frame" x="0.0" y="88" width="414" height="683"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gjN-Lm-vy5" customClass="InteractionView" customModule="VKClient" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="771" width="414" height="42"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="42" id="JIP-pj-Xhi"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="QJh-ul-Tn7"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="UJE-af-8dh" firstAttribute="leading" secondItem="QJh-ul-Tn7" secondAttribute="leading" id="83b-JN-igW"/>
+                            <constraint firstItem="gjN-Lm-vy5" firstAttribute="leading" secondItem="QJh-ul-Tn7" secondAttribute="leading" id="Np9-PR-3Lx"/>
+                            <constraint firstItem="UJE-af-8dh" firstAttribute="centerX" secondItem="Eus-UK-f8Q" secondAttribute="centerX" id="SGc-Pt-jSe"/>
+                            <constraint firstItem="QJh-ul-Tn7" firstAttribute="trailing" secondItem="gjN-Lm-vy5" secondAttribute="trailing" id="cXi-K0-Syl"/>
+                            <constraint firstItem="gjN-Lm-vy5" firstAttribute="bottom" secondItem="QJh-ul-Tn7" secondAttribute="bottom" id="d3l-tq-S8I"/>
+                            <constraint firstItem="UJE-af-8dh" firstAttribute="top" secondItem="QJh-ul-Tn7" secondAttribute="top" id="gI1-N6-HQU"/>
+                            <constraint firstItem="gjN-Lm-vy5" firstAttribute="top" secondItem="UJE-af-8dh" secondAttribute="bottom" id="gcW-lR-RS3"/>
+                            <constraint firstItem="UJE-af-8dh" firstAttribute="trailing" secondItem="QJh-ul-Tn7" secondAttribute="trailing" id="iA4-Bf-YAe"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="cHX-a9-TeL"/>
+                    <connections>
+                        <outlet property="imageView" destination="UJE-af-8dh" id="CdZ-2x-jYd"/>
+                        <outlet property="interactionView" destination="gjN-Lm-vy5" id="oT7-kn-NC4"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7GV-Cg-N9K" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5580" y="-117"/>
         </scene>
         <!--Friends-->
         <scene sceneID="4Ja-e5-6Pn">
@@ -565,16 +568,12 @@
     <resources>
         <image name="circle.fill" catalog="system" width="128" height="121"/>
         <image name="face.smiling.fill" catalog="system" width="128" height="121"/>
-        <image name="heart" catalog="system" width="128" height="109"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="newspaper.fill" catalog="system" width="128" height="111"/>
         <image name="square.grid.3x2.fill" catalog="system" width="128" height="80"/>
         <image name="vk" width="225" height="225"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemBlueColor">
-            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

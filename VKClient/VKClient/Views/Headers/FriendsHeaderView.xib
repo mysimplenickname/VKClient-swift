@@ -25,7 +25,6 @@
                 </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
-            <color key="backgroundColor" white="1" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="6dk-zy-02V" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="5" id="eWt-Dz-Zro"/>
                 <constraint firstItem="6dk-zy-02V" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="rER-vc-cXE"/>

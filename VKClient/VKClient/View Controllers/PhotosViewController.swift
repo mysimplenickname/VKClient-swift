@@ -17,6 +17,22 @@ class PhotosViewController: UICollectionViewController {
         super.viewDidLoad()
     }
 
+    // MARK: - Segues
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let controller = segue.destination as? PhotoBrowsingViewController,
+           let indexPaths = self.collectionView.indexPathsForSelectedItems {
+            let indexPath = indexPaths[0].row
+            controller.images = images
+            controller.indexOfSelectedImage = indexPath
+            controller.title = "\(indexPath + 1)/\(images.count)"
+        }
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "ToPhotoBrowsingSegue", sender: nil)
+    }
+    
     // MARK: - UICollectionViewDataSource
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
