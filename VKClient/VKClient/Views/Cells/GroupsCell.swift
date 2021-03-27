@@ -7,8 +7,10 @@
 
 import UIKit
 
-class GroupsCell: UITableViewCell {
+class GroupsCell: UITableViewCell, SelfConfiguringCell {
 
+    static var reuseIdentifier: String = "groupsCell"
+    
     @IBOutlet weak var groupsImage: UIImageView!
     @IBOutlet weak var groupsLabel: UILabel!
 

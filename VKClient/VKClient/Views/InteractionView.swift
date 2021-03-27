@@ -7,11 +7,7 @@
 
 import UIKit
 
-protocol ButtonTappedDelegate: class {
-    func buttonTapped()
-}
-
-class InteractionView: UIView {
+class InteractionView: UIControl {
 
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var likeButton: UIButton!
@@ -41,21 +37,23 @@ class InteractionView: UIView {
         ])
     }
     
-    private var likes: UInt = 0
-    private var isLiked: Bool = false
+    private var likes: Int = 0
+    private var isLiked: Bool = false {
+        didSet {
+            if isLiked {
+                likes += 1
+                likeButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+                animateLabel(.systemPink)
+            } else {
+                likes -= 1
+                likeButton.setImage(UIImage(systemName: "heart"), for: .normal)
+                animateLabel(.systemBlue)
+            }
+        }
+    }
     
     @IBAction func buttonTapped(_ sender: UIButton) {
-        if isLiked {
-            sender.setImage(UIImage(systemName: "heart"), for: .normal)
-            isLiked.toggle()
-            likes -= 1
-            animateLabel(.systemBlue)
-        } else {
-            sender.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-            isLiked.toggle()
-            likes += 1
-            animateLabel(.systemPink)
-        }
+        isLiked.toggle()
     }
     
     private func animateLabel(_ color: UIColor) {

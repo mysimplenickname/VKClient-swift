@@ -7,8 +7,10 @@
 
 import UIKit
 
-class FindGroupsCell: UITableViewCell {
-
+class FindGroupsCell: UITableViewCell, SelfConfiguringCell {
+    
+    static var reuseIdentifier: String = "findGroupsCell"
+    
     @IBOutlet weak var findGroupsImage: UIImageView!
     @IBOutlet weak var findGroupsLabel: UILabel!
     

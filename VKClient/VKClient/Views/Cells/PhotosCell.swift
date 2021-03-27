@@ -7,7 +7,9 @@
 
 import UIKit
 
-class PhotosCell: UICollectionViewCell {
+class PhotosCell: UICollectionViewCell, SelfConfiguringCell {
+    
+    static var reuseIdentifier: String = "photosCell"
     
     @IBOutlet weak var photosImage: UIImageView!
     

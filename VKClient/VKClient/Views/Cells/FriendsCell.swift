@@ -7,9 +7,9 @@
 
 import UIKit
 
-@IBDesignable class FriendsCell: UITableViewCell {
+@IBDesignable class FriendsCell: UITableViewCell, SelfConfiguringCell {
     
-    static var reusableId: String = "FriendsCell"
+    static var reuseIdentifier: String = "FriendsCell"
     
     @IBOutlet weak var friendImageView: UIImageView!
     @IBOutlet weak var friendLabel: UILabel!

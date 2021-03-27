@@ -27,7 +27,7 @@ class FindGroupsViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "findGroupsCell", for: indexPath) as! FindGroupsCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: FindGroupsCell.reuseIdentifier, for: indexPath) as! FindGroupsCell
         
         let group = groups[indexPath.row]
         

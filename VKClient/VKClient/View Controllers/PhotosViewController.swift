@@ -25,7 +25,6 @@ class PhotosViewController: UICollectionViewController {
             let indexPath = indexPaths[0].row
             controller.images = images
             controller.indexOfSelectedImage = indexPath
-            controller.title = "\(indexPath + 1)/\(images.count)"
         }
     }
     
@@ -42,7 +41,7 @@ class PhotosViewController: UICollectionViewController {
     // MARK: - UICollectionViewDelegate
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photosCell", for: indexPath) as! PhotosCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotosCell.reuseIdentifier, for: indexPath) as! PhotosCell
         let image = images[indexPath.row]
         cell.photosImage.image = UIImage(named: image.name)
         return cell
