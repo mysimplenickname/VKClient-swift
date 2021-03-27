@@ -27,6 +27,10 @@ import UIKit
         friendImageView.clipsToBounds = true
         friendImageView.layer.cornerRadius = friendImageView.frame.height / 2
         
+        let friendImageViewTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.animateFriendImageView))
+        friendImageView.isUserInteractionEnabled = true
+        friendImageView.addGestureRecognizer(friendImageViewTapGestureRecognizer)
+        
         shadowView.layer.cornerRadius = shadowView.frame.height / 2
         
         updateShadowColor()
@@ -75,6 +79,38 @@ import UIKit
     
     func updateShadowOffset() {
         shadowView.layer.shadowOffset = shadowOffset
+    }
+    
+}
+
+extension FriendsCell {
+    
+    @objc func animateFriendImageView() {
+        UIImageView.animate(
+            withDuration: 0.15,
+            delay: 0,
+            options: [],
+            animations: {
+                let newSize: CGFloat = 0.6
+                self.friendImageView.transform = CGAffineTransform(scaleX: newSize, y: newSize)
+                self.shadowView.transform = CGAffineTransform(scaleX: newSize, y: newSize)
+            },
+            completion: { _ in
+                UIImageView.animate(
+                    withDuration: 0.2,
+                    delay: 0,
+                    usingSpringWithDamping: 0.5,
+                    initialSpringVelocity: 0,
+                    options: [],
+                    animations: {
+                        let oldSize: CGFloat = 1.0
+                        self.friendImageView.transform = CGAffineTransform(scaleX: oldSize, y: oldSize)
+                        self.shadowView.transform = CGAffineTransform(scaleX: oldSize, y: oldSize)
+                    },
+                    completion: nil
+                )
+            }
+        )
     }
     
 }

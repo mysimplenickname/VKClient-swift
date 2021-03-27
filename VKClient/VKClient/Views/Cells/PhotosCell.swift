@@ -19,18 +19,37 @@ class PhotosCell: UICollectionViewCell {
     
     @IBAction func buttonTapped(_ sender: UIButton) {
         if isLiked {
+            sender.setImage(UIImage(systemName: "heart"), for: .normal)
             isLiked = false
             likes -= 1
-            sender.setImage(UIImage(systemName: "heart"), for: .normal)
-            likeLabel.text = String(likes)
-            likeLabel.textColor = .systemBlue
+            animateLabel(.systemBlue)
         } else {
+            sender.setImage(UIImage(systemName: "heart.fill"), for: .normal)
             isLiked = true
             likes += 1
-            sender.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-            likeLabel.text = String(likes)
-            likeLabel.textColor = .systemPink
+            animateLabel(.systemPink)
         }
+    }
+    
+    private func animateLabel(_ color: UIColor) {
+        let animationDuration: TimeInterval = 0.3
+        UILabel.animate(
+            withDuration: animationDuration,
+            animations: {
+                self.likeLabel.layer.opacity = 0
+            },
+            completion: { _ in
+                UILabel.animate(
+                    withDuration: animationDuration,
+                    animations: {
+                        self.likeLabel.text = String(self.likes)
+                        self.likeLabel.textColor = color
+                        self.likeLabel.layer.opacity = 1
+                    },
+                    completion: nil
+                )
+            }
+        )
     }
     
 }

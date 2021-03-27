@@ -24,6 +24,8 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         searchBar.delegate = self
         
         friendsForUse = friends
+        
+        self.tableView.keyboardDismissMode = .onDrag
     }
 
     // MARK: - Segues
@@ -38,6 +40,7 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "ToPhotosSegue", sender: nil)
+        hideKeyboard()
     }
     
     @IBAction func unwindFromPhotos(_ segue: UIStoryboardSegue) {
@@ -80,7 +83,7 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         var row: Int = 0,
             section: Int = 0
         
-        let arrangedUsers = User.arrangeUsers(users: friendsForUse)
+        let arrangedUsers: [[User]] = User.arrangeUsers(users: friendsForUse)
         
         for i in 0..<arrangedUsers.count {
             for j in 0..<arrangedUsers[i].count {
@@ -93,7 +96,9 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         
         let indexPath = IndexPath(row: row, section: section)
-        tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+        if tableView.numberOfSections > 0 {
+            tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+        }
     }
     
     // MARK: - Search bar
@@ -105,6 +110,10 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
                 return item.fullname.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
             }
             tableView.reloadData()
-        }
+    }
+    
+    func hideKeyboard() {
+        self.searchBar.endEditing(true)
+    }
     
 }
