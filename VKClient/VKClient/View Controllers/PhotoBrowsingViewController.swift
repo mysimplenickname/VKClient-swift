@@ -32,6 +32,10 @@ class PhotoBrowsingViewController: UIViewController {
     }()
     
     private func layout() {
+        centerImageView.removeFromSuperview()
+        leftImageView.removeFromSuperview()
+        rightImageView.removeFromSuperview()
+        
         centerImageView.translatesAutoresizingMaskIntoConstraints = false
         centerContainerView.addSubview(centerImageView)
         NSLayoutConstraint.activate([
@@ -83,28 +87,23 @@ class PhotoBrowsingViewController: UIViewController {
     private var currentState: Side = .none
     
     private var runningAnimators: [UIViewPropertyAnimator] = []
-    private var animatorsProgress: [CGFloat] = []
     
     private func animateTransitionIfNeeded(to side: Side, duration: TimeInterval) {
         
         guard runningAnimators.isEmpty else { return }
-        
-        let transformationAnimator = UIViewPropertyAnimator(duration: duration, curve: .linear, animations: {
-            self.centerImageView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
-        })
         
         let centerTransitionAnimator = UIViewPropertyAnimator(duration: duration, curve: .linear, animations: { [self] in
             
             switch side {
             
             case .left: // 1 -> 2
-                centerImageView.transform = CGAffineTransform(translationX: centerContainerView.frame.width, y: 0)
+                centerImageView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8).concatenating(CGAffineTransform(translationX: centerContainerView.frame.width, y: 0))
                 
             case .right: // 2 <- 1
-                centerImageView.transform = CGAffineTransform(translationX: -centerContainerView.frame.width, y: 0)
+                centerImageView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8).concatenating(CGAffineTransform(translationX: -centerContainerView.frame.width, y: 0))
             
             default:
-                ()
+                break
                 
             }
             
@@ -128,18 +127,16 @@ class PhotoBrowsingViewController: UIViewController {
                 rightImageView.transform = CGAffineTransform(translationX: -centerContainerView.frame.width, y: 0)
             
             default:
-                ()
+                break
                 
             }
             
             self.centerContainerView.layoutIfNeeded()
         })
         
-        transformationAnimator.startAnimation()
-        centerTransitionAnimator.startAnimation(afterDelay: 1)
-        sideTransitionAnimator.startAnimation(afterDelay: 1)
-        
-        runningAnimators.append(transformationAnimator)
+        centerTransitionAnimator.startAnimation()
+        sideTransitionAnimator.startAnimation()
+
         runningAnimators.append(centerTransitionAnimator)
         runningAnimators.append(sideTransitionAnimator)
         
@@ -158,10 +155,6 @@ class PhotoBrowsingViewController: UIViewController {
             runningAnimators.forEach {
                 $0.pauseAnimation()
             }
-            
-            animatorsProgress = runningAnimators.map {
-                $0.fractionComplete
-            }
         
         case .changed:
             let translation = recognizer.translation(in: centerContainerView)
@@ -169,22 +162,22 @@ class PhotoBrowsingViewController: UIViewController {
             
             currentState = fraction > 0 ? (imagesIndex > 0 ? .left : .none) : (imagesIndex < images.count - 1 ? .right : .none)
             
-            for (index, animator) in runningAnimators.enumerated() {
-                let newFraction: CGFloat = fraction > 0 ? fraction : fraction * -1
-                animator.fractionComplete = newFraction + animatorsProgress[index]
+            print(fraction, currentState, imagesIndex)
+            
+            runningAnimators.forEach {
+                $0.fractionComplete = fraction
             }
             
-            shouldEnd = abs(fraction) > 0.4
+            shouldEnd = abs(fraction) > 0.3
             
         case .ended:
+            print(currentState, shouldEnd)
             if currentState != .none && shouldEnd {
                 runningAnimators.forEach {
                     $0.continueAnimation(withTimingParameters: nil, durationFactor: 0)
                 }
-                
-                layout()
-                centerContainerView.layoutIfNeeded()
-                
+                //layout()
+                //centerContainerView.layoutIfNeeded()
                 break
             }
             
@@ -203,13 +196,11 @@ class PhotoBrowsingViewController: UIViewController {
                     self.leftImageView.transform = .identity
                     self.rightImageView.transform = .identity
                 },
-                completion: { (true) in
-                    
-                }
+                completion: nil
             )
             
         default:
-            ()
+            break
             
         }
     }
