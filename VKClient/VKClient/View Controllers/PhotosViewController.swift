@@ -24,7 +24,7 @@ class PhotosViewController: UICollectionViewController {
            let indexPaths = self.collectionView.indexPathsForSelectedItems {
             let indexPath = indexPaths[0].row
             controller.images = images
-            controller.indexOfSelectedImage = indexPath
+            controller.imagesIndex = indexPath
         }
     }
     

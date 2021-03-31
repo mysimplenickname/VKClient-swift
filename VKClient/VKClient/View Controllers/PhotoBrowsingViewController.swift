@@ -10,48 +10,208 @@ import UIKit
 class PhotoBrowsingViewController: UIViewController {
 
     var images: [Photo] = []
-    var indexOfSelectedImage: Int!
+    var imagesIndex: Int!
     
-    var forSingleUse: Bool = false
+    @IBOutlet weak var centerContainerView: UIView!
+    @IBOutlet weak var interactionView: InteractionView!
     
-    @IBOutlet weak var collectionView: UICollectionView!
+    private lazy var centerImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: images[imagesIndex].name)
+        return imageView
+    }()
     
-}
-
-extension PhotoBrowsingViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    private lazy var leftImageView: UIImageView = {
+        let imageView = UIImageView()
+        return imageView
+    }()
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return images.count
+    private lazy var rightImageView: UIImageView = {
+        let imageView = UIImageView()
+        return imageView
+    }()
+    
+    private func layout() {
+        centerImageView.translatesAutoresizingMaskIntoConstraints = false
+        centerContainerView.addSubview(centerImageView)
+        NSLayoutConstraint.activate([
+            centerImageView.topAnchor.constraint(equalTo: centerContainerView.topAnchor),
+            centerImageView.bottomAnchor.constraint(equalTo: centerContainerView.bottomAnchor),
+            centerImageView.leftAnchor.constraint(equalTo: centerContainerView.leftAnchor),
+            centerImageView.rightAnchor.constraint(equalTo: centerContainerView.rightAnchor)
+        ])
+        
+        leftImageView.translatesAutoresizingMaskIntoConstraints = false
+        centerContainerView.addSubview(leftImageView)
+        NSLayoutConstraint.activate([
+            leftImageView.topAnchor.constraint(equalTo: centerContainerView.topAnchor),
+            leftImageView.bottomAnchor.constraint(equalTo: centerContainerView.bottomAnchor),
+            leftImageView.leftAnchor.constraint(equalTo: centerContainerView.leftAnchor, constant: -centerContainerView.frame.width),
+            leftImageView.rightAnchor.constraint(equalTo: centerContainerView.leftAnchor)
+        ])
+        
+        rightImageView.translatesAutoresizingMaskIntoConstraints = false
+        centerContainerView.addSubview(rightImageView)
+        NSLayoutConstraint.activate([
+            rightImageView.topAnchor.constraint(equalTo: centerContainerView.topAnchor),
+            rightImageView.bottomAnchor.constraint(equalTo: centerContainerView.bottomAnchor),
+            rightImageView.leftAnchor.constraint(equalTo: centerContainerView.rightAnchor),
+            rightImageView.rightAnchor.constraint(equalTo: centerContainerView.rightAnchor, constant: centerContainerView.frame.width)
+        ])
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoBrowsingCell.reuseIdentifier, for: indexPath) as! PhotoBrowsingCell
-        cell.imageView.image = UIImage(named: images[indexPath.row].name)
-        return cell
+    private lazy var panGestureRecognizer: UIPanGestureRecognizer = {
+        let recognizer = UIPanGestureRecognizer()
+        recognizer.addTarget(self, action: #selector(imageViewPanned))
+        return recognizer
+    }()
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        layout()
+        
+        centerContainerView.addGestureRecognizer(panGestureRecognizer)
     }
     
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+    private enum Side {
+        case left
+        case right
+        case none
+    }
+    
+    private var currentState: Side = .none
+    
+    private var runningAnimators: [UIViewPropertyAnimator] = []
+    private var animatorsProgress: [CGFloat] = []
+    
+    private func animateTransitionIfNeeded(to side: Side, duration: TimeInterval) {
         
-        self.title = "\(indexPath.row + 1) of \(images.count)"
+        guard runningAnimators.isEmpty else { return }
         
-        if !forSingleUse {
-            forSingleUse.toggle()
-            let indexPath = IndexPath(item: indexOfSelectedImage, section: 0)
-            collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)
-        }
+        let transformationAnimator = UIViewPropertyAnimator(duration: duration, curve: .linear, animations: {
+            self.centerImageView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+        })
         
-        UIView.animate(
-            withDuration: 1,
-            delay: 0,
-            options: [],
-            animations: {
-                let size: CGFloat = 0.8
-                cell.transform = CGAffineTransform(scaleX: size, y: size)
-            },
-            completion: { _ in
-                cell.transform = .identity
+        let centerTransitionAnimator = UIViewPropertyAnimator(duration: duration, curve: .linear, animations: { [self] in
+            
+            switch side {
+            
+            case .left: // 1 -> 2
+                centerImageView.transform = CGAffineTransform(translationX: centerContainerView.frame.width, y: 0)
+                
+            case .right: // 2 <- 1
+                centerImageView.transform = CGAffineTransform(translationX: -centerContainerView.frame.width, y: 0)
+            
+            default:
+                ()
+                
             }
-        )
+            
+            self.centerContainerView.layoutIfNeeded()
+        })
+        
+        let sideTransitionAnimator = UIViewPropertyAnimator(duration: duration, curve: .linear, animations: { [self] in
+            
+            switch side {
+            
+            case .left: // 1 -> 2
+                imagesIndex -= 1
+                leftImageView.image = UIImage(named: images[imagesIndex].name)
+                centerContainerView.bringSubviewToFront(leftImageView)
+                leftImageView.transform = CGAffineTransform(translationX: centerContainerView.frame.width, y: 0)
+                
+            case .right: // 2 <- 1
+                imagesIndex += 1
+                rightImageView.image = UIImage(named: images[imagesIndex].name)
+                centerContainerView.bringSubviewToFront(rightImageView)
+                rightImageView.transform = CGAffineTransform(translationX: -centerContainerView.frame.width, y: 0)
+            
+            default:
+                ()
+                
+            }
+            
+            self.centerContainerView.layoutIfNeeded()
+        })
+        
+        transformationAnimator.startAnimation()
+        centerTransitionAnimator.startAnimation(afterDelay: 1)
+        sideTransitionAnimator.startAnimation(afterDelay: 1)
+        
+        runningAnimators.append(transformationAnimator)
+        runningAnimators.append(centerTransitionAnimator)
+        runningAnimators.append(sideTransitionAnimator)
+        
+    }
+    
+    private var shouldEnd: Bool = false
+    
+    @objc private func imageViewPanned(recognizer: UIPanGestureRecognizer) {
+        
+        switch recognizer.state {
+        
+        case .began:
+            
+            animateTransitionIfNeeded(to: currentState, duration: 1)
+            
+            runningAnimators.forEach {
+                $0.pauseAnimation()
+            }
+            
+            animatorsProgress = runningAnimators.map {
+                $0.fractionComplete
+            }
+        
+        case .changed:
+            let translation = recognizer.translation(in: centerContainerView)
+            let fraction = translation.x / centerContainerView.frame.width
+            
+            currentState = fraction > 0 ? (imagesIndex > 0 ? .left : .none) : (imagesIndex < images.count - 1 ? .right : .none)
+            
+            for (index, animator) in runningAnimators.enumerated() {
+                let newFraction: CGFloat = fraction > 0 ? fraction : fraction * -1
+                animator.fractionComplete = newFraction + animatorsProgress[index]
+            }
+            
+            shouldEnd = abs(fraction) > 0.4
+            
+        case .ended:
+            if currentState != .none && shouldEnd {
+                runningAnimators.forEach {
+                    $0.continueAnimation(withTimingParameters: nil, durationFactor: 0)
+                }
+                
+                layout()
+                centerContainerView.layoutIfNeeded()
+                
+                break
+            }
+            
+            runningAnimators.forEach {
+                $0.stopAnimation(true)
+                $0.finishAnimation(at: .current)
+            }
+            runningAnimators.removeAll()
+            
+            UIView.animate(
+                withDuration: 1,
+                delay: 0,
+                options: [.curveEaseOut],
+                animations: {
+                    self.centerImageView.transform = .identity
+                    self.leftImageView.transform = .identity
+                    self.rightImageView.transform = .identity
+                },
+                completion: { (true) in
+                    
+                }
+            )
+            
+        default:
+            ()
+            
+        }
     }
     
 }

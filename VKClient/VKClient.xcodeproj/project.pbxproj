@@ -22,9 +22,7 @@
 		3196DF5825EF97A10014B9C4 /* PhotosCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3196DF5725EF97A10014B9C4 /* PhotosCell.swift */; };
 		3196DF5C25EF9BFF0014B9C4 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3196DF5B25EF9BFE0014B9C4 /* Group.swift */; };
 		31B989C025E413B600016838 /* LoginFormController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B989BF25E413B600016838 /* LoginFormController.swift */; };
-		31CA5C6A260F8B5D00E81A3A /* PhotoBrowsingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CA5C69260F8B5D00E81A3A /* PhotoBrowsingCell.swift */; };
 		31CA5C6D260F9EA300E81A3A /* SelfConfiguringCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CA5C6C260F9EA300E81A3A /* SelfConfiguringCell.swift */; };
-		31CA5C71260FB09000E81A3A /* PhotoBrowsingViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CA5C70260FB09000E81A3A /* PhotoBrowsingViewLayout.swift */; };
 		31DA9E6626060B9D00DB9390 /* FriendsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DA9E6426060B9D00DB9390 /* FriendsCell.swift */; };
 		31DA9E6726060B9D00DB9390 /* FriendsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31DA9E6526060B9D00DB9390 /* FriendsCell.xib */; };
 		31DE203E25FE730200037264 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DE203D25FE730200037264 /* Photo.swift */; };
@@ -58,9 +56,7 @@
 		3196DF5725EF97A10014B9C4 /* PhotosCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCell.swift; sourceTree = "<group>"; };
 		3196DF5B25EF9BFE0014B9C4 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		31B989BF25E413B600016838 /* LoginFormController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFormController.swift; sourceTree = "<group>"; };
-		31CA5C69260F8B5D00E81A3A /* PhotoBrowsingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoBrowsingCell.swift; sourceTree = "<group>"; };
 		31CA5C6C260F9EA300E81A3A /* SelfConfiguringCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfConfiguringCell.swift; sourceTree = "<group>"; };
-		31CA5C70260FB09000E81A3A /* PhotoBrowsingViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoBrowsingViewLayout.swift; sourceTree = "<group>"; };
 		31DA9E6426060B9D00DB9390 /* FriendsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsCell.swift; sourceTree = "<group>"; };
 		31DA9E6526060B9D00DB9390 /* FriendsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendsCell.xib; sourceTree = "<group>"; };
 		31DE203D25FE730200037264 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
@@ -149,7 +145,6 @@
 				3196DF4525EC0FBC0014B9C4 /* Cells */,
 				31E10DEA260E337C0086C348 /* Xibs */,
 				31DE203125FCA62900037264 /* Storyboards */,
-				31CA5C70260FB09000E81A3A /* PhotoBrowsingViewLayout.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -168,7 +163,6 @@
 				31DA9E6426060B9D00DB9390 /* FriendsCell.swift */,
 				31DA9E6526060B9D00DB9390 /* FriendsCell.xib */,
 				3196DF5725EF97A10014B9C4 /* PhotosCell.swift */,
-				31CA5C69260F8B5D00E81A3A /* PhotoBrowsingCell.swift */,
 				31E10DDF2607C4770086C348 /* NewsCell.swift */,
 				31E10DE02607C4770086C348 /* NewsCell.xib */,
 				3196DF4625EC0FFA0014B9C4 /* GroupsCell.swift */,
@@ -302,7 +296,6 @@
 				31E10DD22606601B0086C348 /* FriendsHeaderView.swift in Sources */,
 				31DA9E6626060B9D00DB9390 /* FriendsCell.swift in Sources */,
 				31B989C025E413B600016838 /* LoginFormController.swift in Sources */,
-				31CA5C71260FB09000E81A3A /* PhotoBrowsingViewLayout.swift in Sources */,
 				31DE204525FE9BF000037264 /* FriendsSelectorControl.swift in Sources */,
 				3147E22225DDBA82005A0306 /* AppDelegate.swift in Sources */,
 				31E10DF0260E3A220086C348 /* InteractionView.swift in Sources */,
@@ -315,7 +308,6 @@
 				31DE203E25FE730200037264 /* Photo.swift in Sources */,
 				3196DF3E25EBFB870014B9C4 /* PhotosViewController.swift in Sources */,
 				31E10DDD2607C4530086C348 /* NewsViewController.swift in Sources */,
-				31CA5C6A260F8B5D00E81A3A /* PhotoBrowsingCell.swift in Sources */,
 				3196DF5825EF97A10014B9C4 /* PhotosCell.swift in Sources */,
 				3147E22425DDBA82005A0306 /* SceneDelegate.swift in Sources */,
 				3196DF4C25EEBF4D0014B9C4 /* User.swift in Sources */,
