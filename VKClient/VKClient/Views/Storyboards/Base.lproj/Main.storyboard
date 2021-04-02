@@ -493,14 +493,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oCi-vm-Mdw">
-                                <rect key="frame" x="-414" y="88" width="414" height="683"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tdz-NQ-q1o">
-                                <rect key="frame" x="414" y="88" width="414" height="683"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yJk-4c-JMc">
                                 <rect key="frame" x="0.0" y="88" width="414" height="683"/>
                                 <subviews>
@@ -528,20 +520,12 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="gjN-Lm-vy5" firstAttribute="bottom" secondItem="QJh-ul-Tn7" secondAttribute="bottom" id="2j2-oF-XOo"/>
-                            <constraint firstItem="Tdz-NQ-q1o" firstAttribute="top" secondItem="QJh-ul-Tn7" secondAttribute="top" id="6WM-zs-YRX"/>
-                            <constraint firstItem="gjN-Lm-vy5" firstAttribute="top" secondItem="oCi-vm-Mdw" secondAttribute="bottom" id="A8r-cg-olY"/>
                             <constraint firstItem="yJk-4c-JMc" firstAttribute="leading" secondItem="QJh-ul-Tn7" secondAttribute="leading" id="ASL-yk-Qd9"/>
-                            <constraint firstItem="oCi-vm-Mdw" firstAttribute="top" secondItem="QJh-ul-Tn7" secondAttribute="top" id="CgX-sZ-KQl"/>
                             <constraint firstAttribute="trailing" secondItem="gjN-Lm-vy5" secondAttribute="trailing" id="GD5-6D-Ldw"/>
-                            <constraint firstItem="Tdz-NQ-q1o" firstAttribute="leading" secondItem="yJk-4c-JMc" secondAttribute="trailing" id="TKB-Rj-07w"/>
-                            <constraint firstItem="yJk-4c-JMc" firstAttribute="leading" secondItem="oCi-vm-Mdw" secondAttribute="trailing" id="UMW-UE-D5C"/>
                             <constraint firstItem="yJk-4c-JMc" firstAttribute="trailing" secondItem="QJh-ul-Tn7" secondAttribute="trailing" id="WOg-ZA-DDb"/>
                             <constraint firstItem="gjN-Lm-vy5" firstAttribute="top" secondItem="yJk-4c-JMc" secondAttribute="bottom" id="X1m-wS-oXU"/>
-                            <constraint firstItem="Tdz-NQ-q1o" firstAttribute="width" secondItem="yJk-4c-JMc" secondAttribute="width" id="eEF-pU-hc5"/>
-                            <constraint firstItem="oCi-vm-Mdw" firstAttribute="width" secondItem="yJk-4c-JMc" secondAttribute="width" id="lCb-X4-obc"/>
                             <constraint firstItem="yJk-4c-JMc" firstAttribute="top" secondItem="QJh-ul-Tn7" secondAttribute="top" id="m1m-H0-F22"/>
                             <constraint firstItem="gjN-Lm-vy5" firstAttribute="leading" secondItem="QJh-ul-Tn7" secondAttribute="leading" id="mfs-E2-y6N"/>
-                            <constraint firstItem="gjN-Lm-vy5" firstAttribute="top" secondItem="Tdz-NQ-q1o" secondAttribute="bottom" id="wyR-Zv-o6i"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="cHX-a9-TeL"/>
