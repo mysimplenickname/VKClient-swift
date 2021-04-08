@@ -7,30 +7,31 @@
 
 import UIKit
 
-class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
+class FriendsViewController: UIViewController {
 
     let friends: [User] = User.loadUsers()
     var friendsForUse: [User] = []
+    
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     // MARK: - Life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.register(UINib(nibName: "FriendsCell", bundle: nil), forCellReuseIdentifier: FriendsCell.reusableId)
+        friendsForUse = friends
+        
+        tableView.register(UINib(nibName: "FriendsCell", bundle: nil), forCellReuseIdentifier: FriendsCell.reuseIdentifier)
         
         tableView.register(UINib(nibName: "FriendsHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: FriendsHeaderView.reusableId)
         
+        tableView.keyboardDismissMode = .onDrag
+        
         searchBar.delegate = self
-        
-        friendsForUse = friends
-        
-        self.tableView.keyboardDismissMode = .onDrag
     }
 
     // MARK: - Segues
-    
-    @IBOutlet weak var tableView: UITableView!
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let controller = segue.destination as? PhotosViewController, let indexPath = tableView.indexPathForSelectedRow {
@@ -38,43 +39,8 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "ToPhotosSegue", sender: nil)
-        hideKeyboard()
-    }
-    
     @IBAction func unwindFromPhotos(_ segue: UIStoryboardSegue) {
         performSegue(withIdentifier: "FromPhotosSegue", sender: nil)
-    }
-    
-    // MARK: - Table view data source
-
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return User.firstLetters(users: friendsForUse).count
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return User.arrangeUsers(users: friendsForUse)[section].count
-    }
-    
-    // MARK: - Table view delegate
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: FriendsCell.reusableId, for: indexPath) as! FriendsCell
-        cell.configureCell(friend: User.arrangeUsers(users: friendsForUse)[indexPath.section][indexPath.row])
-        return cell
-    }
-    
-    // MARK: - Sections
-
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: FriendsHeaderView.reusableId) as? FriendsHeaderView
-        headerView?.textLabel?.text = String(User.firstLetters(users: friendsForUse)[section])
-        return headerView
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return FriendsHeaderView.height
     }
     
     // MARK: - Actions
@@ -101,9 +67,42 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
-    // MARK: - Search bar
+}
+
+extension FriendsViewController: UITableViewDelegate, UITableViewDataSource {
     
-    @IBOutlet weak var searchBar: UISearchBar!
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return User.firstLetters(users: friendsForUse).count
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return User.arrangeUsers(users: friendsForUse)[section].count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: FriendsCell.reuseIdentifier, for: indexPath) as! FriendsCell
+        cell.configureCell(friend: User.arrangeUsers(users: friendsForUse)[indexPath.section][indexPath.row])
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "ToPhotosSegue", sender: nil)
+        hideKeyboard()
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: FriendsHeaderView.reusableId) as? FriendsHeaderView
+        headerView?.textLabel?.text = String(User.firstLetters(users: friendsForUse)[section])
+        return headerView
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return FriendsHeaderView.height
+    }
+    
+}
+
+extension FriendsViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
             friendsForUse = searchText.isEmpty ? friends : friends.filter { (item: User) -> Bool in

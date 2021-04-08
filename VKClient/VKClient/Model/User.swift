@@ -20,17 +20,17 @@ struct User {
 }
 
 extension User {
-    static let user1 = User(name: "Adam", surname: "Willson", images: []),
+    static let user1 = User(name: "John", surname: "Snow", images:
+                         [
+                             Photo(name: "johnsnow1", likes: 0, isLiked: false),
+                             Photo(name: "johnsnow2", likes: 0, isLiked: false),
+                             Photo(name: "johnsnow3", likes: 0, isLiked: false)
+                         ]),
                user2 = User(name: "Alex", surname: "Smith", images: []),
                user3 = User(name: "Li", surname: "Ning", images: []),
                user4 = User(name: "Eren", surname: "Eger", images: []),
                user5 = User(name: "Alan", surname: "Turing", images: []),
-               user6 = User(name: "John", surname: "Snow", images:
-                                [
-                                    Photo(name: "johnsnow1", likes: 0, isLiked: false),
-                                    Photo(name: "johnsnow2", likes: 0, isLiked: false),
-                                    Photo(name: "johnsnow3", likes: 0, isLiked: false)
-                                ]),
+               user6 = User(name: "Adam", surname: "Willson", images: []),
                user7 = User(name: "Andrew", surname: "Cool", images: []),
                user8 = User(name: "Sam", surname: "Hammer", images: []),
                user9 = User(name: "Anna", surname: "Taylor", images: []),

@@ -7,9 +7,9 @@
 
 import UIKit
 
-class NewsCell: UITableViewCell {
+class NewsCell: UITableViewCell, SelfConfiguringCell {
 
-    static let reusableId: String = "NewsCell"
+    static var reuseIdentifier: String = "NewsCell"
     
     @IBOutlet weak var newsTextLabel: UILabel!
     @IBOutlet weak var newsImageView: UIImageView!
