@@ -91,7 +91,6 @@ class PhotoBrowsingViewController: UIViewController {
                 centerImageView.image = UIImage(named: images[imagesIndex].name)
                 
                 runningAnimators.remove(at: runningAnimators.firstIndex(of: centerTransitionAnimator)!)
-                
             }
         }
         
@@ -127,6 +126,7 @@ class PhotoBrowsingViewController: UIViewController {
             })
             
             sideTransitionAnimator.addCompletion { [self] (position) in
+                
                 guard position == .end else { return }
                 
                 nextImageView.transform = .identity
@@ -137,7 +137,6 @@ class PhotoBrowsingViewController: UIViewController {
             
             sideTransitionAnimator.startAnimation(afterDelay: 0.2)
             runningAnimators.append(sideTransitionAnimator)
-            
         }
     }
     

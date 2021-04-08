@@ -23,6 +23,9 @@
 		3196DF5C25EF9BFF0014B9C4 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3196DF5B25EF9BFE0014B9C4 /* Group.swift */; };
 		31B989C025E413B600016838 /* LoginFormController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B989BF25E413B600016838 /* LoginFormController.swift */; };
 		31CA5C6D260F9EA300E81A3A /* SelfConfiguringCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CA5C6C260F9EA300E81A3A /* SelfConfiguringCell.swift */; };
+		31CA5C7726177F2500E81A3A /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CA5C7626177F2000E81A3A /* CustomNavigationController.swift */; };
+		31CA5C7B261781AD00E81A3A /* CustomPushAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CA5C7A261781AD00E81A3A /* CustomPushAnimator.swift */; };
+		31CA5C802617837B00E81A3A /* CustomPopAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CA5C7F2617837B00E81A3A /* CustomPopAnimator.swift */; };
 		31DA9E6626060B9D00DB9390 /* FriendsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DA9E6426060B9D00DB9390 /* FriendsCell.swift */; };
 		31DA9E6726060B9D00DB9390 /* FriendsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31DA9E6526060B9D00DB9390 /* FriendsCell.xib */; };
 		31DE203E25FE730200037264 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DE203D25FE730200037264 /* Photo.swift */; };
@@ -57,6 +60,9 @@
 		3196DF5B25EF9BFE0014B9C4 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		31B989BF25E413B600016838 /* LoginFormController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFormController.swift; sourceTree = "<group>"; };
 		31CA5C6C260F9EA300E81A3A /* SelfConfiguringCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfConfiguringCell.swift; sourceTree = "<group>"; };
+		31CA5C7626177F2000E81A3A /* CustomNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationController.swift; sourceTree = "<group>"; };
+		31CA5C7A261781AD00E81A3A /* CustomPushAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPushAnimator.swift; sourceTree = "<group>"; };
+		31CA5C7F2617837B00E81A3A /* CustomPopAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPopAnimator.swift; sourceTree = "<group>"; };
 		31DA9E6426060B9D00DB9390 /* FriendsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsCell.swift; sourceTree = "<group>"; };
 		31DA9E6526060B9D00DB9390 /* FriendsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendsCell.xib; sourceTree = "<group>"; };
 		31DE203D25FE730200037264 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
@@ -107,6 +113,7 @@
 				3196DF4A25EEBF070014B9C4 /* Model */,
 				3196DF4225EBFC190014B9C4 /* Views */,
 				3196DF4025EBFB970014B9C4 /* View Controllers */,
+				31CA5C792617817200E81A3A /* Animations */,
 				3196DF4325EBFC3B0014B9C4 /* Resources */,
 				31E10DE5260B18A80086C348 /* Test */,
 			);
@@ -123,6 +130,7 @@
 				31E10DDC2607C4530086C348 /* NewsViewController.swift */,
 				3196DF3525EBFA0B0014B9C4 /* GroupsViewController.swift */,
 				3196DF3925EBFAF10014B9C4 /* FindGroupsViewController.swift */,
+				31CA5C7626177F2000E81A3A /* CustomNavigationController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -180,6 +188,15 @@
 				31DE203D25FE730200037264 /* Photo.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		31CA5C792617817200E81A3A /* Animations */ = {
+			isa = PBXGroup;
+			children = (
+				31CA5C7A261781AD00E81A3A /* CustomPushAnimator.swift */,
+				31CA5C7F2617837B00E81A3A /* CustomPopAnimator.swift */,
+			);
+			path = Animations;
 			sourceTree = "<group>";
 		};
 		31DE203125FCA62900037264 /* Storyboards */ = {
@@ -295,6 +312,7 @@
 				31E10DE8260B1B280086C348 /* TestViewController.swift in Sources */,
 				31E10DD22606601B0086C348 /* FriendsHeaderView.swift in Sources */,
 				31DA9E6626060B9D00DB9390 /* FriendsCell.swift in Sources */,
+				31CA5C7726177F2500E81A3A /* CustomNavigationController.swift in Sources */,
 				31B989C025E413B600016838 /* LoginFormController.swift in Sources */,
 				31DE204525FE9BF000037264 /* FriendsSelectorControl.swift in Sources */,
 				3147E22225DDBA82005A0306 /* AppDelegate.swift in Sources */,
@@ -304,6 +322,7 @@
 				31CA5C6D260F9EA300E81A3A /* SelfConfiguringCell.swift in Sources */,
 				3196DF5C25EF9BFF0014B9C4 /* Group.swift in Sources */,
 				3196DF3A25EBFAF10014B9C4 /* FindGroupsViewController.swift in Sources */,
+				31CA5C7B261781AD00E81A3A /* CustomPushAnimator.swift in Sources */,
 				31E10DE12607C4770086C348 /* NewsCell.swift in Sources */,
 				31DE203E25FE730200037264 /* Photo.swift in Sources */,
 				3196DF3E25EBFB870014B9C4 /* PhotosViewController.swift in Sources */,
@@ -311,6 +330,7 @@
 				3196DF5825EF97A10014B9C4 /* PhotosCell.swift in Sources */,
 				3147E22425DDBA82005A0306 /* SceneDelegate.swift in Sources */,
 				3196DF4C25EEBF4D0014B9C4 /* User.swift in Sources */,
+				31CA5C802617837B00E81A3A /* CustomPopAnimator.swift in Sources */,
 				3196DF3625EBFA0B0014B9C4 /* GroupsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
