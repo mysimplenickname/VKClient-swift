@@ -17,7 +17,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="67"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" id="OSV-hG-CxR" customClass="UserView" customModule="VKClient" customModuleProvider="target">
+                    <view contentMode="scaleToFill" id="OSV-hG-CxR" customClass="TitleView" customModule="VKClient" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="67"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -26,7 +26,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="userView" destination="OSV-hG-CxR" id="WwV-nI-Cti"/>
+                <outlet property="titleView" destination="OSV-hG-CxR" id="Dfz-a7-giK"/>
             </connections>
             <point key="canvasLocation" x="-81.159420289855078" y="134.26339285714286"/>
         </tableViewCell>

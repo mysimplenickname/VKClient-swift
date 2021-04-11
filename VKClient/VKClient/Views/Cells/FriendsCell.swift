@@ -7,13 +7,16 @@
 
 import UIKit
 
-@IBDesignable class FriendsCell: UITableViewCell, SelfConfiguringCell {
+class FriendsCell: UITableViewCell, SelfConfiguringCell {
     
     static var reuseIdentifier: String = "FriendsCell"
     
-    @IBOutlet weak var userView: UserView!
+    @IBOutlet weak var titleView: TitleView!
 
-    func configureCell(friend: User) {
+    func configureCell(object: Any) {
+        guard type(of: object) == User.self else { return }
+        let friend = object as! User
+        
         let friendFullName: String = friend.fullname
         let friendImages: [Photo] = friend.images
         var friendImage: UIImage?
@@ -22,7 +25,8 @@ import UIKit
         } else {
             friendImage = UIImage(systemName: "person")
         }
-        userView.configureUserView(userImageView: friendImage!, userFullname: friendFullName)
+        
+        titleView.configureTitleView(titleImage: friendImage!, titleLabel: friendFullName, subtitleLabel: "")
     }
     
 }

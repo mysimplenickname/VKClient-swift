@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		313B184E262310A900CD496C /* AnimatedDotsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 313B184D262310A900CD496C /* AnimatedDotsView.xib */; };
 		313B1851262310F000CD496C /* AnimatedDotsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313B1850262310F000CD496C /* AnimatedDotsView.swift */; };
-		313B185A262322D700CD496C /* UserView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 313B1859262322D700CD496C /* UserView.xib */; };
-		313B185D262322E300CD496C /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313B185C262322E300CD496C /* UserView.swift */; };
+		313B185A262322D700CD496C /* TitleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 313B1859262322D700CD496C /* TitleView.xib */; };
+		313B185D262322E300CD496C /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313B185C262322E300CD496C /* TitleView.swift */; };
 		3147E22225DDBA82005A0306 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3147E22125DDBA82005A0306 /* AppDelegate.swift */; };
 		3147E22425DDBA82005A0306 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3147E22325DDBA82005A0306 /* SceneDelegate.swift */; };
 		3147E22925DDBA84005A0306 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3147E22725DDBA83005A0306 /* Main.storyboard */; };
@@ -49,8 +49,8 @@
 /* Begin PBXFileReference section */
 		313B184D262310A900CD496C /* AnimatedDotsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AnimatedDotsView.xib; sourceTree = "<group>"; };
 		313B1850262310F000CD496C /* AnimatedDotsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedDotsView.swift; sourceTree = "<group>"; };
-		313B1859262322D700CD496C /* UserView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserView.xib; sourceTree = "<group>"; };
-		313B185C262322E300CD496C /* UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
+		313B1859262322D700CD496C /* TitleView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TitleView.xib; sourceTree = "<group>"; };
+		313B185C262322E300CD496C /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
 		3147E21E25DDBA82005A0306 /* VKClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VKClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3147E22125DDBA82005A0306 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3147E22325DDBA82005A0306 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -242,8 +242,8 @@
 				31E10DEF260E3A220086C348 /* InteractionView.swift */,
 				313B184D262310A900CD496C /* AnimatedDotsView.xib */,
 				313B1850262310F000CD496C /* AnimatedDotsView.swift */,
-				313B1859262322D700CD496C /* UserView.xib */,
-				313B185C262322E300CD496C /* UserView.swift */,
+				313B1859262322D700CD496C /* TitleView.xib */,
+				313B185C262322E300CD496C /* TitleView.swift */,
 			);
 			path = Xibs;
 			sourceTree = "<group>";
@@ -311,7 +311,7 @@
 				3147E22B25DDBAC3005A0306 /* Assets.xcassets in Resources */,
 				3147E22925DDBA84005A0306 /* Main.storyboard in Resources */,
 				31E10DD6260660430086C348 /* FriendsHeaderView.xib in Resources */,
-				313B185A262322D700CD496C /* UserView.xib in Resources */,
+				313B185A262322D700CD496C /* TitleView.xib in Resources */,
 				313B184E262310A900CD496C /* AnimatedDotsView.xib in Resources */,
 				31DA9E6726060B9D00DB9390 /* FriendsCell.xib in Resources */,
 			);
@@ -351,7 +351,7 @@
 				3196DF4C25EEBF4D0014B9C4 /* User.swift in Sources */,
 				31CA5C802617837B00E81A3A /* CustomPopAnimator.swift in Sources */,
 				3196DF3625EBFA0B0014B9C4 /* GroupsViewController.swift in Sources */,
-				313B185D262322E300CD496C /* UserView.swift in Sources */,
+				313B185D262322E300CD496C /* TitleView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

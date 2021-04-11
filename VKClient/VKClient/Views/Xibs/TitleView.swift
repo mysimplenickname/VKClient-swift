@@ -7,11 +7,12 @@
 
 import UIKit
 
-class UserView: UIView {
+class TitleView: UIView {
     
     @IBOutlet weak var containerView: UIView!
-    @IBOutlet weak var userImageView: UIImageView!
-    @IBOutlet weak var userLabel: UILabel!
+    @IBOutlet weak var titleImageView: UIImageView!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var subtitleLabel: UILabel!
     @IBOutlet weak var shadowView: UIView!
     
     override init(frame: CGRect) {
@@ -25,7 +26,7 @@ class UserView: UIView {
     }
     
     private func setup() {
-        Bundle.main.loadNibNamed("UserView", owner: self, options: nil)
+        Bundle.main.loadNibNamed("TitleView", owner: self, options: nil)
         containerView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(containerView)
         NSLayoutConstraint.activate([
@@ -36,16 +37,17 @@ class UserView: UIView {
         ])
     }
     
-    func configureUserView(userImage: UIImage, userFullname: String) {
-        self.userImageView.image = userImage
-        self.userLabel.text = userFullname
+    func configureTitleView(titleImage: UIImage, titleLabel: String, subtitleLabel: String) {
+        self.titleImageView.image = titleImage
+        self.titleLabel.text = titleLabel
+        self.subtitleLabel.text = subtitleLabel
         
-        self.userImageView.clipsToBounds = true
-        self.userImageView.layer.cornerRadius = self.userImageView.frame.height / 2
+        self.titleImageView.clipsToBounds = true
+        self.titleImageView.layer.cornerRadius = self.titleImageView.frame.height / 2
         
-        let userImageViewTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.animateUserImageView))
-        self.userImageView.isUserInteractionEnabled = true
-        self.userImageView.addGestureRecognizer(userImageViewTapGestureRecognizer)
+        let titleImageViewTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.animateTitleImageView))
+        self.titleImageView.isUserInteractionEnabled = true
+        self.titleImageView.addGestureRecognizer(titleImageViewTapGestureRecognizer)
         
         shadowView.layer.cornerRadius = shadowView.frame.height / 2
         
@@ -101,16 +103,16 @@ class UserView: UIView {
 
 // MARK: - Animation
 
-extension UserView {
+extension TitleView {
     
-    @objc func animateUserImageView() {
+    @objc func animateTitleImageView() {
         UIImageView.animate(
             withDuration: 0.15,
             delay: 0,
             options: [],
             animations: {
                 let newSize: CGFloat = 0.6
-                self.userImageView.transform = CGAffineTransform(scaleX: newSize, y: newSize)
+                self.titleImageView.transform = CGAffineTransform(scaleX: newSize, y: newSize)
                 self.shadowView.transform = CGAffineTransform(scaleX: newSize, y: newSize)
             },
             completion: { _ in
@@ -122,7 +124,7 @@ extension UserView {
                     options: [],
                     animations: {
                         let oldSize: CGFloat = 1.0
-                        self.userImageView.transform = CGAffineTransform(scaleX: oldSize, y: oldSize)
+                        self.titleImageView.transform = CGAffineTransform(scaleX: oldSize, y: oldSize)
                         self.shadowView.transform = CGAffineTransform(scaleX: oldSize, y: oldSize)
                     },
                     completion: nil

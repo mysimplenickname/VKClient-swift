@@ -5,9 +5,9 @@
 //  Created by Lev on 3/27/21.
 //
 
-import Foundation
+import UIKit
 
-protocol SelfConfiguringCell {
+protocol SelfConfiguringCell: class {
     static var reuseIdentifier: String { get }
-    //func configureCell()
+//    func configureCell(object: Any?)
 }
