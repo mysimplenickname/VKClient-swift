@@ -9,6 +9,13 @@ import UIKit
 
 class NewsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
+    let news = News(
+        authorImage: Photo(name: "johnsnow3", likes: 0, isLiked: false),
+        authorLabel: "John Snow",
+        text: "Hello!",
+        image: Photo(name: "johnsnow1", likes: 0, isLiked: false)
+    )
+    
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
@@ -23,8 +30,7 @@ class NewsViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: NewsCell.reuseIdentifier, for: indexPath) as! NewsCell
-        cell.newsTextLabel?.text = "Hello!"
-        cell.newsImageView?.image = UIImage(named: "johnsnow1")
+        cell.configureCell(object: news)
         return cell
     }
 

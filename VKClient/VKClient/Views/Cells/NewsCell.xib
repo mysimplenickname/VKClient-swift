@@ -20,14 +20,14 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NE2-02-ZFo" userLabel="Content View">
                         <rect key="frame" x="0.0" y="67" width="414" height="362"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KEr-f2-Obh">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="20"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KEr-f2-Obh">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="0.0"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2wd-TG-Ria">
-                                <rect key="frame" x="0.0" y="20" width="414" height="342"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="362"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -85,32 +85,10 @@
                             <constraint firstItem="qLD-KM-ypx" firstAttribute="top" secondItem="WiS-hz-xLe" secondAttribute="top" id="mcW-50-uyZ"/>
                         </constraints>
                     </view>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nWF-KW-bKy">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nWF-KW-bKy" customClass="TitleView" customModule="VKClient" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="67"/>
-                        <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XDF-kb-zo1">
-                                <rect key="frame" x="20" y="10" width="47" height="47"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="47" id="Az4-Zy-WWQ"/>
-                                    <constraint firstAttribute="width" secondItem="XDF-kb-zo1" secondAttribute="height" multiplier="1:1" id="fzL-ZO-8KW"/>
-                                </constraints>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kF6-KE-j1x">
-                                <rect key="frame" x="87" y="10" width="42" height="47"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="47" id="PNC-tu-ICy"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="kF6-KE-j1x" firstAttribute="centerY" secondItem="nWF-KW-bKy" secondAttribute="centerY" id="8cP-7S-f6D"/>
-                            <constraint firstItem="XDF-kb-zo1" firstAttribute="centerY" secondItem="nWF-KW-bKy" secondAttribute="centerY" id="ZCu-Kv-P8i"/>
-                            <constraint firstItem="XDF-kb-zo1" firstAttribute="leading" secondItem="nWF-KW-bKy" secondAttribute="leading" constant="20" id="erj-hD-1T1"/>
-                            <constraint firstItem="kF6-KE-j1x" firstAttribute="leading" secondItem="XDF-kb-zo1" secondAttribute="trailing" constant="20" id="pmc-Is-vUg"/>
                             <constraint firstAttribute="height" constant="67" id="srg-hb-sPm"/>
                         </constraints>
                     </view>
@@ -130,11 +108,10 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="authorImageView" destination="XDF-kb-zo1" id="rMC-SB-GuO"/>
-                <outlet property="authorName" destination="kF6-KE-j1x" id="dcQ-Hy-yGx"/>
                 <outlet property="interactionView" destination="qLD-KM-ypx" id="QWr-VE-eIP"/>
                 <outlet property="newsImageView" destination="2wd-TG-Ria" id="NT3-BS-gVd"/>
                 <outlet property="newsTextLabel" destination="KEr-f2-Obh" id="ZUg-g5-ob5"/>
+                <outlet property="titleView" destination="nWF-KW-bKy" id="IHd-tm-Nlt"/>
                 <outlet property="watchLabel" destination="Xzu-85-Gl8" id="nlv-a5-ZUb"/>
             </connections>
             <point key="canvasLocation" x="140.57971014492756" y="152.34375"/>
