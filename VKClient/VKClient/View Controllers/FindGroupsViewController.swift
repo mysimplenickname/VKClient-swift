@@ -18,6 +18,7 @@ class FindGroupsViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.register(UINib(nibName: "FindGroupsCell", bundle: nil), forCellReuseIdentifier: FindGroupsCell.reuseIdentifier)
     }
 
     // MARK: - Table view data source
@@ -31,13 +32,7 @@ class FindGroupsViewController: UITableViewController {
         
         let group = groups[indexPath.row]
         
-        cell.findGroupsLabel.text = group.name
-        
-        if let image = group.image {
-            cell.findGroupsImage.image = UIImage(named: image)
-        } else {
-            cell.findGroupsImage.image = UIImage(systemName: "person.3")
-        }
+        cell.configureCell(object: group)
         
         return cell
     }

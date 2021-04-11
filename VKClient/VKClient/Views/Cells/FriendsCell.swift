@@ -19,14 +19,14 @@ class FriendsCell: UITableViewCell, SelfConfiguringCell {
         
         let friendFullName: String = friend.fullname
         let friendImages: [Photo] = friend.images
-        var friendImage: UIImage?
+        var friendImage: UIImage
         if friendImages.count > 0 {
             friendImage = UIImage(named: friendImages[0].name)!
         } else {
-            friendImage = UIImage(systemName: "person")
+            friendImage = UIImage(systemName: "person")!
         }
         
-        titleView.configureTitleView(titleImage: friendImage!, titleLabel: friendFullName, subtitleLabel: "")
+        titleView.configureTitleView(titleImage: friendImage, titleLabel: friendFullName, subtitleLabel: "")
     }
     
 }

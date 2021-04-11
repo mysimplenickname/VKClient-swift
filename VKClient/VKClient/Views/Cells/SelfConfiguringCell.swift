@@ -9,5 +9,5 @@ import UIKit
 
 protocol SelfConfiguringCell: class {
     static var reuseIdentifier: String { get }
-//    func configureCell(object: Any?)
+    func configureCell(object: Any)
 }

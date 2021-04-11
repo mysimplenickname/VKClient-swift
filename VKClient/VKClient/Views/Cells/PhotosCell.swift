@@ -13,4 +13,8 @@ class PhotosCell: UICollectionViewCell, SelfConfiguringCell {
     
     @IBOutlet weak var photosImage: UIImageView!
     
+    func configureCell(object: Any) {
+        return
+    }
+    
 }
