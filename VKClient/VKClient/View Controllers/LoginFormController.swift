@@ -28,7 +28,12 @@ class LoginFormController: UIViewController {
         let isValid = validateCredentials()
         if !isValid {
             showFailedLoginAlert()
+        } else {
+            let user = Session.instance
+            user.token = "abcd"
+            user.userId = 1234
         }
+        
         return isValid
     }
     
