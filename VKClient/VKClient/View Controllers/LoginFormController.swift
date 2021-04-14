@@ -18,8 +18,7 @@ class LoginFormController: UIViewController {
         let login = "admin",
             password = "password"
         
-       // return loginField.text == login && passwordField.text == password
-        return true
+        return loginField.text == login && passwordField.text == password
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
@@ -31,7 +30,7 @@ class LoginFormController: UIViewController {
         } else {
             let user = Session.instance
             user.token = "abcd"
-            user.userId = 1234
+            user.userId = "1234"
         }
         
         return isValid

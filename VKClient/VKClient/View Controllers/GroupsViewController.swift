@@ -15,6 +15,9 @@ class GroupsViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        VKAPIMainClass.getGroups()
+        
         tableView.register(UINib(nibName: "GroupsCell", bundle: nil), forCellReuseIdentifier: GroupsCell.reuseIdentifier)
     }
 

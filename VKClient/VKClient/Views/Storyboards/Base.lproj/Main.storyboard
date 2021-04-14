@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Feh-h2-EwM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="kBr-PM-Zmc">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
@@ -9,6 +9,41 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Login View Controller-->
+        <scene sceneID="kaJ-6A-Ora">
+            <objects>
+                <viewController id="kBr-PM-Zmc" customClass="LoginViewController" customModule="VKClient" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="VsO-s9-s6i">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="51L-1J-IYF">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="WDp-ZL-VFT"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="WDp-ZL-VFT" firstAttribute="bottom" secondItem="51L-1J-IYF" secondAttribute="bottom" id="6gf-Bg-nDf"/>
+                            <constraint firstItem="51L-1J-IYF" firstAttribute="leading" secondItem="WDp-ZL-VFT" secondAttribute="leading" id="9bm-D2-uPn"/>
+                            <constraint firstItem="WDp-ZL-VFT" firstAttribute="trailing" secondItem="51L-1J-IYF" secondAttribute="trailing" id="Pbb-Qv-jzU"/>
+                            <constraint firstItem="51L-1J-IYF" firstAttribute="top" secondItem="WDp-ZL-VFT" secondAttribute="top" id="fYb-K1-nhb"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="webView" destination="51L-1J-IYF" id="Byd-pw-6dy"/>
+                        <segue destination="Mig-CQ-Fs0" kind="presentation" identifier="TapBarIdentifier2" modalPresentationStyle="fullScreen" modalTransitionStyle="flipHorizontal" id="i8p-u9-MN6"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KMt-pz-o29" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="535" y="765"/>
+        </scene>
         <!--Login Form Controller-->
         <scene sceneID="b2R-n7-fkP">
             <objects>
@@ -62,9 +97,6 @@
                                                 <rect key="frame" x="179" y="404" width="56" height="38"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                                 <state key="normal" title="Log in"/>
-                                                <connections>
-                                                    <segue destination="Mig-CQ-Fs0" kind="presentation" identifier="TapBarIdentifier1" modalPresentationStyle="fullScreen" modalTransitionStyle="flipHorizontal" id="RaM-yZ-LMF"/>
-                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -114,7 +146,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9eD-Nc-1rm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="923" y="731"/>
+            <point key="canvasLocation" x="536" y="1"/>
         </scene>
         <!--Test View Controller-->
         <scene sceneID="hiv-Jo-dba">

@@ -15,6 +15,8 @@ class PhotosViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        VKAPIMainClass.getPhotos()
     }
 
     // MARK: - Segues

@@ -8,7 +8,7 @@
 import UIKit
 
 class FriendsViewController: UIViewController {
-
+    
     let friends: [User] = User.loadUsers()
     var friendsForUse: [User] = []
     
@@ -19,6 +19,8 @@ class FriendsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        VKAPIMainClass.getFriends()
         
         friendsForUse = friends
         
