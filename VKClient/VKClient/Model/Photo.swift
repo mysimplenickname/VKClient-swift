@@ -7,8 +7,12 @@
 
 import Foundation
 
-struct Photo {
+struct Photo: Codable {
+    
     var name: String,
+        id: Int,
+        owner_id: Int,
         likes: UInt,
         isLiked: Bool
+    
 }

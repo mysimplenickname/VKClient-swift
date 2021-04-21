@@ -9,32 +9,34 @@ import UIKit
 
 struct User {
     
-    var name: String,
-        surname: String,
+    var first_name: String,
+        last_name: String,
+        id: Int,
+        photo_id: String?,
         images: [Photo]
     
     var fullname: String {
-        return name + " " + surname
+        return first_name + " " + last_name
     }
     
 }
 
 extension User {
-    static let user1 = User(name: "John", surname: "Snow", images:
+    static let user1 = User(first_name: "John", last_name: "Snow", id: 0, photo_id: "", images:
                          [
-                             Photo(name: "johnsnow1", likes: 0, isLiked: false),
-                             Photo(name: "johnsnow2", likes: 0, isLiked: false),
-                             Photo(name: "johnsnow3", likes: 0, isLiked: false)
+                            Photo(name: "johnsnow1", id: 0, owner_id: 0, likes: 0, isLiked: false),
+                             Photo(name: "johnsnow2", id: 0, owner_id: 0, likes: 0, isLiked: false),
+                             Photo(name: "johnsnow3", id: 0, owner_id: 0, likes: 0, isLiked: false)
                          ]),
-               user2 = User(name: "Alex", surname: "Smith", images: []),
-               user3 = User(name: "Li", surname: "Ning", images: []),
-               user4 = User(name: "Eren", surname: "Eger", images: []),
-               user5 = User(name: "Alan", surname: "Turing", images: []),
-               user6 = User(name: "Adam", surname: "Willson", images: []),
-               user7 = User(name: "Andrew", surname: "Cool", images: []),
-               user8 = User(name: "Sam", surname: "Hammer", images: []),
-               user9 = User(name: "Anna", surname: "Taylor", images: []),
-               user10 = User(name: "Lisa", surname: "Brown", images: [])
+               user2 = User(first_name: "Alex", last_name: "Smith", id: 0, photo_id: "", images: []),
+               user3 = User(first_name: "Li", last_name: "Ning", id: 0, photo_id: "", images: []),
+               user4 = User(first_name: "Eren", last_name: "Eger", id: 0, photo_id: "", images: []),
+               user5 = User(first_name: "Alan", last_name: "Turing", id: 0, photo_id: "", images: []),
+               user6 = User(first_name: "Adam", last_name: "Willson", id: 0, photo_id: "", images: []),
+               user7 = User(first_name: "Andrew", last_name: "Cool", id: 0, photo_id: "", images: []),
+               user8 = User(first_name: "Sam", last_name: "Hammer", id: 0, photo_id: "", images: []),
+               user9 = User(first_name: "Anna", last_name: "Taylor", id: 0, photo_id: "", images: []),
+               user10 = User(first_name: "Lisa", last_name: "Brown", id: 0, photo_id: "", images: [])
 }
 
 extension User {
@@ -58,14 +60,14 @@ extension User {
     static func sortUsers(unsortedArray: [User]) -> [User] {
         var surnamesArray: [String] = []
         for user in unsortedArray {
-            surnamesArray.append(user.surname)
+            surnamesArray.append(user.last_name)
         }
         surnamesArray.sort()
         
         var sortedArray: [User] = []
         for surname in surnamesArray {
             for elem in unsortedArray {
-                if elem.surname == surname {
+                if elem.last_name == surname {
                     sortedArray.append(elem)
                 }
             }
@@ -86,7 +88,7 @@ extension User {
     }
     
     static func firstLetter(user: User) -> Character {
-        let surname = user.surname
+        let surname = user.last_name
         return surname[surname.index(surname.startIndex, offsetBy: 0)]
     }
     

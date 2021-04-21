@@ -67,8 +67,8 @@ extension LoginViewController: WKNavigationDelegate {
             let userId = params["user_id"]
         else { return }
 
-        Session.instance.token = token
-        Session.instance.userId = userId
+        Session.shared.token = token
+        Session.shared.userId = userId
         
         performSegue(withIdentifier: "TapBarIdentifier2", sender: nil)
 

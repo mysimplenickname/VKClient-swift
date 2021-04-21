@@ -61,7 +61,7 @@ class FriendsSelectorControl: UIControl {
     @objc private func buttonTapped(_ sender: UIButton) {
         let letter = sender.title(for: .normal)
         for friend in friends {
-            let surname = friend.surname
+            let surname = friend.last_name
             let friendFirstLetter = surname[surname.index(surname.startIndex, offsetBy: 0)]
             if String(friendFirstLetter) == letter {
                 selectedValue = friend

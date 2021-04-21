@@ -55,7 +55,7 @@ class FriendsViewController: UIViewController {
         
         for i in 0..<arrangedUsers.count {
             for j in 0..<arrangedUsers[i].count {
-                if arrangedUsers[i][j].surname == sender.selectedValue?.surname {
+                if arrangedUsers[i][j].last_name == sender.selectedValue?.last_name {
                     row = j
                     section = i
                     break
