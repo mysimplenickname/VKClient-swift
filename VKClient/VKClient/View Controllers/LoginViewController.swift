@@ -68,7 +68,7 @@ extension LoginViewController: WKNavigationDelegate {
         else { return }
 
         Session.shared.token = token
-        Session.shared.userId = userId
+        Session.shared.userId = Int(userId)!
         
         performSegue(withIdentifier: "TapBarIdentifier2", sender: nil)
 

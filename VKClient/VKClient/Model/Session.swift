@@ -14,6 +14,6 @@ class Session {
     private init() {}
     
     var token: String = ""
-    var userId: String = ""
+    var userId: Int = 0
     
 }

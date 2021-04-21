@@ -9,15 +9,17 @@ import UIKit
 
 class PhotosViewController: UICollectionViewController {
     
+    var ownerId: Int!
+    
     var images: [Photo] = []
-    var rawImages: [Item] = []
+    var rawImages: [PhotoModelItem] = []
     
     // MARK: - Life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        VKAPIMainClass.getPhotos() { [weak self] rawImages in
+        VKAPIMainClass.getPhotos(ownerId: ownerId) { [weak self] rawImages in
             self?.rawImages = rawImages
             self?.collectionView.reloadData()
         }
@@ -58,11 +60,11 @@ class PhotosViewController: UICollectionViewController {
 //        cell.photosImage.image = UIImage(named: image.name)
         let url = URL(string: rawImages[indexPath.row].sizes[3].url)
         getData(from: url!) { data, response, error in
-                guard let data = data, error == nil else { return }
-                DispatchQueue.main.async() {
-                    cell.photosImage.image = UIImage(data: data)
-                }
+            guard let data = data, error == nil else { return }
+            DispatchQueue.main.async() {
+                cell.photosImage.image = UIImage(data: data)
             }
+        }
         return cell
     }
     

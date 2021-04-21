@@ -10,46 +10,33 @@ import Alamofire
 
 class VKAPIMainClass {
     
-    static func getFriends() {
+    static func getFriends(for userId: Int, completion: @escaping ([UserModelItem]) -> Void ) {
         let host = "https://api.vk.com"
         let path = "/method/friends.get"
         
         let version = "5.130"
         
         let parameters: Parameters = [
-            "user_id": Session.shared.userId,
+            "fields": "photo_200_orig",
+            "user_id": userId,
             "access_token": Session.shared.token,
             "v": version
         ]
         
-        let url = host + path
-        
-        /*
-        Optional({
-            response =     {
-                count = 11;
-                items =         (
-                    24455564,
-                    127479583,
-                    144274054,
-                    159648682,
-                    173696429,
-                    208775656,
-                    222970160,
-                    312798788,
-                    336387203,
-                    495877799,
-                    560189260
-                );
-            };
-        })
-         */
-        
-        AF.request(url, method: .get, parameters: parameters).responseJSON { response in
+        AF.request(host + path, method: .get, parameters: parameters).responseData { response in
 
             guard let data = response.value else { return }
             
-            print(data)
+            var rawFriends = [UserModelItem]()
+            
+            do {
+                rawFriends = try JSONDecoder().decode(UserModel.self, from: data).response.items
+                print(rawFriends)
+            } catch {
+                print(error)
+            }
+            
+            completion(rawFriends)
         }
     }
     
@@ -260,14 +247,14 @@ class VKAPIMainClass {
         }
     }
     
-    static func getPhotos(completion: @escaping ([Item]) -> Void) {
+    static func getPhotos(ownerId: Int, completion: @escaping ([PhotoModelItem]) -> Void) {
         let host = "https://api.vk.com"
         let path = "/method/photos.getAll"
         
         let version = "5.130"
         
         let parameters: Parameters = [
-            "owner_id": Session.shared.userId,
+            "owner_id": ownerId,
             "access_token": Session.shared.token,
             "v": version
         ]
@@ -276,19 +263,16 @@ class VKAPIMainClass {
             
             guard let data = response.value else { return }
             
-            var rawPhotos = [Item]()
+            var rawPhotos = [PhotoModelItem]()
             
             do {
                 rawPhotos = try JSONDecoder().decode(PhotoModel.self, from: data).response.items
-                print("from vkapimainclass: ", rawPhotos)
             } catch {
                 print(error)
             }
             
             completion(rawPhotos)
         }
-        
-        
     }
     
 }

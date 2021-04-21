@@ -30,7 +30,7 @@ class LoginFormController: UIViewController {
         } else {
             let user = Session.shared
             user.token = "abcd"
-            user.userId = "1234"
+            user.userId = 1234
         }
         
         return isValid

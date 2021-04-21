@@ -19,6 +19,7 @@
 		313B18782626D55200CD496C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313B18772626D55200CD496C /* LoginViewController.swift */; };
 		313B188026274E2100CD496C /* VKAPIMainClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313B187F26274E2100CD496C /* VKAPIMainClass.swift */; };
 		313B18842630036B00CD496C /* PhotoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313B18832630035D00CD496C /* PhotoModel.swift */; };
+		313B188726305FF500CD496C /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313B188626305FF500CD496C /* UserModel.swift */; };
 		3147E22225DDBA82005A0306 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3147E22125DDBA82005A0306 /* AppDelegate.swift */; };
 		3147E22425DDBA82005A0306 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3147E22325DDBA82005A0306 /* SceneDelegate.swift */; };
 		3147E22925DDBA84005A0306 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3147E22725DDBA83005A0306 /* Main.storyboard */; };
@@ -66,6 +67,7 @@
 		313B18772626D55200CD496C /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		313B187F26274E2100CD496C /* VKAPIMainClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKAPIMainClass.swift; sourceTree = "<group>"; };
 		313B18832630035D00CD496C /* PhotoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoModel.swift; sourceTree = "<group>"; };
+		313B188626305FF500CD496C /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		3147E21E25DDBA82005A0306 /* VKClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VKClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3147E22125DDBA82005A0306 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3147E22325DDBA82005A0306 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -224,11 +226,12 @@
 			isa = PBXGroup;
 			children = (
 				3196DF4B25EEBF4D0014B9C4 /* User.swift */,
+				313B188626305FF500CD496C /* UserModel.swift */,
 				313B186026236F1000CD496C /* News.swift */,
 				3196DF5B25EF9BFE0014B9C4 /* Group.swift */,
 				31DE203D25FE730200037264 /* Photo.swift */,
-				31CA5C822622E63900E81A3A /* Session.swift */,
 				313B18832630035D00CD496C /* PhotoModel.swift */,
+				31CA5C822622E63900E81A3A /* Session.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -430,6 +433,7 @@
 				313B186B2623822800CD496C /* GroupsCell.swift in Sources */,
 				313B188026274E2100CD496C /* VKAPIMainClass.swift in Sources */,
 				31B989C025E413B600016838 /* LoginFormController.swift in Sources */,
+				313B188726305FF500CD496C /* UserModel.swift in Sources */,
 				313B1872262385F400CD496C /* FindGroupsCell.swift in Sources */,
 				31DE204525FE9BF000037264 /* FriendsSelectorControl.swift in Sources */,
 				3147E22225DDBA82005A0306 /* AppDelegate.swift in Sources */,

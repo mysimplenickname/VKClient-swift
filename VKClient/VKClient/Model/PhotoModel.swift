@@ -9,19 +9,19 @@ import Foundation
 
 // MARK: - PhotoModel
 struct PhotoModel: Codable {
-    let response: Response
+    let response: PhotoModelResponse
 }
 
 // MARK: - Response
-struct Response: Codable {
+struct PhotoModelResponse: Codable {
     let count: Int
-    let items: [Item]
+    let items: [PhotoModelItem]
 }
 
 // MARK: - Item
-struct Item: Codable {
+struct PhotoModelItem: Codable {
     let albumID, date, id, ownerID: Int
-    let sizes: [Size]
+    let sizes: [PhotoModelSize]
 
     enum CodingKeys: String, CodingKey {
         case albumID = "album_id"
@@ -32,7 +32,7 @@ struct Item: Codable {
 }
 
 // MARK: - Size
-struct Size: Codable {
+struct PhotoModelSize: Codable {
     let height: Int
     let url: String
     let type: String
