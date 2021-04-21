@@ -11,29 +11,25 @@ class NewsCell: UITableViewCell, SelfConfiguringCell {
 
     static var reuseIdentifier: String = "NewsCell"
     
-    @IBOutlet weak var newsTextLabel: UILabel!
-    @IBOutlet weak var newsImageView: UIImageView!
-    
-    @IBOutlet weak var likeButton: UIButton!
-    @IBOutlet weak var likeLabel: UILabel!
-    @IBOutlet weak var commentButton: UIButton!
-    @IBOutlet weak var shareButton: UIButton!
+    @IBOutlet weak var titleView: TitleView!
+    @IBOutlet weak var newsTextLabel: UILabel?
+    @IBOutlet weak var newsImageView: UIImageView?
+    @IBOutlet weak var interactionView: InteractionView!
     @IBOutlet weak var watchLabel: UILabel!
     
-    private var likes: UInt = 0
-    private var isLiked: Bool = false
-    
-    @IBAction func buttonTapped(_ sender: UIButton) {
-        if isLiked {
-            isLiked = false
-            likes -= 1
-            sender.setImage(UIImage(systemName: "heart"), for: .normal)
-            likeLabel.text = String(likes)
-        } else {
-            isLiked = true
-            likes += 1
-            sender.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-            likeLabel.text = String(likes)
+    func configureCell(object: Any) {
+        
+        guard type(of: object) == News.self else { return }
+        let news = object as! News
+        
+        titleView.configureTitleView(titleImage: UIImage(named: news.authorImage.name)!, titleLabel: news.authorLabel, subtitleLabel: "")
+        
+        if news.text != nil {
+            newsTextLabel?.text = news.text
+        }
+        
+        if news.image != nil {
+            newsImageView?.image = UIImage(named: news.image!.name)
         }
     }
     

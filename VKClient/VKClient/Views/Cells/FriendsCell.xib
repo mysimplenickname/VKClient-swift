@@ -17,45 +17,18 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="67"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7EF-np-0dw">
-                        <rect key="frame" x="20" y="10" width="47" height="47"/>
+                    <view contentMode="scaleToFill" id="OSV-hG-CxR" customClass="TitleView" customModule="VKClient" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="67"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ffw-WK-G3I">
-                        <rect key="frame" x="20" y="10" width="47" height="47"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="47" id="Cs4-hy-tjo"/>
-                            <constraint firstAttribute="width" secondItem="Ffw-WK-G3I" secondAttribute="height" multiplier="1:1" id="OCL-57-l3a"/>
-                        </constraints>
-                    </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TYY-xd-52s">
-                        <rect key="frame" x="87" y="10" width="42" height="47"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="47" id="sy7-I2-FFq"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                 </subviews>
-                <constraints>
-                    <constraint firstItem="7EF-np-0dw" firstAttribute="trailing" secondItem="Ffw-WK-G3I" secondAttribute="trailing" id="3eN-3e-Sc1"/>
-                    <constraint firstItem="Ffw-WK-G3I" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="KHo-6V-16T"/>
-                    <constraint firstItem="TYY-xd-52s" firstAttribute="leading" secondItem="Ffw-WK-G3I" secondAttribute="trailing" constant="20" id="OvS-hY-tHB"/>
-                    <constraint firstItem="Ffw-WK-G3I" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="WEi-Im-bV3"/>
-                    <constraint firstItem="7EF-np-0dw" firstAttribute="bottom" secondItem="Ffw-WK-G3I" secondAttribute="bottom" id="Z4o-89-mxF"/>
-                    <constraint firstItem="TYY-xd-52s" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="mrq-UR-slB"/>
-                    <constraint firstItem="7EF-np-0dw" firstAttribute="leading" secondItem="Ffw-WK-G3I" secondAttribute="leading" id="osC-l0-aec"/>
-                    <constraint firstItem="7EF-np-0dw" firstAttribute="top" secondItem="Ffw-WK-G3I" secondAttribute="top" id="t5b-Um-1KI"/>
-                </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="friendImageView" destination="Ffw-WK-G3I" id="U0O-Tc-Bjb"/>
-                <outlet property="friendLabel" destination="TYY-xd-52s" id="v6w-eJ-xkt"/>
-                <outlet property="shadowView" destination="7EF-np-0dw" id="2zH-PE-sx1"/>
+                <outlet property="titleView" destination="OSV-hG-CxR" id="Dfz-a7-giK"/>
             </connections>
-            <point key="canvasLocation" x="-81.159420289855078" y="134.59821428571428"/>
+            <point key="canvasLocation" x="-81.159420289855078" y="134.26339285714286"/>
         </tableViewCell>
     </objects>
     <resources>

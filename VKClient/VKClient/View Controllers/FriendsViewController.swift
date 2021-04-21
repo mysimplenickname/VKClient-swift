@@ -8,7 +8,7 @@
 import UIKit
 
 class FriendsViewController: UIViewController {
-
+    
     let friends: [User] = User.loadUsers()
     var friendsForUse: [User] = []
     
@@ -19,6 +19,8 @@ class FriendsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        VKAPIMainClass.getFriends()
         
         friendsForUse = friends
         
@@ -81,7 +83,7 @@ extension FriendsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: FriendsCell.reuseIdentifier, for: indexPath) as! FriendsCell
-        cell.configureCell(friend: User.arrangeUsers(users: friendsForUse)[indexPath.section][indexPath.row])
+        cell.configureCell(object: User.arrangeUsers(users: friendsForUse)[indexPath.section][indexPath.row])
         return cell
     }
     

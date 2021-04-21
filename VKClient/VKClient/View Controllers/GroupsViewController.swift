@@ -15,8 +15,16 @@ class GroupsViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        VKAPIMainClass.getGroups()
+        
+        tableView.register(UINib(nibName: "GroupsCell", bundle: nil), forCellReuseIdentifier: GroupsCell.reuseIdentifier)
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        tableView.reloadData()
+    }
+    
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -28,13 +36,7 @@ class GroupsViewController: UITableViewController {
         
         let group = groups[indexPath.row]
         
-        cell.groupsLabel.text = group.name
-        
-        if let image = group.image {
-            cell.groupsImage.image = UIImage(named: image)
-        } else {
-            cell.groupsImage.image = UIImage(systemName: "person.3")
-        }
+        cell.configureCell(object: group)
         
         return cell
     }
@@ -60,11 +62,10 @@ class GroupsViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-            if editingStyle == .delete {
-                groups.remove(at: indexPath.row)
-                tableView.deleteRows(at: [indexPath], with: .fade)
-            }
+        if editingStyle == .delete {
+            groups.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
         }
-
+    }
     
 }
