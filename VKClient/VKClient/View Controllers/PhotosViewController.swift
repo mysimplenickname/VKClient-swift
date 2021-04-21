@@ -23,7 +23,6 @@ class PhotosViewController: UICollectionViewController {
             self?.rawImages = rawImages
             self?.collectionView.reloadData()
         }
-        print("from photos view controller: ", rawImages)
     }
 
     // MARK: - Segues

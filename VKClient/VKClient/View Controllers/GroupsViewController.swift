@@ -11,12 +11,19 @@ class GroupsViewController: UITableViewController {
     
     var groups: [Group] = []
     
+    var rawGroups: [GroupModelItem] = []
+    
     // MARK: - Life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        VKAPIMainClass.getGroups()
+        VKAPIMainClass.getGroups(for: Session.shared.userId) { [weak self] rawGroups in
+            self?.rawGroups = rawGroups
+            self?.tableView.reloadData()
+        }
+        
+        print(rawGroups)
         
         tableView.register(UINib(nibName: "GroupsCell", bundle: nil), forCellReuseIdentifier: GroupsCell.reuseIdentifier)
     }
@@ -28,15 +35,16 @@ class GroupsViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return groups.count
+//        return groups.count
+        return rawGroups.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: GroupsCell.reuseIdentifier, for: indexPath) as! GroupsCell
         
-        let group = groups[indexPath.row]
+//        let group = groups[indexPath.row]
         
-        cell.configureCell(object: group)
+        cell.configureCell(object: rawGroups[indexPath.row])
         
         return cell
     }
