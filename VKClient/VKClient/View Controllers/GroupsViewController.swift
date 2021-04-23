@@ -9,8 +9,6 @@ import UIKit
 
 class GroupsViewController: UITableViewController {
     
-    var groups: [Group] = []
-    
     var rawGroups: [GroupModelItem] = []
     
     // MARK: - Life cycle
@@ -23,8 +21,6 @@ class GroupsViewController: UITableViewController {
             self?.tableView.reloadData()
         }
         
-        print(rawGroups)
-        
         tableView.register(UINib(nibName: "GroupsCell", bundle: nil), forCellReuseIdentifier: GroupsCell.reuseIdentifier)
     }
 
@@ -35,45 +31,40 @@ class GroupsViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return groups.count
         return rawGroups.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: GroupsCell.reuseIdentifier, for: indexPath) as! GroupsCell
-        
-//        let group = groups[indexPath.row]
-        
         cell.configureCell(object: rawGroups[indexPath.row])
-        
         return cell
     }
     
-    @IBAction func addGroup(segue: UIStoryboardSegue) {
-        if segue.identifier == "addGroup" {
-            let findGroupsController = segue.source as! FindGroupsViewController
-            if let indexPath = findGroupsController.tableView.indexPathForSelectedRow {
-                let group = findGroupsController.groups[indexPath.row]
-                
-                var test: UInt = 0
-                for i in groups {
-                    if i.name == group.name {
-                        test += 1
-                    }
-                }
-                if test == 0 {
-                    groups.append(group)
-                    tableView.reloadData()
-                }
-            }
-        }
-    }
-    
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            groups.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        }
-    }
+//    @IBAction func addGroup(segue: UIStoryboardSegue) {
+//        if segue.identifier == "addGroup" {
+//            let findGroupsController = segue.source as! FindGroupsViewController
+//            if let indexPath = findGroupsController.tableView.indexPathForSelectedRow {
+//                let group = findGroupsController.groups[indexPath.row]
+//                
+//                var test: UInt = 0
+//                for i in groups {
+//                    if i.name == group.name {
+//                        test += 1
+//                    }
+//                }
+//                if test == 0 {
+//                    groups.append(group)
+//                    tableView.reloadData()
+//                }
+//            }
+//        }
+//    }
+//    
+//    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+//        if editingStyle == .delete {
+//            groups.remove(at: indexPath.row)
+//            tableView.deleteRows(at: [indexPath], with: .fade)
+//        }
+//    }
     
 }

@@ -9,9 +9,6 @@ import UIKit
 
 class FriendsViewController: UIViewController {
     
-    let friends: [User] = User.loadUsers()
-    var friendsForUse: [User] = []
-    
     var rawFriends: [UserModelItem] = []
     var rawFriendsForUse: [UserModelItem] = []
     
@@ -29,8 +26,6 @@ class FriendsViewController: UIViewController {
             self?.tableView.reloadData()
         }
         
-        friendsForUse = friends
-        
         tableView.register(UINib(nibName: "FriendsCell", bundle: nil), forCellReuseIdentifier: FriendsCell.reuseIdentifier)
         
 //        tableView.register(UINib(nibName: "FriendsHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: FriendsHeaderView.reusableId)
@@ -44,12 +39,7 @@ class FriendsViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let controller = segue.destination as? PhotosViewController, let indexPath = tableView.indexPathForSelectedRow {
-//            VKAPIMainClass.getPhotos(ownerId: rawFriendsForUse[indexPath.row].id) { rawPhotos in
-//                controller.rawImages = rawPhotos
-//                print(rawPhotos)
-//            }
             controller.ownerId = rawFriendsForUse[indexPath.row].id
-//            controller.images = User.arrangeUsers(users: friendsForUse)[indexPath.section][indexPath.row].images
         }
     }
     
@@ -90,13 +80,11 @@ extension FriendsViewController: UITableViewDelegate, UITableViewDataSource {
 //    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return User.arrangeUsers(users: friendsForUse)[section].count
         return rawFriendsForUse.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: FriendsCell.reuseIdentifier, for: indexPath) as! FriendsCell
-//        cell.configureCell(object: User.arrangeUsers(users: friendsForUse)[indexPath.section][indexPath.row])
         cell.configureCell(object: rawFriendsForUse[indexPath.row])
         return cell
     }

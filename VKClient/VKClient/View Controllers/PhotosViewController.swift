@@ -11,7 +11,6 @@ class PhotosViewController: UICollectionViewController {
     
     var ownerId: Int!
     
-    var images: [Photo] = []
     var rawImages: [PhotoModelItem] = []
     
     // MARK: - Life cycle
@@ -31,8 +30,8 @@ class PhotosViewController: UICollectionViewController {
         if let controller = segue.destination as? PhotoBrowsingViewController,
            let indexPaths = self.collectionView.indexPathsForSelectedItems {
             let indexPath = indexPaths[0].row
-            controller.images = images
-            controller.imagesIndex = indexPath
+            controller.rawImages = rawImages
+            controller.rawImagesIndex = indexPath
         }
     }
     
@@ -43,26 +42,16 @@ class PhotosViewController: UICollectionViewController {
     // MARK: - UICollectionViewDataSource
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return images.count
         return rawImages.count
     }
 
     // MARK: - UICollectionViewDelegate
     
-    func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
-        URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
-    }
-    
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotosCell.reuseIdentifier, for: indexPath) as! PhotosCell
-//        let image = images[indexPath.row]
-//        cell.photosImage.image = UIImage(named: image.name)
-        let url = URL(string: rawImages[indexPath.row].sizes[3].url)
-        getData(from: url!) { data, response, error in
-            guard let data = data, error == nil else { return }
-            DispatchQueue.main.async() {
-                cell.photosImage.image = UIImage(data: data)
-            }
+        guard let url = URL(string: rawImages[indexPath.row].sizes[3].url) else { return cell }
+        VKAPIMainClass.loadPhoto(from: url) { image in
+            cell.photosImage.image = image
         }
         return cell
     }
