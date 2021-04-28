@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RealmSwift
 
 //MARK: - UserModel
 struct UserModel: Codable {
@@ -30,4 +31,12 @@ struct UserModelItem: Codable {
         case lastName = "last_name"
         case mainPhoto = "photo_200_orig"
     }
+}
+
+//MARK: - Realm object
+class RealmUserModelItem: Object {
+    @objc dynamic var id: Int = 0
+    @objc dynamic var firstName: String = ""
+    @objc dynamic var lastName: String = ""
+    @objc dynamic var mainPhoto: String = ""
 }

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RealmSwift
 
 // MARK: - PhotoModel
 struct PhotoModel: Codable {
@@ -37,4 +38,11 @@ struct PhotoModelSize: Codable {
     let url: String
     let type: String
     let width: Int
+}
+
+//MARK: - Realm object
+class RealmPhotoModelItem: Object {
+    @objc dynamic var id: Int = 0
+    @objc dynamic var ownerId: Int = 0
+    @objc dynamic var url: String = ""
 }

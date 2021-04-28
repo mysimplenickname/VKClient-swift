@@ -109,5 +109,9 @@ extension VKAPIMainClass {
             }
         }.resume()
     }
-    
+
 }
+
+//MARK: - Realm methods
+
+
