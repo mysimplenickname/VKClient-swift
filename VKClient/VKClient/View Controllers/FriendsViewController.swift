@@ -29,6 +29,9 @@ class FriendsViewController: UIViewController {
             realmFriendsForUse = Array(results)
         } catch {
             print(error)
+        }
+        
+        if realmFriends.count == 0 {
             getFriends(for: Session.shared.userId) { [weak self] realmFriends in
                 self?.realmFriends = realmFriends
                 self?.realmFriendsForUse = realmFriends

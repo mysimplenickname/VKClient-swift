@@ -11,44 +11,44 @@ import RealmSwift
 //MARK: - Realm methods
 func convertToObject(raw: [Any]) -> [Object] {
     
-    if type(of: raw) == [UserModelItem].self {
-        let rawUser = raw as! [UserModelItem]
-        let realmUser = [RealmUserModelItem]()
-        for rawElem in rawUser {
-            for realmElem in realmUser {
-                realmElem.id = rawElem.id
-                realmElem.firstName = rawElem.firstName
-                realmElem.lastName = rawElem.lastName
-                realmElem.mainPhoto = rawElem.mainPhoto
-            }
+    if raw is [UserModelItem] {
+        let rawUsers = raw as! [UserModelItem]
+        var realmUsers = [RealmUserModelItem]()
+        for rawElem in rawUsers {
+            let realmUser = RealmUserModelItem()
+            realmUser.id = rawElem.id
+            realmUser.firstName = rawElem.firstName
+            realmUser.lastName = rawElem.lastName
+            realmUser.mainPhoto = rawElem.mainPhoto
+            realmUsers.append(realmUser)
         }
-        return realmUser
+        return realmUsers
     }
     
-    if type(of: raw) == [PhotoModelItem].self {
-        let rawPhoto = raw as! [PhotoModelItem]
-        let realmPhoto = [RealmPhotoModelItem]()
-        for rawElem in rawPhoto {
-            for realmElem in realmPhoto {
-                realmElem.id = rawElem.id
-                realmElem.ownerId = rawElem.ownerID
-                realmElem.url = rawElem.sizes[3].url
-            }
+    if raw is [GroupModelItem] {
+        let rawGroups = raw as! [GroupModelItem]
+        var realmGroups = [RealmGroupModelItem]()
+        for rawGroup in rawGroups {
+            let realmGroup = RealmGroupModelItem()
+            realmGroup.id = rawGroup.id
+            realmGroup.name = rawGroup.name
+            realmGroup.mainPhoto = rawGroup.mainPhoto
+            realmGroups.append(realmGroup)
         }
-        return realmPhoto
+        return realmGroups
     }
     
-    if type(of: raw) == [GroupModelItem].self {
-        let rawGroup = raw as! [GroupModelItem]
-        let realmGroup = [RealmGroupModelItem]()
-        for rawElem in rawGroup {
-            for realmElem in realmGroup {
-                realmElem.id = rawElem.id
-                realmElem.name = rawElem.name
-                realmElem.mainPhoto = rawElem.mainPhoto
-            }
+    if raw is [PhotoModelItem] {
+        let rawPhotos = raw as! [PhotoModelItem]
+        var realmPhotos = [RealmPhotoModelItem]()
+        for rawPhoto in rawPhotos {
+            let realmPhoto = RealmPhotoModelItem()
+            realmPhoto.id = rawPhoto.id
+            realmPhoto.ownerId = rawPhoto.ownerID
+            realmPhoto.url = rawPhoto.sizes[3].url
+            realmPhotos.append(realmPhoto)
         }
-        return realmGroup
+        return realmPhotos
     }
     
     return [Object()]

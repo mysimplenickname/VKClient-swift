@@ -42,7 +42,7 @@ func getFriends(for userId: Int, completion: @escaping ([RealmUserModelItem]) ->
     }
 }
 
-func getGroups(for userId: Int, completion: @escaping ([GroupModelItem]) -> Void) {
+func getGroups(for userId: Int, completion: @escaping ([RealmGroupModelItem]) -> Void) {
     let host = "https://api.vk.com"
     let path = "/method/groups.get"
     
@@ -73,7 +73,7 @@ func getGroups(for userId: Int, completion: @escaping ([GroupModelItem]) -> Void
             saveObject(object: realmGroup)
         }
         
-        completion(rawGroups)
+        completion(realmGroups as! [RealmGroupModelItem])
     }
 }
     
