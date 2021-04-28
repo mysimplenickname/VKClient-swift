@@ -16,7 +16,7 @@ class GroupsViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        VKAPIMainClass.getGroups(for: Session.shared.userId) { [weak self] rawGroups in
+        getGroups(for: Session.shared.userId) { [weak self] rawGroups in
             self?.rawGroups = rawGroups
             self?.tableView.reloadData()
         }

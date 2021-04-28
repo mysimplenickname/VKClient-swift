@@ -42,7 +42,7 @@ class PhotoBrowsingViewController: UIViewController {
         
         guard let url = URL(string: rawImages[rawImagesIndex].sizes[3].url) else { return }
 //        centerImageView.image = VKAPIMainClass.loadPhoto(from: url)
-        VKAPIMainClass.loadPhoto(from: url) { [self] image in
+        loadPhoto(from: url) { [self] image in
             centerImageView.image = image
         }
         
@@ -96,7 +96,7 @@ class PhotoBrowsingViewController: UIViewController {
                 
                 guard let url = URL(string: rawImages[rawImagesIndex].sizes[3].url) else { return }
 //                centerImageView.image = VKAPIMainClass.loadPhoto(from: url)
-                VKAPIMainClass.loadPhoto(from: url) { [self] image in
+                loadPhoto(from: url) { [self] image in
                     centerImageView.image = image
                 }
                 
@@ -113,7 +113,7 @@ class PhotoBrowsingViewController: UIViewController {
             case .left:
                 guard let url = URL(string: rawImages[rawImagesIndex - 1].sizes[3].url) else { return }
 //                nextImageView.image = VKAPIMainClass.loadPhoto(from: url)
-                VKAPIMainClass.loadPhoto(from: url) { [self] image in
+                loadPhoto(from: url) { [self] image in
                     nextImageView.image = image
                 }
                 centerContainerView.addSubview(nextImageView)
@@ -121,7 +121,7 @@ class PhotoBrowsingViewController: UIViewController {
             case .right:
                 guard let url = URL(string: rawImages[rawImagesIndex + 1].sizes[3].url) else { return }
 //                nextImageView.image = VKAPIMainClass.loadPhoto(from: url)
-                VKAPIMainClass.loadPhoto(from: url) { [self] image in
+                loadPhoto(from: url) { [self] image in
                     nextImageView.image = image
                 }
                 centerContainerView.addSubview(nextImageView)

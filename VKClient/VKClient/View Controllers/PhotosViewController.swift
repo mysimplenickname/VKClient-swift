@@ -18,7 +18,7 @@ class PhotosViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        VKAPIMainClass.getPhotos(ownerId: ownerId) { [weak self] rawImages in
+        getPhotos(ownerId: ownerId) { [weak self] rawImages in
             self?.rawImages = rawImages
             self?.collectionView.reloadData()
         }
@@ -50,7 +50,7 @@ class PhotosViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotosCell.reuseIdentifier, for: indexPath) as! PhotosCell
         guard let url = URL(string: rawImages[indexPath.row].sizes[3].url) else { return cell }
-        VKAPIMainClass.loadPhoto(from: url) { image in
+        loadPhoto(from: url) { image in
             cell.photosImage.image = image
         }
         return cell

@@ -22,7 +22,7 @@ class GroupsCell: UITableViewCell, SelfConfiguringCell {
         let group = object as! GroupModelItem
         
         guard let url = URL(string: group.mainPhoto) else { return }
-        VKAPIMainClass.loadPhoto(from: url) { [self] image in
+        loadPhoto(from: url) { [self] image in
             titleView.configureTitleView(titleImage: image, titleLabel: group.name, subtitleLabel: "")
         }
     }
