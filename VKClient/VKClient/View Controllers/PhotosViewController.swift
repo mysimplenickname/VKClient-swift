@@ -6,21 +6,33 @@
 //
 
 import UIKit
+import RealmSwift
 
 class PhotosViewController: UICollectionViewController {
     
     var ownerId: Int!
     
-    var rawImages: [PhotoModelItem] = []
+    var realmImages: [RealmPhotoModelItem] = []
     
     // MARK: - Life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        getPhotos(ownerId: ownerId) { [weak self] rawImages in
-            self?.rawImages = rawImages
-            self?.collectionView.reloadData()
+        do {
+            let realm = try Realm()
+            print(realm.objects(RealmPhotoModelItem.self))
+            let results = realm.objects(RealmPhotoModelItem.self)
+            realmImages = Array(results)
+        } catch {
+            print(error)
+        }
+        
+        if realmImages.count == 0 {
+            getPhotos(ownerId: ownerId) { [weak self] realmImages in
+                self?.realmImages = realmImages
+                self?.collectionView.reloadData()
+            }
         }
     }
 
@@ -30,8 +42,8 @@ class PhotosViewController: UICollectionViewController {
         if let controller = segue.destination as? PhotoBrowsingViewController,
            let indexPaths = self.collectionView.indexPathsForSelectedItems {
             let indexPath = indexPaths[0].row
-            controller.rawImages = rawImages
-            controller.rawImagesIndex = indexPath
+            controller.realmImages = realmImages
+            controller.realmImagesIndex = indexPath
         }
     }
     
@@ -42,14 +54,14 @@ class PhotosViewController: UICollectionViewController {
     // MARK: - UICollectionViewDataSource
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return rawImages.count
+        return realmImages.count
     }
 
     // MARK: - UICollectionViewDelegate
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotosCell.reuseIdentifier, for: indexPath) as! PhotosCell
-        guard let url = URL(string: rawImages[indexPath.row].sizes[3].url) else { return cell }
+        guard let url = URL(string: realmImages[indexPath.row].url) else { return cell }
         loadPhoto(from: url) { image in
             cell.photosImage.image = image
         }

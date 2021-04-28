@@ -77,7 +77,7 @@ func getGroups(for userId: Int, completion: @escaping ([RealmGroupModelItem]) ->
     }
 }
     
-func getPhotos(ownerId: Int, completion: @escaping ([PhotoModelItem]) -> Void) {
+func getPhotos(ownerId: Int, completion: @escaping ([RealmPhotoModelItem]) -> Void) {
     let host = "https://api.vk.com"
     let path = "/method/photos.getAll"
     
@@ -106,7 +106,7 @@ func getPhotos(ownerId: Int, completion: @escaping ([PhotoModelItem]) -> Void) {
             saveObject(object: realmPhoto)
         }
         
-        completion(rawPhotos)
+        completion(realmPhotos as! [RealmPhotoModelItem])
     }
 }
 
