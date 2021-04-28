@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class FriendsViewController: UIViewController {
     
@@ -24,6 +25,13 @@ class FriendsViewController: UIViewController {
             self?.rawFriends = rawFriends
             self?.rawFriendsForUse = rawFriends
             self?.tableView.reloadData()
+        }
+        
+        do {
+            let realm = try Realm()
+            print(realm.objects(RealmUserModelItem.self))
+        } catch {
+            print(error)
         }
         
         tableView.register(UINib(nibName: "FriendsCell", bundle: nil), forCellReuseIdentifier: FriendsCell.reuseIdentifier)

@@ -7,6 +7,7 @@
 
 import Foundation
 import Alamofire
+import RealmSwift
 
 class VKAPIMainClass {
     
@@ -33,6 +34,11 @@ class VKAPIMainClass {
                 rawFriends = try JSONDecoder().decode(UserModel.self, from: data).response.items
             } catch {
                 print(error)
+            }
+            
+            for rawElem in rawFriends {
+                let realmElem = convertToObject(raw: rawElem)
+                saveObject(object: realmElem)
             }
             
             completion(rawFriends)
@@ -65,6 +71,11 @@ class VKAPIMainClass {
                 print(error)
             }
             
+            for rawElem in rawGroups {
+                let realmElem = convertToObject(raw: rawElem)
+                saveObject(object: realmElem)
+            }
+            
             completion(rawGroups)
         }
     }
@@ -93,6 +104,11 @@ class VKAPIMainClass {
                 print(error)
             }
             
+            for rawElem in rawPhotos {
+                let realmElem = convertToObject(raw: rawElem)
+                saveObject(object: realmElem)
+            }
+            
             completion(rawPhotos)
         }
     }
@@ -114,4 +130,50 @@ extension VKAPIMainClass {
 
 //MARK: - Realm methods
 
-
+extension VKAPIMainClass {
+    
+    static func convertToObject(raw: Any) -> Object {
+        
+        if type(of: raw) == UserModelItem.self {
+            let rawUser = raw as! UserModelItem
+            let realmUser = RealmUserModelItem()
+            realmUser.id = rawUser.id
+            realmUser.firstName = rawUser.firstName
+            realmUser.lastName = rawUser.lastName
+            realmUser.mainPhoto = rawUser.mainPhoto
+            return realmUser
+        }
+        
+        if type(of: raw) == PhotoModelItem.self {
+            let rawPhoto = raw as! PhotoModelItem
+            let realmPhoto = RealmPhotoModelItem()
+            realmPhoto.id = rawPhoto.id
+            realmPhoto.ownerId = rawPhoto.ownerID
+            realmPhoto.url = rawPhoto.sizes[3].url
+            return realmPhoto
+        }
+        
+        if type(of: raw) == GroupModelItem.self {
+            let rawGroup = raw as! GroupModelItem
+            let realmGroup = RealmGroupModelItem()
+            realmGroup.id = rawGroup.id
+            realmGroup.name = rawGroup.name
+            realmGroup.mainPhoto = rawGroup.mainPhoto
+            return realmGroup
+        }
+        
+        return Object()
+    }
+    
+    static func saveObject(object: Object) {
+        do {
+            let realm = try Realm()
+            realm.beginWrite()
+            realm.add(object)
+            try realm.commitWrite()
+        } catch {
+            print(error)
+        }
+    }
+    
+}
