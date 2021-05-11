@@ -70,6 +70,7 @@ class GroupsViewController: UITableViewController {
                 fatalError("\(error)")
             }
         }
+        
     }
 
 }

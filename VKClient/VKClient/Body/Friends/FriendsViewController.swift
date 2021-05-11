@@ -79,6 +79,7 @@ class FriendsViewController: UIViewController {
                 fatalError("\(error)")
             }
         }
+        
     }
     
 }

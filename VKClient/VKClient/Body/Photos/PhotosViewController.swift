@@ -14,37 +14,69 @@ class PhotosViewController: UICollectionViewController {
     
     var realmImages: [RealmPhotoModelItem] = []
     
+    var token: NotificationToken?
+    
     // MARK: - Life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        here: do {
-            let realm = try Realm()
-            let results = realm.objects(RealmPhotoModelItem.self)
-
-            var tempArray = [RealmPhotoModelItem]()
-            for item in results {
-                if item.ownerId == ownerId {
-                    tempArray.append(item)
-                }
-            }
-            realmImages = tempArray
-            print(1)
-        } catch {
-            print(error)
+    
+        getPhotos(ownerId: ownerId) { realmImages in
+            self.realmImages = realmImages
+            self.collectionView.reloadData()
         }
         
-        if realmImages.count == 0 {
-            print(2)
-            getPhotos(ownerId: ownerId) { [weak self] realmImages in
-                self?.realmImages = realmImages
-                self?.collectionView.reloadData()
+        updatePhotos()
+    }
+    
+    func updatePhotos() {
+        
+        guard let realm = try? Realm() else { return }
+        let results = realm.objects(RealmUserModelItem.self)
+        
+        token = results.observe { (changes: RealmCollectionChange) in
+            guard let tableView = self.collectionView else { return }
+            switch changes {
+            case .initial:
+                tableView.reloadData()
+            case .update(_, let deletions, let insertions, let modifications):
+                self.collectionView.performBatchUpdates(
+                    {
+                        self.collectionView.insertItems(
+                            at: insertions.map(
+                                {
+                                    IndexPath(row: $0, section: 0)
+                                }
+                            )
+                        )
+                        self.collectionView.deleteItems(
+                            at: deletions.map(
+                                {
+                                    IndexPath(row: $0, section: 0)
+                                }
+                            )
+                        )
+                        self.collectionView.reloadItems(
+                            at: modifications.map(
+                                {
+                                    IndexPath(row: $0, section: 0)
+                                }
+                            )
+                        )
+                    },
+                    completion: nil
+                )
+            case .error(let error):
+                fatalError("\(error)")
             }
         }
+        
     }
 
-    // MARK: - Segues
+}
+
+// MARK: - Segues
+extension PhotosViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let controller = segue.destination as? PhotoBrowsingViewController,
@@ -58,15 +90,18 @@ class PhotosViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         performSegue(withIdentifier: "ToPhotoBrowsingSegue", sender: nil)
     }
-    
-    // MARK: - UICollectionViewDataSource
 
+}
+
+// MARK: - UICollectionViewDataSource
+extension PhotosViewController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return realmImages.count
     }
+}
 
-    // MARK: - UICollectionViewDelegate
-    
+// MARK: - UICollectionViewDelegate
+extension PhotosViewController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotosCell.reuseIdentifier, for: indexPath) as! PhotosCell
         guard let url = URL(string: realmImages[indexPath.row].url) else { return cell }
@@ -75,5 +110,4 @@ class PhotosViewController: UICollectionViewController {
         }
         return cell
     }
-    
 }
