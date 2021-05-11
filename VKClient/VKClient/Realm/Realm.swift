@@ -55,13 +55,13 @@ func convertToObjects(raw: [Any]) -> [Object] {
 }
 
 // New. Only for groups. wip.
-func saveObjects(raw: [Any]) {
+func saveObjects(raw: [Any], type: Object.Type) {
     
     let newObjects = convertToObjects(raw: raw)
     
     do {
         let realm = try Realm()
-        let oldRealmGroups = Array(realm.objects(RealmGroupModelItem.self))
+        let oldRealmGroups = Array(realm.objects(type))
         realm.beginWrite()
         realm.delete(oldRealmGroups)
         realm.add(newObjects)

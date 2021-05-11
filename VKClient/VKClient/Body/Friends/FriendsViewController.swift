@@ -12,6 +12,7 @@ class FriendsViewController: UIViewController {
     
     var realmFriends: [RealmUserModelItem] = []
     var realmFriendsForUse: [RealmUserModelItem] = []
+    
     var token: NotificationToken?
     
     @IBOutlet weak var tableView: UITableView!
@@ -21,25 +22,14 @@ class FriendsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        do {
-            let realm = try Realm()
-            let results = realm.objects(RealmUserModelItem.self)
-            realmFriends = Array(results)
-            realmFriendsForUse = Array(results)
-        } catch {
-            print(error)
+
+        getFriends(for: Session.shared.userId) { realmFriends in
+            self.realmFriends = realmFriends
+            self.realmFriendsForUse = realmFriends
+            self.tableView.reloadData()
         }
         
-        if realmFriends.count == 0 {
-            getFriends(for: Session.shared.userId) { [weak self] realmFriends in
-                self?.realmFriends = realmFriends
-                self?.realmFriendsForUse = realmFriends
-                self?.tableView.reloadData()
-            }
-        }
-        
-      //  updateObject(object: RealmUserModelItem.self, notificationToken: nil, tableView: tableView)
+        updateFriends()
         
         tableView.register(UINib(nibName: "FriendsCell", bundle: nil), forCellReuseIdentifier: FriendsCell.reuseIdentifier)
         
@@ -47,8 +37,54 @@ class FriendsViewController: UIViewController {
         
         searchBar.delegate = self
     }
+    
+    func updateFriends() {
+        
+        guard let realm = try? Realm() else { return }
+        let results = realm.objects(RealmUserModelItem.self)
+        
+        token = results.observe { (changes: RealmCollectionChange) in
+            guard let tableView = self.tableView else { return }
+            switch changes {
+            case .initial:
+                tableView.reloadData()
+            case .update(_, let deletions, let insertions, let modifications):
+                tableView.beginUpdates()
+                tableView.insertRows(
+                    at: insertions.map(
+                        {
+                            IndexPath(row: $0, section: 0)
+                        }
+                    ),
+                    with: .automatic
+                )
+                tableView.deleteRows(
+                    at: deletions.map(
+                        {
+                            IndexPath(row: $0, section: 0)
+                        }
+                    ),
+                    with: .automatic
+                )
+                tableView.reloadRows(
+                    at: modifications.map(
+                        {
+                            IndexPath(row: $0, section: 0)
+                        }
+                    ),
+                    with: .automatic
+                )
+                tableView.endUpdates()
+            case .error(let error):
+                fatalError("\(error)")
+            }
+        }
+    }
+    
+}
 
-    // MARK: - Segues
+// MARK: - Segues
+extension FriendsViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let controller = segue.destination as? PhotosViewController, let indexPath = tableView.indexPathForSelectedRow {
