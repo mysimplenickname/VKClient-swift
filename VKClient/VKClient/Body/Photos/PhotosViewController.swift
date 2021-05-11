@@ -19,16 +19,24 @@ class PhotosViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        do {
+        here: do {
             let realm = try Realm()
-            print(realm.objects(RealmPhotoModelItem.self))
             let results = realm.objects(RealmPhotoModelItem.self)
-            realmImages = Array(results)
+
+            var tempArray = [RealmPhotoModelItem]()
+            for item in results {
+                if item.ownerId == ownerId {
+                    tempArray.append(item)
+                }
+            }
+            realmImages = tempArray
+            print(1)
         } catch {
             print(error)
         }
         
         if realmImages.count == 0 {
+            print(2)
             getPhotos(ownerId: ownerId) { [weak self] realmImages in
                 self?.realmImages = realmImages
                 self?.collectionView.reloadData()

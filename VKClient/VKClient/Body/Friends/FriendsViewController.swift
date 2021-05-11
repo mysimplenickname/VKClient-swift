@@ -12,6 +12,7 @@ class FriendsViewController: UIViewController {
     
     var realmFriends: [RealmUserModelItem] = []
     var realmFriendsForUse: [RealmUserModelItem] = []
+    var token: NotificationToken?
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
@@ -23,7 +24,6 @@ class FriendsViewController: UIViewController {
         
         do {
             let realm = try Realm()
-            print(realm.objects(RealmUserModelItem.self))
             let results = realm.objects(RealmUserModelItem.self)
             realmFriends = Array(results)
             realmFriendsForUse = Array(results)
@@ -39,9 +39,9 @@ class FriendsViewController: UIViewController {
             }
         }
         
-        tableView.register(UINib(nibName: "FriendsCell", bundle: nil), forCellReuseIdentifier: FriendsCell.reuseIdentifier)
+      //  updateObject(object: RealmUserModelItem.self, notificationToken: nil, tableView: tableView)
         
-//        tableView.register(UINib(nibName: "FriendsHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: FriendsHeaderView.reusableId)
+        tableView.register(UINib(nibName: "FriendsCell", bundle: nil), forCellReuseIdentifier: FriendsCell.reuseIdentifier)
         
         tableView.keyboardDismissMode = .onDrag
         
@@ -60,37 +60,9 @@ class FriendsViewController: UIViewController {
         performSegue(withIdentifier: "FromPhotosSegue", sender: nil)
     }
     
-    // MARK: - Actions
-    
-//    @IBAction func choosenFriend(_ sender: FriendsSelectorControl) {
-//        var row: Int = 0,
-//            section: Int = 0
-//
-//        let arrangedUsers: [[User]] = User.arrangeUsers(users: friendsForUse)
-//
-//        for i in 0..<arrangedUsers.count {
-//            for j in 0..<arrangedUsers[i].count {
-//                if arrangedUsers[i][j].last_name == sender.selectedValue?.last_name {
-//                    row = j
-//                    section = i
-//                    break
-//                }
-//            }
-//        }
-//
-//        let indexPath = IndexPath(row: row, section: section)
-//        if tableView.numberOfSections > 0 {
-//            tableView.scrollToRow(at: indexPath, at: .top, animated: true)
-//        }
-//    }
-    
 }
 
 extension FriendsViewController: UITableViewDelegate, UITableViewDataSource {
-    
-//    func numberOfSections(in tableView: UITableView) -> Int {
-//        return User.firstLetters(users: friendsForUse).count
-//    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return realmFriendsForUse.count
@@ -107,25 +79,15 @@ extension FriendsViewController: UITableViewDelegate, UITableViewDataSource {
         hideKeyboard()
     }
     
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: FriendsHeaderView.reusableId) as? FriendsHeaderView
-//        headerView?.textLabel?.text = String(User.firstLetters(users: friendsForUse)[section])
-//        return headerView
-//    }
-//    
-//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        return FriendsHeaderView.height
-//    }
-    
 }
 
 extension FriendsViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-            realmFriendsForUse = searchText.isEmpty ? realmFriends : realmFriends.filter { (item: RealmUserModelItem) -> Bool in
-                return item.lastName.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
-            }
-            tableView.reloadData()
+        realmFriendsForUse = searchText.isEmpty ? realmFriends : realmFriends.filter { (item: RealmUserModelItem) -> Bool in
+            return item.lastName.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
+        }
+        tableView.reloadData()
     }
     
     func hideKeyboard() {

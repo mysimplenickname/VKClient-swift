@@ -41,7 +41,6 @@ class PhotoBrowsingViewController: UIViewController {
         }
         
         guard let url = URL(string: realmImages[realmImagesIndex].url) else { return }
-//        centerImageView.image = VKAPIMainClass.loadPhoto(from: url)
         loadPhoto(from: url) { [self] image in
             centerImageView.image = image
         }
@@ -95,7 +94,6 @@ class PhotoBrowsingViewController: UIViewController {
                 centerImageView.transform = .identity
                 
                 guard let url = URL(string: realmImages[realmImagesIndex].url) else { return }
-//                centerImageView.image = VKAPIMainClass.loadPhoto(from: url)
                 loadPhoto(from: url) { [self] image in
                     centerImageView.image = image
                 }
@@ -112,7 +110,6 @@ class PhotoBrowsingViewController: UIViewController {
             switch currentState {
             case .left:
                 guard let url = URL(string: realmImages[realmImagesIndex - 1].url) else { return }
-//                nextImageView.image = VKAPIMainClass.loadPhoto(from: url)
                 loadPhoto(from: url) { [self] image in
                     nextImageView.image = image
                 }
@@ -120,7 +117,6 @@ class PhotoBrowsingViewController: UIViewController {
                 nextImageView.frame = centerContainerView.bounds.offsetBy(dx: -centerContainerView.frame.width, dy: 0)
             case .right:
                 guard let url = URL(string: realmImages[realmImagesIndex + 1].url) else { return }
-//                nextImageView.image = VKAPIMainClass.loadPhoto(from: url)
                 loadPhoto(from: url) { [self] image in
                     nextImageView.image = image
                 }

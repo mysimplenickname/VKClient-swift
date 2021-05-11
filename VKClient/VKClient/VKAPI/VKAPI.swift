@@ -33,7 +33,7 @@ func getFriends(for userId: Int, completion: @escaping ([RealmUserModelItem]) ->
             print(error)
         }
         
-        let realmFriends = convertToObject(raw: rawFriends)
+        let realmFriends = convertToObjects(raw: rawFriends)
         for realmFriend in realmFriends {
             saveObject(object: realmFriend)
         }
@@ -68,12 +68,9 @@ func getGroups(for userId: Int, completion: @escaping ([RealmGroupModelItem]) ->
             print(error)
         }
         
-        let realmGroups = convertToObject(raw: rawGroups)
-        for realmGroup in realmGroups {
-            saveObject(object: realmGroup)
-        }
+        saveObjects(raw: rawGroups)
         
-        completion(realmGroups as! [RealmGroupModelItem])
+        completion(convertToObjects(raw: rawGroups) as! [RealmGroupModelItem])
     }
 }
     
@@ -101,7 +98,7 @@ func getPhotos(ownerId: Int, completion: @escaping ([RealmPhotoModelItem]) -> Vo
             print(error)
         }
         
-        let realmPhotos = convertToObject(raw: rawPhotos)
+        let realmPhotos = convertToObjects(raw: rawPhotos)
         for realmPhoto in realmPhotos {
             saveObject(object: realmPhoto)
         }

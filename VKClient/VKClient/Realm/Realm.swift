@@ -9,7 +9,7 @@ import Foundation
 import RealmSwift
 
 //MARK: - Realm methods
-func convertToObject(raw: [Any]) -> [Object] {
+func convertToObjects(raw: [Any]) -> [Object] {
     
     if raw is [UserModelItem] {
         let rawUsers = raw as! [UserModelItem]
@@ -54,7 +54,26 @@ func convertToObject(raw: [Any]) -> [Object] {
     return [Object()]
 }
 
+// New. Only for groups. wip.
+func saveObjects(raw: [Any]) {
+    
+    let newObjects = convertToObjects(raw: raw)
+    
+    do {
+        let realm = try Realm()
+        let oldRealmGroups = Array(realm.objects(RealmGroupModelItem.self))
+        realm.beginWrite()
+        realm.delete(oldRealmGroups)
+        realm.add(newObjects)
+        try realm.commitWrite()
+    } catch {
+        print(error)
+    }
+}
+
+// Old.
 func saveObject(object: Object) {
+    
     do {
         let realm = try Realm()
         realm.beginWrite()
@@ -63,4 +82,20 @@ func saveObject(object: Object) {
     } catch {
         print(error)
     }
+}
+
+func getGroupsFromRealm() -> [RealmGroupModelItem] {
+    
+    var realmGroups = [RealmGroupModelItem]()
+    
+    do {
+        let realm = try Realm()
+        let results = realm.objects(RealmGroupModelItem.self)
+        realmGroups = Array(results)
+    } catch {
+        print(error)
+    }
+    
+    return realmGroups
+    
 }
