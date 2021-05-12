@@ -6,11 +6,12 @@
 //
 
 import UIKit
+import RealmSwift
 
 class FriendsViewController: UIViewController {
     
-    var rawFriends: [UserModelItem] = []
-    var rawFriendsForUse: [UserModelItem] = []
+    var realmFriends: [RealmUserModelItem] = []
+    var realmFriendsForUse: [RealmUserModelItem] = []
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
@@ -20,10 +21,22 @@ class FriendsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        VKAPIMainClass.getFriends(for: Session.shared.userId) { [weak self] rawFriends in
-            self?.rawFriends = rawFriends
-            self?.rawFriendsForUse = rawFriends
-            self?.tableView.reloadData()
+        do {
+            let realm = try Realm()
+            print(realm.objects(RealmUserModelItem.self))
+            let results = realm.objects(RealmUserModelItem.self)
+            realmFriends = Array(results)
+            realmFriendsForUse = Array(results)
+        } catch {
+            print(error)
+        }
+        
+        if realmFriends.count == 0 {
+            getFriends(for: Session.shared.userId) { [weak self] realmFriends in
+                self?.realmFriends = realmFriends
+                self?.realmFriendsForUse = realmFriends
+                self?.tableView.reloadData()
+            }
         }
         
         tableView.register(UINib(nibName: "FriendsCell", bundle: nil), forCellReuseIdentifier: FriendsCell.reuseIdentifier)
@@ -39,7 +52,7 @@ class FriendsViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let controller = segue.destination as? PhotosViewController, let indexPath = tableView.indexPathForSelectedRow {
-            controller.ownerId = rawFriendsForUse[indexPath.row].id
+            controller.ownerId = realmFriendsForUse[indexPath.row].id
         }
     }
     
@@ -80,12 +93,12 @@ extension FriendsViewController: UITableViewDelegate, UITableViewDataSource {
 //    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return rawFriendsForUse.count
+        return realmFriendsForUse.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: FriendsCell.reuseIdentifier, for: indexPath) as! FriendsCell
-        cell.configureCell(object: rawFriendsForUse[indexPath.row])
+        cell.configureCell(object: realmFriendsForUse[indexPath.row])
         return cell
     }
     
@@ -109,7 +122,7 @@ extension FriendsViewController: UITableViewDelegate, UITableViewDataSource {
 extension FriendsViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-            rawFriendsForUse = searchText.isEmpty ? rawFriends : rawFriends.filter { (item: UserModelItem) -> Bool in
+            realmFriendsForUse = searchText.isEmpty ? realmFriends : realmFriends.filter { (item: RealmUserModelItem) -> Bool in
                 return item.lastName.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
             }
             tableView.reloadData()

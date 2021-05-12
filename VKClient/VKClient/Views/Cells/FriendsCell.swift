@@ -14,12 +14,12 @@ class FriendsCell: UITableViewCell, SelfConfiguringCell {
     @IBOutlet weak var titleView: TitleView!
     
     func configureCell(object: Any) {
-        guard type(of: object) == UserModelItem.self else { return }
-        let friend = object as! UserModelItem
+        guard type(of: object) == RealmUserModelItem.self else { return }
+        let friend = object as! RealmUserModelItem
         
         let friendFullName: String = friend.firstName + " " + friend.lastName
         guard let url = URL(string: friend.mainPhoto) else { return }
-        VKAPIMainClass.loadPhoto(from: url) { [self] image in
+        loadPhoto(from: url) { [self] image in
             titleView.configureTitleView(titleImage: image, titleLabel: friendFullName, subtitleLabel: "")
         }
     }

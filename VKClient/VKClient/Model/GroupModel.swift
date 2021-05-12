@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RealmSwift
 
 //MARK: - GroupModel
 struct GroupModel: Codable {
@@ -29,4 +30,11 @@ struct GroupModelItem: Codable {
         case name
         case mainPhoto = "photo_200"
     }
+}
+
+//MARK: - Realm object
+class RealmGroupModelItem: Object {
+    @objc dynamic var id: Int = 0
+    @objc dynamic var name: String = ""
+    @objc dynamic var mainPhoto: String = ""
 }
