@@ -10,10 +10,10 @@ import UIKit
 class NewsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     let news = News(
-        authorImage: Photo(name: "johnsnow3", likes: 0, isLiked: false),
+        authorImage: Photo(name: "johnsnow3", id: 0, owner_id: 0, likes: 0, isLiked: false),
         authorLabel: "John Snow",
         text: "Hello!",
-        image: Photo(name: "johnsnow1", likes: 0, isLiked: false)
+        image: Photo(name: "johnsnow1", id: 0, owner_id: 0, likes: 0, isLiked: false)
     )
     
     @IBOutlet weak var tableView: UITableView!

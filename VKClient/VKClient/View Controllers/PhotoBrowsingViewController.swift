@@ -9,8 +9,8 @@ import UIKit
 
 class PhotoBrowsingViewController: UIViewController {
 
-    var images: [Photo] = []
-    var imagesIndex: Int!
+    var rawImages: [PhotoModelItem] = []
+    var rawImagesIndex: Int!
     
     @IBOutlet weak var centerContainerView: UIView!
     @IBOutlet weak var interactionView: InteractionView!
@@ -36,15 +36,20 @@ class PhotoBrowsingViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if imagesIndex < 0 && imagesIndex > images.count - 1 {
-            imagesIndex = 0
+        if rawImagesIndex < 0 && rawImagesIndex > rawImages.count - 1 {
+            rawImagesIndex = 0
         }
         
-        centerImageView.image = UIImage(named: images[imagesIndex].name)
+        guard let url = URL(string: rawImages[rawImagesIndex].sizes[3].url) else { return }
+//        centerImageView.image = VKAPIMainClass.loadPhoto(from: url)
+        VKAPIMainClass.loadPhoto(from: url) { [self] image in
+            centerImageView.image = image
+        }
+        
         centerContainerView.addSubview(centerImageView)
         centerImageView.frame = centerContainerView.bounds
         
-        title = String("\(imagesIndex! + 1) of \(images.count)")
+        title = String("\(rawImagesIndex! + 1) of \(rawImages.count)")
         
         centerContainerView.addGestureRecognizer(panGestureRecognizer)
     }
@@ -80,15 +85,20 @@ class PhotoBrowsingViewController: UIViewController {
             
                 switch currentState {
                 case .left:
-                    imagesIndex -= 1
+                    rawImagesIndex -= 1
                 case .right:
-                    imagesIndex += 1
+                    rawImagesIndex += 1
                 default:
                     break
                 }
                 
                 centerImageView.transform = .identity
-                centerImageView.image = UIImage(named: images[imagesIndex].name)
+                
+                guard let url = URL(string: rawImages[rawImagesIndex].sizes[3].url) else { return }
+//                centerImageView.image = VKAPIMainClass.loadPhoto(from: url)
+                VKAPIMainClass.loadPhoto(from: url) { [self] image in
+                    centerImageView.image = image
+                }
                 
                 runningAnimators.remove(at: runningAnimators.firstIndex(of: centerTransitionAnimator)!)
             }
@@ -101,11 +111,19 @@ class PhotoBrowsingViewController: UIViewController {
             
             switch currentState {
             case .left:
-                nextImageView.image = UIImage(named: images[imagesIndex - 1].name)
+                guard let url = URL(string: rawImages[rawImagesIndex - 1].sizes[3].url) else { return }
+//                nextImageView.image = VKAPIMainClass.loadPhoto(from: url)
+                VKAPIMainClass.loadPhoto(from: url) { [self] image in
+                    nextImageView.image = image
+                }
                 centerContainerView.addSubview(nextImageView)
                 nextImageView.frame = centerContainerView.bounds.offsetBy(dx: -centerContainerView.frame.width, dy: 0)
             case .right:
-                nextImageView.image = UIImage(named: images[imagesIndex + 1].name)
+                guard let url = URL(string: rawImages[rawImagesIndex + 1].sizes[3].url) else { return }
+//                nextImageView.image = VKAPIMainClass.loadPhoto(from: url)
+                VKAPIMainClass.loadPhoto(from: url) { [self] image in
+                    nextImageView.image = image
+                }
                 centerContainerView.addSubview(nextImageView)
                 nextImageView.frame = centerContainerView.bounds.offsetBy(dx: centerContainerView.frame.width, dy: 0)
             default:
@@ -115,10 +133,10 @@ class PhotoBrowsingViewController: UIViewController {
             let sideTransitionAnimator = UIViewPropertyAnimator(duration: duration, curve: .linear, animations: { [self] in
                 switch currentState {
                 case .left:
-                    title = String("\(imagesIndex!) of \(images.count)")
+                    title = String("\(rawImagesIndex!) of \(rawImages.count)")
                     nextImageView.transform = CGAffineTransform(translationX: centerContainerView.frame.width, y: 0)
                 case .right:
-                    title = String("\(imagesIndex! + 2) of \(images.count)")
+                    title = String("\(rawImagesIndex! + 2) of \(rawImages.count)")
                     nextImageView.transform = CGAffineTransform(translationX: -centerContainerView.frame.width, y: 0)
                 default:
                     break
@@ -173,7 +191,7 @@ class PhotoBrowsingViewController: UIViewController {
                 }
                 runningAnimators.removeAll()
                 
-                title = String("\(imagesIndex! + 1) of \(images.count)")
+                title = String("\(rawImagesIndex! + 1) of \(rawImages.count)")
                 
                 UIView.animate(
                     withDuration: 0.5,
@@ -200,8 +218,8 @@ class PhotoBrowsingViewController: UIViewController {
     
     private func canPerformTransition(state: Side) -> Bool {
         return state == .left
-            ? imagesIndex > 0
-            : imagesIndex < images.count - 1
+            ? rawImagesIndex > 0
+            : rawImagesIndex < rawImages.count - 1
     }
     
 }

@@ -9,14 +9,19 @@ import UIKit
 
 class PhotosViewController: UICollectionViewController {
     
-    var images: [Photo] = []
+    var ownerId: Int!
+    
+    var rawImages: [PhotoModelItem] = []
     
     // MARK: - Life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        VKAPIMainClass.getPhotos()
+        VKAPIMainClass.getPhotos(ownerId: ownerId) { [weak self] rawImages in
+            self?.rawImages = rawImages
+            self?.collectionView.reloadData()
+        }
     }
 
     // MARK: - Segues
@@ -25,8 +30,8 @@ class PhotosViewController: UICollectionViewController {
         if let controller = segue.destination as? PhotoBrowsingViewController,
            let indexPaths = self.collectionView.indexPathsForSelectedItems {
             let indexPath = indexPaths[0].row
-            controller.images = images
-            controller.imagesIndex = indexPath
+            controller.rawImages = rawImages
+            controller.rawImagesIndex = indexPath
         }
     }
     
@@ -37,15 +42,17 @@ class PhotosViewController: UICollectionViewController {
     // MARK: - UICollectionViewDataSource
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return images.count
+        return rawImages.count
     }
 
     // MARK: - UICollectionViewDelegate
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotosCell.reuseIdentifier, for: indexPath) as! PhotosCell
-        let image = images[indexPath.row]
-        cell.photosImage.image = UIImage(named: image.name)
+        guard let url = URL(string: rawImages[indexPath.row].sizes[3].url) else { return cell }
+        VKAPIMainClass.loadPhoto(from: url) { image in
+            cell.photosImage.image = image
+        }
         return cell
     }
     

@@ -12,21 +12,19 @@ class GroupsCell: UITableViewCell, SelfConfiguringCell {
     static var reuseIdentifier: String = "GroupsCell"
     
     @IBOutlet weak var titleView: TitleView!
-
+    
+    func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+        URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
+    }
+    
     func configureCell(object: Any) {
+        guard type(of: object) == GroupModelItem.self else { return }
+        let group = object as! GroupModelItem
         
-        guard type(of: object) == Group.self else { return }
-        let group = object as! Group
-        
-        var groupImage: UIImage
-        if group.image != nil {
-            groupImage = UIImage(named: group.image!.name)!
-        } else {
-            groupImage = UIImage(systemName: "person.3")!
+        guard let url = URL(string: group.mainPhoto) else { return }
+        VKAPIMainClass.loadPhoto(from: url) { [self] image in
+            titleView.configureTitleView(titleImage: image, titleLabel: group.name, subtitleLabel: "")
         }
-        
-        titleView.configureTitleView(titleImage: groupImage, titleLabel: group.name, subtitleLabel: "")
-        
     }
     
 }
