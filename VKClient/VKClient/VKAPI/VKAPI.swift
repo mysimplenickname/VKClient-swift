@@ -70,6 +70,39 @@ func getGroups(for userId: Int, completion: @escaping ([RealmGroupModelItem]) ->
         completion(convertToObjects(raw: rawGroups) as! [RealmGroupModelItem])
     }
 }
+
+func searchGroups(for userId: Int, searchString: String, completion: @escaping ([RealmGroupModelItem]) -> Void) {
+    
+    let host = "https://api.vk.com"
+    let path = "/method/groups.search"
+    
+    let version = "5.130"
+    
+    let parameters: Parameters = [
+        "q": searchString,
+        "type": "group, page",
+        "user_id": userId,
+        "access_token": Session.shared.token,
+        "v": version
+    ]
+    
+    AF.request(host + path, method: .get, parameters: parameters).responseData { response in
+        
+        guard let data = response.value else { return }
+        
+        var rawGroups = [GroupModelItem]()
+        
+        do {
+            rawGroups = try JSONDecoder().decode(GroupModel.self, from: data).response.items
+        } catch {
+            print(error)
+        }
+        
+        completion(convertToObjects(raw: rawGroups) as! [RealmGroupModelItem])
+        
+    }
+    
+}
     
 func getPhotos(ownerId: Int, completion: @escaping ([RealmPhotoModelItem]) -> Void) {
     let host = "https://api.vk.com"

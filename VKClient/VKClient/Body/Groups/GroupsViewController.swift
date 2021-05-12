@@ -8,11 +8,15 @@
 import UIKit
 import RealmSwift
 
-class GroupsViewController: UITableViewController {
+class GroupsViewController: UIViewController {
     
     var realmGroups: [RealmGroupModelItem] = []
+    var realmGroupsForUse: [RealmGroupModelItem] = []
     
     var token: NotificationToken?
+    
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     // MARK: - Life cycle
     
@@ -21,12 +25,17 @@ class GroupsViewController: UITableViewController {
         
         getGroups(for: Session.shared.userId) { realmGroups in
             self.realmGroups = realmGroups
+            self.realmGroupsForUse = realmGroups
             self.tableView.reloadData()
         }
         
         updateGroups()
         
         tableView.register(UINib(nibName: "GroupsCell", bundle: nil), forCellReuseIdentifier: GroupsCell.reuseIdentifier)
+        
+        tableView.keyboardDismissMode = .onDrag
+        
+        searchBar.delegate = self
     }
     
     func updateGroups() {
@@ -72,23 +81,42 @@ class GroupsViewController: UITableViewController {
         }
         
     }
+    
+    @IBAction func workpls(sender: UIButton) {
+        performSegue(withIdentifier: "toFindGroupsViewController", sender: sender)
+    }
 
 }
 
-extension GroupsViewController {
+extension GroupsViewController: UITableViewDelegate, UITableViewDataSource {
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return realmGroups.count
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return realmGroupsForUse.count
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: GroupsCell.reuseIdentifier, for: indexPath) as! GroupsCell
-        cell.configureCell(object: realmGroups[indexPath.row])
+        cell.configureCell(object: realmGroupsForUse[indexPath.row])
         return cell
+    }
+    
+}
+
+extension GroupsViewController: UISearchBarDelegate {
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        realmGroupsForUse = searchText.isEmpty ? realmGroups : realmGroups.filter { (item: RealmGroupModelItem) -> Bool in
+            return item.name.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
+        }
+        tableView.reloadData()
+    }
+    
+    func hideKeyboard() {
+        self.searchBar.endEditing(true)
     }
     
 }

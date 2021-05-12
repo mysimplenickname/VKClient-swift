@@ -15,17 +15,13 @@ class FindGroupsCell: UITableViewCell, SelfConfiguringCell {
 
     func configureCell(object: Any) {
         
-        guard type(of: object) == Group.self else { return }
-        let group = object as! Group
+        guard type(of: object) == RealmGroupModelItem.self else { return }
+        let group = object as! RealmGroupModelItem
         
-        var groupImage: UIImage
-        if group.image != nil {
-            groupImage = UIImage(named: group.image!.name)!
-        } else {
-            groupImage = UIImage(systemName: "person.3")!
+        guard let url = URL(string: group.mainPhoto) else { return }
+        loadPhoto(from: url) { [self] image in
+            titleView.configureTitleView(titleImage: image, titleLabel: group.name, subtitleLabel: "")
         }
-        
-        titleView.configureTitleView(titleImage: groupImage, titleLabel: group.name, subtitleLabel: "")
         
     }
     
