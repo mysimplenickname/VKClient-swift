@@ -9,6 +9,8 @@ target 'VKClient' do
 
   pod 'RealmSwift'
 
+  pod 'Firebase/Analytics'
+
   # Pods for VKClient
 
 end
