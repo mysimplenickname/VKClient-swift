@@ -7,6 +7,7 @@
 
 import UIKit
 import RealmSwift
+import FirebaseDatabase
 
 class GroupsViewController: UIViewController {
     
@@ -20,13 +21,27 @@ class GroupsViewController: UIViewController {
     
     // MARK: - Life cycle
     
+    let ref = Database.database(url: "https://vkclient-dc5b3-default-rtdb.europe-west1.firebasedatabase.app").reference(withPath: "users/\(Session.shared.userId)")
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print(ref)
         
         getGroups(for: Session.shared.userId) { realmGroups in
             self.realmGroups = realmGroups
             self.realmGroupsForUse = realmGroups
             self.tableView.reloadData()
+            
+            let groupsRef = self.ref.child("groups")
+            
+            var groups = [[String: Any]]()
+            
+            for elem in realmGroups {
+                groups.append(FirebaseGroup(name: "", id: elem.id).toAnyObject())
+            }
+            
+            groupsRef.setValue(groups)
         }
         
         updateGroups()

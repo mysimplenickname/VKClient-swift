@@ -7,6 +7,7 @@
 
 import UIKit
 import WebKit
+import FirebaseDatabase
 
 class LoginViewController: UIViewController {
 
@@ -69,6 +70,13 @@ extension LoginViewController: WKNavigationDelegate {
 
         Session.shared.token = token
         Session.shared.userId = Int(userId)!
+        
+        let ref = Database.database(url: "https://vkclient-dc5b3-default-rtdb.europe-west1.firebasedatabase.app").reference(withPath: "users")
+        
+        let user = FirebaseUser(firstName: "", lastName: "", id: Session.shared.userId)
+        let userRef = ref.child(String(Session.shared.userId))
+        
+        userRef.setValue(user.toAnyObject())
         
         performSegue(withIdentifier: "TapBarIdentifier2", sender: nil)
 
