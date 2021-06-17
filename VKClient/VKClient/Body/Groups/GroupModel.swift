@@ -15,7 +15,7 @@ struct GroupModel: Codable {
 
 //MARK: - Response
 struct GroupModelResponse: Codable {
-    let count: Int
+//    let count: Int
     let items: [GroupModelItem]
 }
 
@@ -30,6 +30,10 @@ struct GroupModelItem: Codable {
         case name
         case mainPhoto = "photo_200"
     }
+}
+
+struct SingleGroupModel: Codable {
+    let response: [GroupModelItem]
 }
 
 //MARK: - Realm object

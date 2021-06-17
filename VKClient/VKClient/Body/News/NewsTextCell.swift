@@ -15,7 +15,7 @@ class NewsTextCell: UITableViewCell, SelfConfiguringCell {
     
     func configureCell(object: Any) {
         
-        guard type(of: object) == News.self else { return }
+        guard type(of: object) == NewsModel.self else { return }
         let news = object as! News
         
         if news.text != nil {

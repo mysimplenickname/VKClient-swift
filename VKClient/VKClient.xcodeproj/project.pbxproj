@@ -37,6 +37,7 @@
 		3196DF3A25EBFAF10014B9C4 /* FindGroupsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3196DF3925EBFAF10014B9C4 /* FindGroupsViewController.swift */; };
 		3196DF3E25EBFB870014B9C4 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3196DF3D25EBFB870014B9C4 /* PhotosViewController.swift */; };
 		3196DF5825EF97A10014B9C4 /* PhotosCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3196DF5725EF97A10014B9C4 /* PhotosCell.swift */; };
+		3196F6D4267A450200BAA5E2 /* ErrorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3196F6D3267A450200BAA5E2 /* ErrorModel.swift */; };
 		31AC4504266E6C6D00E40115 /* NewsAuthorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AC4502266E6C6D00E40115 /* NewsAuthorCell.swift */; };
 		31AC4505266E6C6D00E40115 /* NewsAuthorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31AC4503266E6C6D00E40115 /* NewsAuthorCell.xib */; };
 		31AC450D266E6D1A00E40115 /* NewsTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AC450B266E6D1A00E40115 /* NewsTextCell.swift */; };
@@ -45,6 +46,7 @@
 		31AC4514266E6DDA00E40115 /* NewsPhotoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31AC4512266E6DDA00E40115 /* NewsPhotoCell.xib */; };
 		31AC4519266E6E3600E40115 /* NewsInteractionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AC4517266E6E3600E40115 /* NewsInteractionCell.swift */; };
 		31AC451A266E6E3600E40115 /* NewsInteractionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31AC4518266E6E3600E40115 /* NewsInteractionCell.xib */; };
+		31AC45202674DEDA00E40115 /* NewsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AC451F2674DEDA00E40115 /* NewsModel.swift */; };
 		31CA5C6D260F9EA300E81A3A /* SelfConfiguringCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CA5C6C260F9EA300E81A3A /* SelfConfiguringCell.swift */; };
 		31CA5C832622E64000E81A3A /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CA5C822622E63900E81A3A /* Session.swift */; };
 		31DA9E6626060B9D00DB9390 /* FriendsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DA9E6426060B9D00DB9390 /* FriendsCell.swift */; };
@@ -90,6 +92,7 @@
 		3196DF3925EBFAF10014B9C4 /* FindGroupsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindGroupsViewController.swift; sourceTree = "<group>"; };
 		3196DF3D25EBFB870014B9C4 /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
 		3196DF5725EF97A10014B9C4 /* PhotosCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCell.swift; sourceTree = "<group>"; };
+		3196F6D3267A450200BAA5E2 /* ErrorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorModel.swift; sourceTree = "<group>"; };
 		31AC4502266E6C6D00E40115 /* NewsAuthorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsAuthorCell.swift; sourceTree = "<group>"; };
 		31AC4503266E6C6D00E40115 /* NewsAuthorCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsAuthorCell.xib; sourceTree = "<group>"; };
 		31AC450B266E6D1A00E40115 /* NewsTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTextCell.swift; sourceTree = "<group>"; };
@@ -98,6 +101,7 @@
 		31AC4512266E6DDA00E40115 /* NewsPhotoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsPhotoCell.xib; sourceTree = "<group>"; };
 		31AC4517266E6E3600E40115 /* NewsInteractionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsInteractionCell.swift; sourceTree = "<group>"; };
 		31AC4518266E6E3600E40115 /* NewsInteractionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsInteractionCell.xib; sourceTree = "<group>"; };
+		31AC451F2674DEDA00E40115 /* NewsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsModel.swift; sourceTree = "<group>"; };
 		31CA5C6C260F9EA300E81A3A /* SelfConfiguringCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfConfiguringCell.swift; sourceTree = "<group>"; };
 		31CA5C822622E63900E81A3A /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		31DA9E6426060B9D00DB9390 /* FriendsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsCell.swift; sourceTree = "<group>"; };
@@ -225,9 +229,9 @@
 			isa = PBXGroup;
 			children = (
 				313B188A263076E500CD496C /* GroupModel.swift */,
-				3196DF3525EBFA0B0014B9C4 /* GroupsViewController.swift */,
 				313B186A2623822800CD496C /* GroupsCell.xib */,
 				313B18692623822800CD496C /* GroupsCell.swift */,
+				3196DF3525EBFA0B0014B9C4 /* GroupsViewController.swift */,
 				313B1871262385F400CD496C /* FindGroupsCell.xib */,
 				313B1870262385F400CD496C /* FindGroupsCell.swift */,
 				3196DF3925EBFAF10014B9C4 /* FindGroupsViewController.swift */,
@@ -238,6 +242,7 @@
 		3168BE0B2646E4D000309528 /* News */ = {
 			isa = PBXGroup;
 			children = (
+				31AC451F2674DEDA00E40115 /* NewsModel.swift */,
 				31AC4502266E6C6D00E40115 /* NewsAuthorCell.swift */,
 				31AC4503266E6C6D00E40115 /* NewsAuthorCell.xib */,
 				31AC450B266E6D1A00E40115 /* NewsTextCell.swift */,
@@ -345,6 +350,7 @@
 				31CA5C6C260F9EA300E81A3A /* SelfConfiguringCell.swift */,
 				3168BE142646E5B000309528 /* Title */,
 				3168BE112646E58800309528 /* Interaction */,
+				3196F6D3267A450200BAA5E2 /* ErrorModel.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -491,6 +497,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3196F6D4267A450200BAA5E2 /* ErrorModel.swift in Sources */,
 				31AC4504266E6C6D00E40115 /* NewsAuthorCell.swift in Sources */,
 				31331060265FD22200A48C28 /* Firebase.swift in Sources */,
 				3196DF3225EBF86A0014B9C4 /* FriendsViewController.swift in Sources */,
@@ -521,6 +528,7 @@
 				3147E22425DDBA82005A0306 /* SceneDelegate.swift in Sources */,
 				31AC4513266E6DDA00E40115 /* NewsPhotoCell.swift in Sources */,
 				313B188B263076E500CD496C /* GroupModel.swift in Sources */,
+				31AC45202674DEDA00E40115 /* NewsModel.swift in Sources */,
 				3196DF3625EBFA0B0014B9C4 /* GroupsViewController.swift in Sources */,
 				313B185D262322E300CD496C /* TitleView.swift in Sources */,
 				3168BE1B2646E73D00309528 /* Photo.swift in Sources */,

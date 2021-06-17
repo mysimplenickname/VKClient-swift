@@ -15,14 +15,18 @@ class NewsAuthorCell: UITableViewCell, SelfConfiguringCell {
     
     func configureCell(object: Any) {
         
-        guard type(of: object) == News.self else { return }
-        let news = object as! News
+        guard type(of: object) == NewsModelForUse.self else { return }
+        let news = object as! NewsModelForUse
         
-        titleView.configureTitleView(
-            titleImage: UIImage(systemName: "person")!,
-            titleLabel: news.authorLabel,
-            subtitleLabel: ""
-        )
+        guard let url = URL(string: news.mainPhoto) else { return }
+        loadPhoto(from: url) { [self] image in
+            titleView.configureTitleView(
+                titleImage: image,
+                titleLabel: news.name,
+                subtitleLabel: ""
+            )
+        }
+        
     }
     
 }
