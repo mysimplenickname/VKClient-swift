@@ -15,7 +15,6 @@ struct GroupModel: Codable {
 
 //MARK: - Response
 struct GroupModelResponse: Codable {
-//    let count: Int
     let items: [GroupModelItem]
 }
 

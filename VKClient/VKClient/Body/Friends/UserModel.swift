@@ -29,7 +29,7 @@ struct UserModelItem: Codable {
         case id
         case firstName = "first_name"
         case lastName = "last_name"
-        case mainPhoto = "photo_200_orig"
+        case mainPhoto = "photo_100"
     }
 }
 

@@ -15,11 +15,14 @@ class NewsPhotoCell: UITableViewCell, SelfConfiguringCell {
     
     func configureCell(object: Any) {
         
-        guard type(of: object) == News.self else { return }
-        let news = object as! News
+        guard type(of: object) == NewsModelItem.self else { return }
+        let news = object as! NewsModelItem
         
-        if news.image != nil {
-            newsImageView?.image = UIImage(named: news.image!.name)
+        if news.attachments.count != 0 {
+            guard let url = URL(string: news.attachments[0].photo.sizes[3].url) else { return }
+            loadPhoto(from: url) { [self] image in
+                newsImageView?.image = image
+            }
         }
     }
     

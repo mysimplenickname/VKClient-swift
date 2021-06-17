@@ -13,24 +13,27 @@ struct NewsModel: Codable {
 
 struct NewsModelResponse: Codable {
     let items: [NewsModelItem]
+    let profiles: [UserModelItem]
+    let groups: [GroupModelItem]
 }
 
 struct NewsModelItem: Codable {
-    let type: String
     let sourceId: Int
     let date: Int
+    let postType: String
     let text: String
+    let attachments: [NewsAttachmentItem]
     
     enum CodingKeys: String, CodingKey {
-        case type = "post_type"
         case sourceId = "source_id"
         case date
+        case postType = "post_type"
         case text
+        case attachments
     }
 }
 
-struct NewsModelForUse {
-    let name: String
-    let mainPhoto: String
-    let text: String
+struct NewsAttachmentItem: Codable {
+    let type: String
+    let photo: PhotoModelItem
 }

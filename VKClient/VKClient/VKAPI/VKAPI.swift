@@ -11,66 +11,67 @@ import Alamofire
 let HOST = "https://api.vk.com"
 let VERSION = "5.131"
 
-func getUserInfo(for userId: Int, completion: @escaping (UserModelItem) -> Void) {
-    let path = "/method/users.get"
-    
-    let parameters: Parameters = [
-        "user_ids": userId,
-        "fields": "photo_200_orig",
-        "access_token": Session.shared.token,
-        "v": VERSION
-    ]
-    
-    AF.request(HOST + path, method: .get, parameters: parameters).responseData { response in
-        
-        guard let data = response.value else { return }
-        
-        var user: UserModelItem?
-        
-        do {
-            user = try JSONDecoder().decode(UserModel.self, from: data).response.items[0]
-        } catch {
-            print(error)
-        }
-        
-        completion(user!)
-    }
-    
-}
+//func getUserInfo(for userId: Int, completion: @escaping (UserModelItem) -> Void) {
+//    let path = "/method/users.get"
+//
+//    let parameters: Parameters = [
+//        "user_ids": userId,
+//        "fields": "photo_200_orig",
+//        "access_token": Session.shared.token,
+//        "v": VERSION
+//    ]
+//
+//    AF.request(HOST + path, method: .get, parameters: parameters).responseData { response in
+//
+//        guard let data = response.value else { return }
+//
+//        var user: UserModelItem?
+//
+//        do {
+//            user = try JSONDecoder().decode(UserModel.self, from: data).response.items[0]
+//        } catch {
+//            print(error)
+//        }
+//
+//        completion(user!)
+//    }
+//
+//}
 
-func getGroupInfo(for groupId: Int, completion: @escaping (GroupModelItem) -> Void) {
-    let path = "/mathod/groups.getById"
-    
-    let parameters: Parameters = [
-        "group_ids": groupId,
-        "fields": "photo_200",
-        "user_id": Session.shared.userId,
-        "access_token": Session.shared.token,
-        "v": VERSION
-    ]
-    
-    AF.request(HOST + path, method: .get, parameters: parameters).responseData { response in
-        
-        guard let data = response.value else { return }
-     
-        var group: GroupModelItem?
-        
-        do {
-            group = try JSONDecoder().decode(SingleGroupModel.self, from: data).response[0]
-        } catch {
-            print(error)
-            print(try? JSONDecoder().decode(ErrorModel.self, from: data))
-        }
-        
-        completion(group!)
-    }
-}
+//func getGroupInfo(for groupId: Int, completion: @escaping (GroupModelItem) -> Void) {
+//    let path = "/mathod/groups.getById"
+//
+//    let parameters: Parameters = [
+//        "group_id": groupId,
+//        "fields": "photo_200",
+//        "access_token": Session.shared.token,
+//        "v": VERSION
+//    ]
+//
+//    AF.request(HOST + path, method: .get, parameters: parameters).responseData { response in
+//
+//        guard let data = response.value else { return }
+//
+//        var group: GroupModelItem?
+//
+//        do {
+//            group = try JSONDecoder().decode(SingleGroupModel.self, from: data).response[0]
+//        } catch {
+//            print(error)
+//            print("error: ", try? JSONDecoder().decode(ErrorModel.self, from: data))
+//        }
+//
+//        DispatchQueue.main.async {
+//            completion(group ?? GroupModelItem(id: 0, name: "", mainPhoto: ""))
+//        }
+//    }
+//}
 
 func getFriends(for userId: Int, completion: @escaping ([RealmUserModelItem]) -> Void ) {
     let path = "/method/friends.get"
     
     let parameters: Parameters = [
-        "fields": "photo_200_orig",
+        "fields": "photo_100",
         "user_id": userId,
         "access_token": Session.shared.token,
         "v": VERSION
@@ -192,7 +193,7 @@ func loadPhoto(from url: URL, completion: @escaping (UIImage) -> Void) {
     }.resume()
 }
 
-func getNews(ownerId: Int, completion: @escaping ([NewsModelItem]) -> Void) {
+func getNews(ownerId: Int, completion: @escaping (NewsModelResponse) -> Void) {
     let path = "/method/newsfeed.get"
     
     let parameters: Parameters = [
@@ -207,15 +208,15 @@ func getNews(ownerId: Int, completion: @escaping ([NewsModelItem]) -> Void) {
         
         guard let data = response.value else { return }
         
-        var rawNews = [NewsModelItem]()
+        var rawNews: NewsModelResponse?
         
         do {
-            rawNews = try JSONDecoder().decode(NewsModel.self, from: data).response.items
+            rawNews = try JSONDecoder().decode(NewsModel.self, from: data).response
         } catch {
             print(error)
             print(try? JSONDecoder().decode(ErrorModel.self, from: data))
         }
         
-        completion(rawNews)
+        completion(rawNews ?? NewsModelResponse(items: [], profiles: [], groups: []))
     }
 }
