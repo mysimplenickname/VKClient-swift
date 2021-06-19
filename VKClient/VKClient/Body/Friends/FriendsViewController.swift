@@ -19,8 +19,6 @@ class FriendsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     
-    // MARK: - Life cycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
