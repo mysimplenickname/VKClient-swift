@@ -36,7 +36,7 @@ class FriendsViewController: UIViewController {
             "v": VERSION
         ]
         
-        let request = AF.request(HOST + path, method: .get, parameters: parameters)
+        let request = Alamofire.request(HOST + path, method: .get, parameters: parameters)
         
         let getDataOperation = GetDataOperation(request: request)
         myOwnQueue.addOperation(getDataOperation)

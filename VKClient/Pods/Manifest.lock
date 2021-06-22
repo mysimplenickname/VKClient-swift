@@ -212,7 +212,7 @@ PODS:
     - abseil/base/base_internal
     - abseil/base/config
     - abseil/meta/type_traits
-  - Alamofire (5.4.2)
+  - Alamofire (4.9.1)
   - BoringSSL-GRPC (0.0.7):
     - BoringSSL-GRPC/Implementation (= 0.0.7)
     - BoringSSL-GRPC/Interface (= 0.0.7)
@@ -372,6 +372,10 @@ PODS:
     - nanopb/encode (= 2.30908.0)
   - nanopb/decode (2.30908.0)
   - nanopb/encode (2.30908.0)
+  - PromiseKit/Alamofire (6.15.3):
+    - Alamofire (~> 4.0)
+    - PromiseKit/CorePromise
+  - PromiseKit/CorePromise (6.15.3)
   - PromisesObjC (1.2.12)
   - Realm (10.7.3):
     - Realm/Headers (= 10.7.3)
@@ -380,12 +384,13 @@ PODS:
     - Realm (= 10.7.3)
 
 DEPENDENCIES:
-  - Alamofire (~> 5.2)
+  - Alamofire (~> 4.0)
   - Firebase/Analytics
   - Firebase/Auth
   - Firebase/Crashlytics
   - Firebase/Database
   - Firebase/Firestore
+  - PromiseKit/Alamofire (~> 6.0)
   - RealmSwift
 
 SPEC REPOS:
@@ -410,13 +415,14 @@ SPEC REPOS:
     - GTMSessionFetcher
     - leveldb-library
     - nanopb
+    - PromiseKit
     - PromisesObjC
     - Realm
     - RealmSwift
 
 SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
-  Alamofire: bfbc4c2fe5909b1d94fb4ef2277c6b3727ef5dae
+  Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   BoringSSL-GRPC: 8edf627ee524575e2f8d19d56f068b448eea3879
   Firebase: 73c3e3b216ec1ecbc54d2ffdd4670c65c749edb1
   FirebaseAnalytics: dcb92c7c9ef4fa7ffac276e8f87bd4fc8c97f1b8
@@ -435,10 +441,11 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: b3503b20a988c4e20cc189aa798fd18220133f52
   leveldb-library: 50c7b45cbd7bf543c81a468fe557a16ae3db8729
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
+  PromiseKit: 3b2b6995e51a954c46dbc550ce3da44fbfb563c5
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
   Realm: 472ea9ad72cee02df140dfd2926f482df6addbd2
   RealmSwift: 7462f44bc04b61505ef70e4863ee7ce48fa12ede
 
-PODFILE CHECKSUM: 037c50b0924d29d75294cfe9dd1b3dfa5d48579e
+PODFILE CHECKSUM: c1a600861d96b9c1295c47f8e5e13e35a7376ea9
 
 COCOAPODS: 1.10.1
