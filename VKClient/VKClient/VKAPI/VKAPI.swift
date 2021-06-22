@@ -87,7 +87,11 @@ func getFriends(for userId: Int, completion: @escaping ([RealmUserModelItem]) ->
             rawFriends = try JSONDecoder().decode(UserModel.self, from: data).response.items
         } catch {
             print(error)
-            print(try! JSONDecoder().decode(ErrorModel.self, from: data))
+            do {
+                print(try JSONDecoder().decode(ErrorModel.self, from: data))
+            } catch {
+                print(error)
+            }
         }
         
         saveObjects(raw: rawFriends, type: RealmUserModelItem.self)
@@ -117,7 +121,11 @@ func getGroups(for userId: Int, completion: @escaping ([RealmGroupModelItem]) ->
             rawGroups = try JSONDecoder().decode(GroupModel.self, from: data).response.items
         } catch {
             print(error)
-            print(try! JSONDecoder().decode(ErrorModel.self, from: data))
+            do {
+                print(try JSONDecoder().decode(ErrorModel.self, from: data))
+            } catch {
+                print(error)
+            }
         }
         
         saveObjects(raw: rawGroups, type: RealmGroupModelItem.self)
@@ -147,7 +155,11 @@ func searchGroups(for userId: Int, searchString: String, completion: @escaping (
             rawGroups = try JSONDecoder().decode(GroupModel.self, from: data).response.items
         } catch {
             print(error)
-            print(try! JSONDecoder().decode(ErrorModel.self, from: data))
+            do {
+                print(try JSONDecoder().decode(ErrorModel.self, from: data))
+            } catch {
+                print(error)
+            }
         }
         
         completion(convertToObjects(raw: rawGroups) as! [RealmGroupModelItem])
@@ -175,7 +187,11 @@ func getPhotos(ownerId: Int, completion: @escaping ([RealmPhotoModelItem]) -> Vo
             rawPhotos = try JSONDecoder().decode(PhotoModel.self, from: data).response.items
         } catch {
             print(error)
-            print(try! JSONDecoder().decode(ErrorModel.self, from: data))
+            do {
+                print(try JSONDecoder().decode(ErrorModel.self, from: data))
+            } catch {
+                print(error)
+            }
         }
         
         saveObjects(raw: rawPhotos, type: RealmPhotoModelItem.self)
@@ -214,7 +230,11 @@ func getNews(ownerId: Int, completion: @escaping (NewsModelResponse) -> Void) {
             rawNews = try JSONDecoder().decode(NewsModel.self, from: data).response
         } catch {
             print(error)
-            print(try! JSONDecoder().decode(ErrorModel.self, from: data))
+            do {
+                print(try JSONDecoder().decode(ErrorModel.self, from: data))
+            } catch {
+                print(error)
+            }
         }
         
         completion(rawNews ?? NewsModelResponse(items: [], profiles: [], groups: []))

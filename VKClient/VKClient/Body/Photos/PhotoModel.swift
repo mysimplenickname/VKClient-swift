@@ -15,7 +15,6 @@ struct PhotoModel: Codable {
 
 // MARK: - Response
 struct PhotoModelResponse: Codable {
-    let count: Int
     let items: [PhotoModelItem]
 }
 
