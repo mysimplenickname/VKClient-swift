@@ -17,10 +17,10 @@ class ReloadTableOperation<T: Codable>: Operation {
     }
     
     override func main() {
-        guard let convertDataToRealmObjects = dependencies.first as? ConvertDataToRealmObjects<T> else { return }
+        guard let parseDataOperation = dependencies.first as? ParseDataOperation<T> else { return }
         
-        controller.realmFriends = convertDataToRealmObjects.outputData as! [RealmUserModelItem]
-        controller.realmFriendsForUse = convertDataToRealmObjects.outputData as! [RealmUserModelItem]
+        controller.friends = parseDataOperation.outputData as! [UserModelItem]
+        controller.friendsForUse = parseDataOperation.outputData as! [UserModelItem]
         controller.tableView.reloadData()
     }
     

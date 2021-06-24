@@ -9,6 +9,8 @@ import UIKit
 
 class NewsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
+    var imageService: ImageService?
+    
     var news: NewsModelResponse?
     
     @IBOutlet weak var tableView: UITableView!
@@ -20,6 +22,8 @@ class NewsViewController: UIViewController, UITableViewDataSource, UITableViewDe
             news = rawNews
             tableView.reloadData()
         }
+        
+        imageService = ImageService(container: tableView)
         
         tableView.register(UINib(nibName: "NewsAuthorCell", bundle: nil), forCellReuseIdentifier: NewsAuthorCell.reuseIdentifier)
         tableView.register(UINib(nibName: "NewsTextCell", bundle: nil), forCellReuseIdentifier: NewsTextCell.reuseIdentifier)
@@ -38,6 +42,9 @@ class NewsViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row % 4 == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: NewsAuthorCell.reuseIdentifier, for: indexPath) as! NewsAuthorCell
+            
+            news?.groups[indexPath.section].image = imageService?.getImage(atIndexPath: indexPath, byUrl: news?.groups[indexPath.section].imageUrl ?? "") ?? UIImage()
+
             cell.configureCell(object: news?.groups[indexPath.section] ?? Void.self)
             return cell
         } else if indexPath.row - 1 % 4 == 0 {
@@ -46,6 +53,13 @@ class NewsViewController: UIViewController, UITableViewDataSource, UITableViewDe
             return cell
         } else if indexPath.row - 2 % 4 == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: NewsPhotoCell.reuseIdentifier, for: indexPath) as! NewsPhotoCell
+            
+            for (i, attachment) in news!.items[indexPath.section].attachments.enumerated() {
+                if attachment.type == "photo" {
+                    news?.items[indexPath.section].attachments[i].photo?.image = imageService?.getImage(atIndexPath: indexPath, byUrl: news?.items[indexPath.section].attachments[i].photo?.imageUrl ?? "") ?? UIImage()
+                }
+            }
+            
             cell.configureCell(object: news?.items[indexPath.section] ?? Void.self)
             return cell
         } else if indexPath.row - 3 % 4 == 0 {

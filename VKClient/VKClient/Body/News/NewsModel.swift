@@ -6,15 +6,16 @@
 //
 
 import Foundation
+import UIKit
 
 struct NewsModel: Codable {
     let response: NewsModelResponse
 }
 
 struct NewsModelResponse: Codable {
-    let items: [NewsModelItem]
+    var items: [NewsModelItem]
     let profiles: [UserModelItem]
-    let groups: [GroupModelItem]
+    var groups: [GroupModelItem]
 }
 
 struct NewsModelItem: Codable {
@@ -22,7 +23,7 @@ struct NewsModelItem: Codable {
     let date: Int
     let postType: String
     let text: String
-    let attachments: [NewsAttachmentItem]
+    var attachments: [NewsAttachmentItem]
     
     enum CodingKeys: String, CodingKey {
         case sourceId = "source_id"
@@ -34,6 +35,6 @@ struct NewsModelItem: Codable {
 }
 
 struct NewsAttachmentItem: Codable {
-    let type: String
-    let photo: PhotoModelItem
+    let type: String?
+    var photo: PhotoModelItem?
 }

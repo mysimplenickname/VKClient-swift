@@ -41,8 +41,6 @@
 		3196F6F5267EAE8300BAA5E2 /* AsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3196F6F4267EAE8300BAA5E2 /* AsyncOperation.swift */; };
 		3196F6F9267EB28B00BAA5E2 /* GetDataOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3196F6F8267EB28B00BAA5E2 /* GetDataOperation.swift */; };
 		3196F6FE267EB37C00BAA5E2 /* ParseDataOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3196F6FD267EB37C00BAA5E2 /* ParseDataOperation.swift */; };
-		3196F70226821D1600BAA5E2 /* SaveDataToRealmOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3196F70126821D1500BAA5E2 /* SaveDataToRealmOperation.swift */; };
-		3196F70526821F5500BAA5E2 /* ConvertDataToRealmObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3196F70426821F5500BAA5E2 /* ConvertDataToRealmObjects.swift */; };
 		3196F709268231B600BAA5E2 /* ReloadTableOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3196F708268231B600BAA5E2 /* ReloadTableOperation.swift */; };
 		3196F7152682868C00BAA5E2 /* GetGroupsWithPromises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3196F7142682868C00BAA5E2 /* GetGroupsWithPromises.swift */; };
 		31AC4504266E6C6D00E40115 /* NewsAuthorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AC4502266E6C6D00E40115 /* NewsAuthorCell.swift */; };
@@ -54,6 +52,7 @@
 		31AC4519266E6E3600E40115 /* NewsInteractionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AC4517266E6E3600E40115 /* NewsInteractionCell.swift */; };
 		31AC451A266E6E3600E40115 /* NewsInteractionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31AC4518266E6E3600E40115 /* NewsInteractionCell.xib */; };
 		31AC45202674DEDA00E40115 /* NewsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AC451F2674DEDA00E40115 /* NewsModel.swift */; };
+		31C553AC2684D79B0089FC4B /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C553AB2684D79A0089FC4B /* ImageService.swift */; };
 		31CA5C6D260F9EA300E81A3A /* SelfConfiguringCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CA5C6C260F9EA300E81A3A /* SelfConfiguringCell.swift */; };
 		31CA5C832622E64000E81A3A /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CA5C822622E63900E81A3A /* Session.swift */; };
 		31DA9E6626060B9D00DB9390 /* FriendsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DA9E6426060B9D00DB9390 /* FriendsCell.swift */; };
@@ -103,8 +102,6 @@
 		3196F6F4267EAE8300BAA5E2 /* AsyncOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncOperation.swift; sourceTree = "<group>"; };
 		3196F6F8267EB28B00BAA5E2 /* GetDataOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetDataOperation.swift; sourceTree = "<group>"; };
 		3196F6FD267EB37C00BAA5E2 /* ParseDataOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseDataOperation.swift; sourceTree = "<group>"; };
-		3196F70126821D1500BAA5E2 /* SaveDataToRealmOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveDataToRealmOperation.swift; sourceTree = "<group>"; };
-		3196F70426821F5500BAA5E2 /* ConvertDataToRealmObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertDataToRealmObjects.swift; sourceTree = "<group>"; };
 		3196F708268231B600BAA5E2 /* ReloadTableOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReloadTableOperation.swift; sourceTree = "<group>"; };
 		3196F7142682868C00BAA5E2 /* GetGroupsWithPromises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetGroupsWithPromises.swift; sourceTree = "<group>"; };
 		31AC4502266E6C6D00E40115 /* NewsAuthorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsAuthorCell.swift; sourceTree = "<group>"; };
@@ -116,6 +113,7 @@
 		31AC4517266E6E3600E40115 /* NewsInteractionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsInteractionCell.swift; sourceTree = "<group>"; };
 		31AC4518266E6E3600E40115 /* NewsInteractionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsInteractionCell.xib; sourceTree = "<group>"; };
 		31AC451F2674DEDA00E40115 /* NewsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsModel.swift; sourceTree = "<group>"; };
+		31C553AB2684D79A0089FC4B /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
 		31CA5C6C260F9EA300E81A3A /* SelfConfiguringCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfConfiguringCell.swift; sourceTree = "<group>"; };
 		31CA5C822622E63900E81A3A /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		31DA9E6426060B9D00DB9390 /* FriendsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsCell.swift; sourceTree = "<group>"; };
@@ -358,9 +356,7 @@
 				3196F6F4267EAE8300BAA5E2 /* AsyncOperation.swift */,
 				3196F6F8267EB28B00BAA5E2 /* GetDataOperation.swift */,
 				3196F6FD267EB37C00BAA5E2 /* ParseDataOperation.swift */,
-				3196F70426821F5500BAA5E2 /* ConvertDataToRealmObjects.swift */,
 				3196F708268231B600BAA5E2 /* ReloadTableOperation.swift */,
-				3196F70126821D1500BAA5E2 /* SaveDataToRealmOperation.swift */,
 			);
 			path = Operations;
 			sourceTree = "<group>";
@@ -378,6 +374,7 @@
 			children = (
 				31CA5C6C260F9EA300E81A3A /* SelfConfiguringCell.swift */,
 				3196F6D3267A450200BAA5E2 /* ErrorModel.swift */,
+				31C553AB2684D79A0089FC4B /* ImageService.swift */,
 				3168BE142646E5B000309528 /* Title */,
 				3168BE112646E58800309528 /* Interaction */,
 			);
@@ -544,6 +541,7 @@
 				313B188026274E2100CD496C /* VKAPI.swift in Sources */,
 				3196F709268231B600BAA5E2 /* ReloadTableOperation.swift in Sources */,
 				3168BE1A2646E73D00309528 /* Group.swift in Sources */,
+				31C553AC2684D79B0089FC4B /* ImageService.swift in Sources */,
 				3168BE1C2646E73D00309528 /* User.swift in Sources */,
 				31925DBB2639FB9800196533 /* Realm.swift in Sources */,
 				313B188726305FF500CD496C /* UserModel.swift in Sources */,
@@ -555,10 +553,8 @@
 				3196DF3A25EBFAF10014B9C4 /* FindGroupsViewController.swift in Sources */,
 				31AC450D266E6D1A00E40115 /* NewsTextCell.swift in Sources */,
 				313B18782626D55200CD496C /* LoginViewController.swift in Sources */,
-				3196F70226821D1600BAA5E2 /* SaveDataToRealmOperation.swift in Sources */,
 				3196DF3E25EBFB870014B9C4 /* PhotosViewController.swift in Sources */,
 				31E10DDD2607C4530086C348 /* NewsViewController.swift in Sources */,
-				3196F70526821F5500BAA5E2 /* ConvertDataToRealmObjects.swift in Sources */,
 				313B1851262310F000CD496C /* AnimatedDotsView.swift in Sources */,
 				313B186126236F1000CD496C /* News.swift in Sources */,
 				3196F6F9267EB28B00BAA5E2 /* GetDataOperation.swift in Sources */,

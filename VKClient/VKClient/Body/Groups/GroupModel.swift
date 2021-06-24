@@ -22,13 +22,15 @@ struct GroupModelResponse: Codable {
 struct GroupModelItem: Codable {
     let id: Int
     let name: String
-    let mainPhoto: String
+    let imageUrl: String
     
     enum CodingKeys: String, CodingKey {
         case id
         case name
-        case mainPhoto = "photo_200"
+        case imageUrl = "photo_200"
     }
+    
+    var image: UIImage?
 }
 
 struct SingleGroupModel: Codable {
@@ -39,5 +41,5 @@ struct SingleGroupModel: Codable {
 class RealmGroupModelItem: Object {
     @objc dynamic var id: Int = 0
     @objc dynamic var name: String = ""
-    @objc dynamic var mainPhoto: String = ""
+    @objc dynamic var imageUrl: String = ""
 }

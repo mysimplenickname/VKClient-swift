@@ -81,7 +81,7 @@ let VERSION = "5.131"
 //    }
 //}
 
-func searchGroups(for userId: Int, searchString: String, completion: @escaping ([RealmGroupModelItem]) -> Void) {
+func searchGroups(for userId: Int, searchString: String, completion: @escaping ([GroupModelItem]) -> Void) {
     let path = "/method/groups.search"
     
     let parameters: Parameters = [
@@ -109,13 +109,13 @@ func searchGroups(for userId: Int, searchString: String, completion: @escaping (
             }
         }
         
-        completion(convertToObjects(raw: rawGroups) as! [RealmGroupModelItem])
+        completion(rawGroups)
         
     }
     
 }
     
-func getPhotos(ownerId: Int, completion: @escaping ([RealmPhotoModelItem]) -> Void) {
+func getPhotos(ownerId: Int, completion: @escaping ([PhotoModelItem]) -> Void) {
     let path = "/method/photos.getAll"
     
     let parameters: Parameters = [
@@ -141,20 +141,19 @@ func getPhotos(ownerId: Int, completion: @escaping ([RealmPhotoModelItem]) -> Vo
             }
         }
         
-        saveObjects(raw: rawPhotos, type: RealmPhotoModelItem.self)
-        
-        completion(convertToObjects(raw: rawPhotos) as! [RealmPhotoModelItem])
+        completion(rawPhotos)
     }
 }
 
-func loadPhoto(from url: URL, completion: @escaping (UIImage) -> Void) {
-    URLSession.shared.dataTask(with: url) { data, response, error in
-        guard let data = data, error == nil else { return }
-        DispatchQueue.main.async() {
-            completion(UIImage(data: data)!)
-        }
-    }.resume()
-}
+// Recreated with ImageService
+//func loadPhoto(from url: URL, completion: @escaping (UIImage) -> Void) {
+//    URLSession.shared.dataTask(with: url) { data, response, error in
+//        guard let data = data, error == nil else { return }
+//        DispatchQueue.main.async() {
+//            completion(UIImage(data: data)!)
+//        }
+//    }.resume()
+//}
 
 func getNews(ownerId: Int, completion: @escaping (NewsModelResponse) -> Void) {
     let path = "/method/newsfeed.get"

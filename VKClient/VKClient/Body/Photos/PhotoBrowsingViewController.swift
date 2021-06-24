@@ -9,8 +9,10 @@ import UIKit
 
 class PhotoBrowsingViewController: UIViewController {
 
-    var realmImages: [RealmPhotoModelItem] = []
-    var realmImagesIndex: Int!
+    var imageService: ImageService?
+    
+    var images: [PhotoModelItem] = []
+    var imagesIndex: Int!
     
     @IBOutlet weak var centerContainerView: UIView!
     @IBOutlet weak var interactionView: InteractionView!
@@ -36,19 +38,16 @@ class PhotoBrowsingViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if realmImagesIndex < 0 && realmImagesIndex > realmImages.count - 1 {
-            realmImagesIndex = 0
+        if imagesIndex < 0 && imagesIndex > images.count - 1 {
+            imagesIndex = 0
         }
         
-        guard let url = URL(string: realmImages[realmImagesIndex].url) else { return }
-        loadPhoto(from: url) { [self] image in
-            centerImageView.image = image
-        }
+        centerImageView.image = imageService?.getImage(atIndexPath: IndexPath(), byUrl: images[imagesIndex].imageUrl ?? "")
         
         centerContainerView.addSubview(centerImageView)
         centerImageView.frame = centerContainerView.bounds
         
-        title = String("\(realmImagesIndex! + 1) of \(realmImages.count)")
+        title = String("\(imagesIndex! + 1) of \(images.count)")
         
         centerContainerView.addGestureRecognizer(panGestureRecognizer)
     }
@@ -84,19 +83,16 @@ class PhotoBrowsingViewController: UIViewController {
             
                 switch currentState {
                 case .left:
-                    realmImagesIndex -= 1
+                    imagesIndex -= 1
                 case .right:
-                    realmImagesIndex += 1
+                    imagesIndex += 1
                 default:
                     break
                 }
                 
                 centerImageView.transform = .identity
                 
-                guard let url = URL(string: realmImages[realmImagesIndex].url) else { return }
-                loadPhoto(from: url) { [self] image in
-                    centerImageView.image = image
-                }
+                centerImageView.image = imageService?.getImage(atIndexPath: IndexPath(), byUrl: images[imagesIndex].imageUrl ?? "")
                 
                 runningAnimators.remove(at: runningAnimators.firstIndex(of: centerTransitionAnimator)!)
             }
@@ -109,17 +105,15 @@ class PhotoBrowsingViewController: UIViewController {
             
             switch currentState {
             case .left:
-                guard let url = URL(string: realmImages[realmImagesIndex - 1].url) else { return }
-                loadPhoto(from: url) { [self] image in
-                    nextImageView.image = image
-                }
+                
+                nextImageView.image = imageService?.getImage(atIndexPath: IndexPath(), byUrl: images[imagesIndex - 1].imageUrl ?? "")
+                
                 centerContainerView.addSubview(nextImageView)
                 nextImageView.frame = centerContainerView.bounds.offsetBy(dx: -centerContainerView.frame.width, dy: 0)
             case .right:
-                guard let url = URL(string: realmImages[realmImagesIndex + 1].url) else { return }
-                loadPhoto(from: url) { [self] image in
-                    nextImageView.image = image
-                }
+                
+                nextImageView.image = imageService?.getImage(atIndexPath: IndexPath(), byUrl: images[imagesIndex + 1].imageUrl ?? "")
+                
                 centerContainerView.addSubview(nextImageView)
                 nextImageView.frame = centerContainerView.bounds.offsetBy(dx: centerContainerView.frame.width, dy: 0)
             default:
@@ -129,10 +123,10 @@ class PhotoBrowsingViewController: UIViewController {
             let sideTransitionAnimator = UIViewPropertyAnimator(duration: duration, curve: .linear, animations: { [self] in
                 switch currentState {
                 case .left:
-                    title = String("\(realmImagesIndex!) of \(realmImages.count)")
+                    title = String("\(imagesIndex!) of \(images.count)")
                     nextImageView.transform = CGAffineTransform(translationX: centerContainerView.frame.width, y: 0)
                 case .right:
-                    title = String("\(realmImagesIndex! + 2) of \(realmImages.count)")
+                    title = String("\(imagesIndex! + 2) of \(images.count)")
                     nextImageView.transform = CGAffineTransform(translationX: -centerContainerView.frame.width, y: 0)
                 default:
                     break
@@ -187,7 +181,7 @@ class PhotoBrowsingViewController: UIViewController {
                 }
                 runningAnimators.removeAll()
                 
-                title = String("\(realmImagesIndex! + 1) of \(realmImages.count)")
+                title = String("\(imagesIndex! + 1) of \(images.count)")
                 
                 UIView.animate(
                     withDuration: 0.5,
@@ -214,8 +208,8 @@ class PhotoBrowsingViewController: UIViewController {
     
     private func canPerformTransition(state: Side) -> Bool {
         return state == .left
-            ? realmImagesIndex > 0
-            : realmImagesIndex < realmImages.count - 1
+            ? imagesIndex > 0
+            : imagesIndex < images.count - 1
     }
     
 }

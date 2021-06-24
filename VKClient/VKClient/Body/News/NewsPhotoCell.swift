@@ -19,10 +19,7 @@ class NewsPhotoCell: UITableViewCell, SelfConfiguringCell {
         let news = object as! NewsModelItem
         
         if news.attachments.count != 0 {
-            guard let url = URL(string: news.attachments[0].photo.sizes[3].url) else { return }
-            loadPhoto(from: url) { [self] image in
-                newsImageView?.image = image
-            }
+            newsImageView?.image = news.attachments.first?.photo?.image
         }
     }
     
