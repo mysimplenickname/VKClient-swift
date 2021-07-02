@@ -30,6 +30,7 @@
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="91b-jW-dxa" userLabel="likeButton">
                                     <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstAttribute="width" secondItem="91b-jW-dxa" secondAttribute="height" multiplier="1:1" id="m3V-Qj-deI"/>
                                         <constraint firstAttribute="height" constant="30" id="qCf-EF-tlq"/>
@@ -41,6 +42,7 @@
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rvR-ng-ikI" userLabel="likeLabel">
                                     <rect key="frame" x="30" y="0.0" width="30" height="30"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="30" id="t6L-AR-kJM"/>
                                     </constraints>
@@ -55,6 +57,7 @@
                         </stackView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7hk-kl-6PB" userLabel="commentButton">
                             <rect key="frame" x="90" y="6" width="30" height="30"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="7hk-kl-6PB" secondAttribute="height" multiplier="1:1" id="Ff6-LL-1QF"/>
                                 <constraint firstAttribute="height" constant="30" id="naS-Wo-ue3"/>
@@ -63,6 +66,7 @@
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ixD-Uv-Aln" userLabel="shareButton">
                             <rect key="frame" x="160" y="6" width="30" height="30"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="30" id="Ezb-F1-vku"/>
                                 <constraint firstAttribute="width" secondItem="ixD-Uv-Aln" secondAttribute="height" multiplier="1:1" id="NJg-l9-rIF"/>
