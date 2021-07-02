@@ -20,4 +20,9 @@ class GroupsCell: UITableViewCell, SelfConfiguringCell {
         titleView.configureTitleView(titleImage: group.image ?? UIImage(), titleLabel: group.name, subtitleLabel: "")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        titleView.configureTitleView(titleImage: UIImage(), titleLabel: "", subtitleLabel: "")
+    }
+    
 }

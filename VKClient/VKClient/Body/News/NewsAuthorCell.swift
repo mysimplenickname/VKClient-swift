@@ -22,4 +22,9 @@ class NewsAuthorCell: UITableViewCell, SelfConfiguringCell {
         
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        titleView.configureTitleView(titleImage: UIImage(), titleLabel: "", subtitleLabel: "")
+    }
+    
 }

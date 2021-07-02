@@ -20,4 +20,9 @@ class FriendsCell: UITableViewCell, SelfConfiguringCell {
         titleView.configureTitleView(titleImage: friend.image ?? UIImage(), titleLabel: friend.fullname, subtitleLabel: "")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        titleView.configureTitleView(titleImage: UIImage(), titleLabel: "", subtitleLabel: "")
+    }
+    
 }

@@ -18,9 +18,14 @@ class NewsPhotoCell: UITableViewCell, SelfConfiguringCell {
         guard type(of: object) == NewsModelItem.self else { return }
         let news = object as! NewsModelItem
         
-        if news.attachments.count != 0 {
-            newsImageView?.image = news.attachments.first?.photo?.image
+        if (news.attachments?.count) != nil {
+            newsImageView?.image = news.attachments!.first?.photo?.image
         }
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        newsImageView?.image = nil
     }
     
 }

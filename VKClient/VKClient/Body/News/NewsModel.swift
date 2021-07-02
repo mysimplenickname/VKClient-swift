@@ -23,7 +23,7 @@ struct NewsModelItem: Codable {
     let date: Int
     let postType: String
     let text: String
-    var attachments: [NewsAttachmentItem]
+    var attachments: [NewsAttachmentItem]?
     
     enum CodingKeys: String, CodingKey {
         case sourceId = "source_id"

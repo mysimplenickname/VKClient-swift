@@ -40,10 +40,15 @@ class NewsViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+                
         if indexPath.row % 4 == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: NewsAuthorCell.reuseIdentifier, for: indexPath) as! NewsAuthorCell
             
-            news?.groups[indexPath.section].image = imageService?.getImage(atIndexPath: indexPath, byUrl: news?.groups[indexPath.section].imageUrl ?? "") ?? UIImage()
+            let groupImage = imageService?.getImage(atIndexPath: indexPath, byUrl: news?.groups[indexPath.section].imageUrl ?? "") ?? UIImage()
+            
+            DispatchQueue.main.async {
+                self.news?.groups[indexPath.section].image = groupImage
+            }
 
             cell.configureCell(object: news?.groups[indexPath.section] ?? Void.self)
             return cell
@@ -54,9 +59,15 @@ class NewsViewController: UIViewController, UITableViewDataSource, UITableViewDe
         } else if indexPath.row - 2 % 4 == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: NewsPhotoCell.reuseIdentifier, for: indexPath) as! NewsPhotoCell
             
-            for (i, attachment) in news!.items[indexPath.section].attachments.enumerated() {
-                if attachment.type == "photo" {
-                    news?.items[indexPath.section].attachments[i].photo?.image = imageService?.getImage(atIndexPath: indexPath, byUrl: news?.items[indexPath.section].attachments[i].photo?.imageUrl ?? "") ?? UIImage()
+            if (news!.items[indexPath.section].attachments?.count) != nil {
+                for (i, attachment) in news!.items[indexPath.section].attachments!.enumerated() {
+                    if attachment.type == "photo" {
+                        let attachmentImage = imageService?.getImage(atIndexPath: indexPath, byUrl: news?.items[indexPath.section].attachments![i].photo?.imageUrl ?? "") ?? UIImage()
+                        
+                        DispatchQueue.main.async {
+                            self.news?.items[indexPath.section].attachments![i].photo?.image = attachmentImage
+                        }
+                    }
                 }
             }
             
