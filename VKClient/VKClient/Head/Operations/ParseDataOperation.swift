@@ -40,6 +40,8 @@ class ParseDataOperation<T: Codable>: Operation {
             outputData = (tempData as! GroupModel).response.items
         case is PhotoModel.Type:
             outputData = (tempData as! PhotoModel).response.items
+        case is NewsModel.Type:
+            outputData = (tempData as! NewsModel).response
         default:
             break
         }

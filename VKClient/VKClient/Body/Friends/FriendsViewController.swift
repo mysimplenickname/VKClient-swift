@@ -45,7 +45,7 @@ class FriendsViewController: UIViewController {
         parseDataOperation.addDependency(getDataOperation)
         myOwnQueue.addOperation(parseDataOperation)
         
-        let reloadTableOperation = ReloadTableOperation<UserModel>(controller: self)
+        let reloadTableOperation = ReloadTableOperation<UserModel, FriendsViewController>(controller: self)
         reloadTableOperation.addDependency(parseDataOperation)
         OperationQueue.main.addOperation(reloadTableOperation)
         

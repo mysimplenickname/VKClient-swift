@@ -14,7 +14,7 @@ struct NewsModel: Codable {
 
 struct NewsModelResponse: Codable {
     var items: [NewsModelItem]
-    let profiles: [UserModelItem]
+    var profiles: [UserModelItem]
     var groups: [GroupModelItem]
 }
 
@@ -35,6 +35,6 @@ struct NewsModelItem: Codable {
 }
 
 struct NewsAttachmentItem: Codable {
-    let type: String?
+    var type: String?
     var photo: PhotoModelItem?
 }

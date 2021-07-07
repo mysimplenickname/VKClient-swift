@@ -145,23 +145,14 @@ func getPhotos(ownerId: Int, completion: @escaping ([PhotoModelItem]) -> Void) {
     }
 }
 
-// Recreated with ImageService
-//func loadPhoto(from url: URL, completion: @escaping (UIImage) -> Void) {
-//    URLSession.shared.dataTask(with: url) { data, response, error in
-//        guard let data = data, error == nil else { return }
-//        DispatchQueue.main.async() {
-//            completion(UIImage(data: data)!)
-//        }
-//    }.resume()
-//}
-
-func getNews(ownerId: Int, completion: @escaping (NewsModelResponse) -> Void) {
+func getNews(ownerId: Int, startTime: TimeInterval, completion: @escaping (NewsModelResponse) -> Void) {
     let path = "/method/newsfeed.get"
     
     let parameters: Parameters = [
         "filters": "post",
         "count": "5",
         "return_banned": "0",
+        "start_time": startTime,
         "access_token": Session.shared.token,
         "v": VERSION
     ]

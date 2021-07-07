@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class NewsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
@@ -18,17 +19,51 @@ class NewsViewController: UIViewController, UITableViewDataSource, UITableViewDe
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        getNews(ownerId: Session.shared.userId) { [self] rawNews in
-            news = rawNews
-            tableView.reloadData()
-        }
-        
-        imageService = ImageService(container: tableView)
+//        getNews(ownerId: Session.shared.userId, startTime: Date().timeIntervalSinceNow + 1) { [self] rawNews in
+//            news = rawNews
+//            tableView.reloadData()
+//        }
         
         tableView.register(UINib(nibName: "NewsAuthorCell", bundle: nil), forCellReuseIdentifier: NewsAuthorCell.reuseIdentifier)
         tableView.register(UINib(nibName: "NewsTextCell", bundle: nil), forCellReuseIdentifier: NewsTextCell.reuseIdentifier)
         tableView.register(UINib(nibName: "NewsPhotoCell", bundle: nil), forCellReuseIdentifier: NewsPhotoCell.reuseIdentifier)
         tableView.register(UINib(nibName: "NewsInteractionCell", bundle: nil), forCellReuseIdentifier: NewsInteractionCell.reuseIdentifier)
+        
+        setupRefreshControl()
+    }
+    
+    let queueForNews = OperationQueue()
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        let path = "/method/newsfeed.get"
+        let HOST = "https://api.vk.com"
+        let VERSION = "5.131"
+        
+        let parameters: Parameters = [
+            "filters": "post",
+            "count": "5",
+            "return_banned": "0",
+            "start_time": "0",
+            "access_token": Session.shared.token,
+            "v": VERSION
+        ]
+        
+        let request = Alamofire.request(HOST + path, method: .get, parameters: parameters)
+        
+        let getDataOperation = GetDataOperation(request: request)
+        queueForNews.addOperation(getDataOperation)
+        
+        let parseDataOperation = ParseDataOperation<NewsModel>()
+        parseDataOperation.addDependency(getDataOperation)
+        queueForNews.addOperation(parseDataOperation)
+        
+        let reloadTableOperation = ReloadTableOperation<NewsModel, NewsViewController>(controller: self)
+        reloadTableOperation.addDependency(parseDataOperation)
+        OperationQueue.main.addOperation(reloadTableOperation)
+        
+        imageService = ImageService(container: tableView)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -81,4 +116,33 @@ class NewsViewController: UIViewController, UITableViewDataSource, UITableViewDe
         return NewsAuthorCell()
     }
 
+}
+
+extension NewsViewController {
+    
+    fileprivate func setupRefreshControl() {
+        tableView.refreshControl = UIRefreshControl()
+        tableView.refreshControl?.tintColor = .gray
+        tableView.refreshControl?.addTarget(self, action: #selector(refreshNews), for: .valueChanged)
+    }
+    
+    @objc func refreshNews() {
+        
+        tableView.refreshControl?.beginRefreshing()
+        
+        let freshDate = Date().timeIntervalSinceNow
+        getNews(ownerId: Session.shared.userId, startTime: freshDate + 1) { [self] rawNews in
+            tableView.refreshControl?.endRefreshing()
+            
+            guard rawNews.items.count > 0 else { return }
+            
+            self.news?.items = rawNews.items + self.news!.items
+            self.news?.groups = rawNews.groups + self.news!.groups
+            
+            let indexSet = IndexSet(integersIn: 0..<news!.items.count)
+            tableView.insertSections(indexSet, with: .automatic)
+        }
+        
+    }
+    
 }
