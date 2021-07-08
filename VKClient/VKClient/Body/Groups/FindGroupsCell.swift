@@ -7,24 +7,19 @@
 
 import UIKit
 
-class FindGroupsCell: UITableViewCell, SelfConfiguringCell {
+class FindGroupsCell: UITableViewCell {
     
-    static var reuseIdentifier: String = "FindGroupsCell"
+    static let reuseIdentifier: String = "FindGroupsCell"
     
     @IBOutlet weak var titleView: TitleView!
 
-    func configureCell(object: Any) {
-        
-        guard type(of: object) == GroupModelItem.self else { return }
-        let group = object as! GroupModelItem
-        
-        titleView.configureTitleView(titleImage: group.image ?? UIImage(), titleLabel: group.name, subtitleLabel: "")
-        
+    func configureCell(image: UIImage?, name: String?) {
+        titleView.configureTitleView(titleImage: image, titleLabel: name, subtitleLabel: "") 
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        titleView.configureTitleView(titleImage: UIImage(), titleLabel: "", subtitleLabel: "")
+        titleView.configureTitleView(titleImage: nil, titleLabel: nil, subtitleLabel: nil)
     }
     
 }

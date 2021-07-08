@@ -8,8 +8,6 @@
 import UIKit
 
 class PhotoBrowsingViewController: UIViewController {
-
-    var imageService: ImageService?
     
     var images: [PhotoModelItem] = []
     var imagesIndex: Int!
@@ -42,7 +40,7 @@ class PhotoBrowsingViewController: UIViewController {
             imagesIndex = 0
         }
         
-        centerImageView.image = imageService?.getImage(atIndexPath: IndexPath(), byUrl: images[imagesIndex].imageUrl ?? "")
+        centerImageView.loadImage(imageUrl: images[imagesIndex].imageUrl)
         
         centerContainerView.addSubview(centerImageView)
         centerImageView.frame = centerContainerView.bounds
@@ -92,7 +90,7 @@ class PhotoBrowsingViewController: UIViewController {
                 
                 centerImageView.transform = .identity
                 
-                centerImageView.image = imageService?.getImage(atIndexPath: IndexPath(), byUrl: images[imagesIndex].imageUrl ?? "")
+                centerImageView.loadImage(imageUrl: images[imagesIndex].imageUrl)
                 
                 runningAnimators.remove(at: runningAnimators.firstIndex(of: centerTransitionAnimator)!)
             }
@@ -106,13 +104,13 @@ class PhotoBrowsingViewController: UIViewController {
             switch currentState {
             case .left:
                 
-                nextImageView.image = imageService?.getImage(atIndexPath: IndexPath(), byUrl: images[imagesIndex - 1].imageUrl ?? "")
+                nextImageView.loadImage(imageUrl: images[imagesIndex - 1].imageUrl)
                 
                 centerContainerView.addSubview(nextImageView)
                 nextImageView.frame = centerContainerView.bounds.offsetBy(dx: -centerContainerView.frame.width, dy: 0)
             case .right:
                 
-                nextImageView.image = imageService?.getImage(atIndexPath: IndexPath(), byUrl: images[imagesIndex + 1].imageUrl ?? "")
+                nextImageView.loadImage(imageUrl: images[imagesIndex + 1].imageUrl)
                 
                 centerContainerView.addSubview(nextImageView)
                 nextImageView.frame = centerContainerView.bounds.offsetBy(dx: centerContainerView.frame.width, dy: 0)

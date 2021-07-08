@@ -21,9 +21,9 @@ class FindGroupsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        imageService = ImageService(container: tableView)
-        
         tableView.register(UINib(nibName: "FindGroupsCell", bundle: nil), forCellReuseIdentifier: FindGroupsCell.reuseIdentifier)
+        
+        imageService = ImageService(container: tableView)
         
         tableView.keyboardDismissMode = .onDrag
         
@@ -41,10 +41,10 @@ extension FindGroupsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: FindGroupsCell.reuseIdentifier, for: indexPath) as! FindGroupsCell
-        
-        groups[indexPath.row].image = imageService?.getImage(atIndexPath: indexPath, byUrl: groups[indexPath.row].imageUrl) ?? UIImage()
-        
-        cell.configureCell(object: groups[indexPath.row])
+        guard let imageUrl = groups[indexPath.row].imageUrl else { return UITableViewCell() }
+        let image = imageService?.getImage(atIndexPath: indexPath, byUrl: imageUrl)
+        let name = groups[indexPath.row].name
+        cell.configureCell(image: image, name: name)
         return cell
     }
     

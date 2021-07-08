@@ -6,8 +6,6 @@
 //
 
 import UIKit
-import RealmSwift
-import FirebaseDatabase
 import Alamofire
 
 class FriendsViewController: UIViewController {
@@ -24,7 +22,19 @@ class FriendsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tableView.register(UINib(nibName: "FriendsCell", bundle: nil), forCellReuseIdentifier: FriendsCell.reuseIdentifier)
 
+        getFriends()
+        
+        imageService = ImageService(container: tableView)
+        
+        tableView.keyboardDismissMode = .onDrag
+        
+        searchBar.delegate = self
+    }
+    
+    func getFriends() {
         let HOST = "https://api.vk.com"
         let path = "/method/friends.get"
         let VERSION = "5.131"
@@ -48,14 +58,6 @@ class FriendsViewController: UIViewController {
         let reloadTableOperation = ReloadTableOperation<UserModel, FriendsViewController>(controller: self)
         reloadTableOperation.addDependency(parseDataOperation)
         OperationQueue.main.addOperation(reloadTableOperation)
-        
-        imageService = ImageService(container: tableView)
-        
-        tableView.register(UINib(nibName: "FriendsCell", bundle: nil), forCellReuseIdentifier: FriendsCell.reuseIdentifier)
-        
-        tableView.keyboardDismissMode = .onDrag
-        
-        searchBar.delegate = self
     }
     
 }
@@ -83,10 +85,10 @@ extension FriendsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: FriendsCell.reuseIdentifier, for: indexPath) as! FriendsCell
-        
-        friendsForUse[indexPath.row].image = imageService?.getImage(atIndexPath: indexPath, byUrl: friendsForUse[indexPath.row].imageUrl) ?? UIImage()
-        
-        cell.configureCell(object: friendsForUse[indexPath.row])
+        guard let imageUrl = friendsForUse[indexPath.row].imageUrl else { return UITableViewCell() }
+        let image = imageService?.getImage(atIndexPath: indexPath, byUrl: imageUrl)
+        let name = friendsForUse[indexPath.row].fullname
+        cell.configureCell(image: image, name: name)
         return cell
     }
     

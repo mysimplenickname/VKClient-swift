@@ -33,14 +33,14 @@ struct PhotoModelItem: Codable {
     lazy var imageUrl: String? = {
         return sizes.last?.url
     }()
-    
-    var image: UIImage?
 }
 
 // MARK: - Size
 struct PhotoModelSize: Codable {
-    let height: Int
-    let url: String
-    let type: String
-    let width: Int
+    let height: Int?
+    let width: Int?
+    let url: String?
+    let type: String?
+    
+    var aspectRatio: CGFloat { return CGFloat(height ?? 1) / CGFloat(width ?? 1) }
 }

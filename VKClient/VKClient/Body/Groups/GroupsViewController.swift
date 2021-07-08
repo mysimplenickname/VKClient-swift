@@ -24,6 +24,18 @@ class GroupsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.register(UINib(nibName: "GroupsCell", bundle: nil), forCellReuseIdentifier: GroupsCell.reuseIdentifier)
+        
+        getGroupsWithPromise()
+        
+        imageService = ImageService(container: tableView)
+        
+        tableView.keyboardDismissMode = .onDrag
+        
+        searchBar.delegate = self
+    }
+    
+    private func getGroupsWithPromise() {
         firstly {
             getGroups(for: Session.shared.userId)
         }
@@ -35,14 +47,6 @@ class GroupsViewController: UIViewController {
         .catch { error in
             print(error)
         }
-        
-        imageService = ImageService(container: tableView)
-        
-        tableView.register(UINib(nibName: "GroupsCell", bundle: nil), forCellReuseIdentifier: GroupsCell.reuseIdentifier)
-        
-        tableView.keyboardDismissMode = .onDrag
-        
-        searchBar.delegate = self
     }
     
     @IBAction func workpls(sender: UIButton) {
@@ -63,10 +67,10 @@ extension GroupsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: GroupsCell.reuseIdentifier, for: indexPath) as! GroupsCell
-        
-        groupsForUse[indexPath.row].image = imageService?.getImage(atIndexPath: indexPath, byUrl: groupsForUse[indexPath.row].imageUrl) ?? UIImage()
-        
-        cell.configureCell(object: groupsForUse[indexPath.row])
+        guard let imageUrl = groupsForUse[indexPath.row].imageUrl else { return UITableViewCell() }
+        let image = imageService?.getImage(atIndexPath: indexPath, byUrl: imageUrl)
+        let name = groupsForUse[indexPath.row].name
+        cell.configureCell(image: image, name: name)
         return cell
     }
     

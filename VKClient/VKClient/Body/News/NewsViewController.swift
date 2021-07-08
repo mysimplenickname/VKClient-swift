@@ -9,48 +9,52 @@ import UIKit
 import Alamofire
 
 class NewsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-
-    var imageService: ImageService?
     
-    var news: NewsModelResponse?
+    var news = NewsModelResponse(
+        items: [],
+        profiles: [],
+        groups: [],
+        nextFrom: ""
+    )
     
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-//        getNews(ownerId: Session.shared.userId, startTime: Date().timeIntervalSinceNow + 1) { [self] rawNews in
-//            news = rawNews
-//            tableView.reloadData()
-//        }
         
-        tableView.register(UINib(nibName: "NewsAuthorCell", bundle: nil), forCellReuseIdentifier: NewsAuthorCell.reuseIdentifier)
-        tableView.register(UINib(nibName: "NewsTextCell", bundle: nil), forCellReuseIdentifier: NewsTextCell.reuseIdentifier)
-        tableView.register(UINib(nibName: "NewsPhotoCell", bundle: nil), forCellReuseIdentifier: NewsPhotoCell.reuseIdentifier)
-        tableView.register(UINib(nibName: "NewsInteractionCell", bundle: nil), forCellReuseIdentifier: NewsInteractionCell.reuseIdentifier)
-        
-        setupRefreshControl()
+        tableView.register(NewsAuthorCell.self, forCellReuseIdentifier: NewsAuthorCell.reuseIdentifier)
+        tableView.register(NewsTextCell.self, forCellReuseIdentifier: NewsTextCell.reuseIdentifier)
+        tableView.register(NewsImageCell.self, forCellReuseIdentifier: NewsImageCell.reuseIdentifier)
+        tableView.register(NewsInteractionCell.self, forCellReuseIdentifier: NewsInteractionCell.reuseIdentifier)
     }
     
     let queueForNews = OperationQueue()
     
+    var imageService: ImageService?
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        let path = "/method/newsfeed.get"
-        let HOST = "https://api.vk.com"
-        let VERSION = "5.131"
+        getNews()
+        
+        imageService = ImageService(container: tableView)
+    }
+    
+    private func getNews() {
         
         let parameters: Parameters = [
             "filters": "post",
-            "count": "5",
-            "return_banned": "0",
-            "start_time": "0",
+            "count": "10",
+            "start_from": "",
             "access_token": Session.shared.token,
-            "v": VERSION
+            "v": "5.131"
         ]
         
-        let request = Alamofire.request(HOST + path, method: .get, parameters: parameters)
+        let request = Alamofire.request(
+            "https://api.vk.com/method/newsfeed.get",
+            method: .get,
+            parameters: parameters
+        )
         
         let getDataOperation = GetDataOperation(request: request)
         queueForNews.addOperation(getDataOperation)
@@ -63,86 +67,45 @@ class NewsViewController: UIViewController, UITableViewDataSource, UITableViewDe
         reloadTableOperation.addDependency(parseDataOperation)
         OperationQueue.main.addOperation(reloadTableOperation)
         
-        imageService = ImageService(container: tableView)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return news?.items.count ?? 0
+        news.items.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        4
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-                
-        if indexPath.row % 4 == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: NewsAuthorCell.reuseIdentifier, for: indexPath) as! NewsAuthorCell
-            
-            let groupImage = imageService?.getImage(atIndexPath: indexPath, byUrl: news?.groups[indexPath.section].imageUrl ?? "") ?? UIImage()
-            
-            DispatchQueue.main.async {
-                self.news?.groups[indexPath.section].image = groupImage
-            }
-
-            cell.configureCell(object: news?.groups[indexPath.section] ?? Void.self)
+        switch indexPath.row {
+        case 0:
+            let cell = tableView.dequeueReusableCell(withIdentifier: NewsAuthorCell.reuseIdentifier) as! NewsAuthorCell
+            guard let imageUrl = news.sources?[indexPath.section].authorImageUrl else { return UITableViewCell() }
+            let image = imageService?.getImage(atIndexPath: indexPath, byUrl: imageUrl)
+            let name = news.sources?[indexPath.section].authorName
+            cell.configureCell(image: image, name: name)
             return cell
-        } else if indexPath.row - 1 % 4 == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: NewsTextCell.reuseIdentifier, for: indexPath) as! NewsTextCell
-            cell.configureCell(object: news?.items[indexPath.section] ?? Void.self)
+        case 1:
+            let cell = tableView.dequeueReusableCell(withIdentifier: NewsTextCell.reuseIdentifier) as! NewsTextCell
+            let text = news.items[indexPath.section].text
+            cell.configureCell(text: text)
             return cell
-        } else if indexPath.row - 2 % 4 == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: NewsPhotoCell.reuseIdentifier, for: indexPath) as! NewsPhotoCell
-            
-            if (news!.items[indexPath.section].attachments?.count) != nil {
-                for (i, attachment) in news!.items[indexPath.section].attachments!.enumerated() {
-                    if attachment.type == "photo" {
-                        let attachmentImage = imageService?.getImage(atIndexPath: indexPath, byUrl: news?.items[indexPath.section].attachments![i].photo?.imageUrl ?? "") ?? UIImage()
-                        
-                        DispatchQueue.main.async {
-                            self.news?.items[indexPath.section].attachments![i].photo?.image = attachmentImage
-                        }
-                    }
-                }
-            }
-            
-            cell.configureCell(object: news?.items[indexPath.section] ?? Void.self)
+        case 2:
+            let cell = tableView.dequeueReusableCell(withIdentifier: NewsImageCell.reuseIdentifier) as! NewsImageCell
+            guard
+                let _ = news.items[indexPath.section].attachments,
+                let imageUrl = news.items[indexPath.section].attachments?[0].photo?.imageUrl
+            else { return UITableViewCell() }
+            let image = imageService?.getImage(atIndexPath: indexPath, byUrl: imageUrl)
+            cell.configureCell(image: image)
             return cell
-        } else if indexPath.row - 3 % 4 == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: NewsInteractionCell.reuseIdentifier, for: indexPath) as! NewsInteractionCell
-            cell.configureCell(object: Void.self)
+        case 3:
+            let cell = tableView.dequeueReusableCell(withIdentifier: NewsInteractionCell.reuseIdentifier) as! NewsInteractionCell
             return cell
+        default:
+            return UITableViewCell()
         }
-        return NewsAuthorCell()
     }
 
-}
-
-extension NewsViewController {
-    
-    fileprivate func setupRefreshControl() {
-        tableView.refreshControl = UIRefreshControl()
-        tableView.refreshControl?.tintColor = .gray
-        tableView.refreshControl?.addTarget(self, action: #selector(refreshNews), for: .valueChanged)
-    }
-    
-    @objc func refreshNews() {
-        
-        tableView.refreshControl?.beginRefreshing()
-        
-        let freshDate = Date().timeIntervalSinceNow
-        getNews(ownerId: Session.shared.userId, startTime: freshDate + 1) { [self] rawNews in
-            tableView.refreshControl?.endRefreshing()
-            
-            guard rawNews.items.count > 0 else { return }
-            
-            self.news?.items = rawNews.items + self.news!.items
-            self.news?.groups = rawNews.groups + self.news!.groups
-            
-            let indexSet = IndexSet(integersIn: 0..<news!.items.count)
-            tableView.insertSections(indexSet, with: .automatic)
-        }
-        
-    }
-    
 }

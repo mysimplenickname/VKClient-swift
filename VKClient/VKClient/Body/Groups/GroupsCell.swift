@@ -7,22 +7,19 @@
 
 import UIKit
 
-class GroupsCell: UITableViewCell, SelfConfiguringCell {
+class GroupsCell: UITableViewCell {
 
-    static var reuseIdentifier: String = "GroupsCell"
+    static let reuseIdentifier: String = "GroupsCell"
     
     @IBOutlet weak var titleView: TitleView!
     
-    func configureCell(object: Any) {
-        guard type(of: object) == GroupModelItem.self else { return }
-        let group = object as! GroupModelItem
-        
-        titleView.configureTitleView(titleImage: group.image ?? UIImage(), titleLabel: group.name, subtitleLabel: "")
+    func configureCell(image: UIImage?, name: String?) {
+        titleView.configureTitleView(titleImage: image, titleLabel: name, subtitleLabel: "")
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        titleView.configureTitleView(titleImage: UIImage(), titleLabel: "", subtitleLabel: "")
+        titleView.configureTitleView(titleImage: nil, titleLabel: nil, subtitleLabel: nil)
     }
     
 }

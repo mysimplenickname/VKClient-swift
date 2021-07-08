@@ -7,22 +7,19 @@
 
 import UIKit
 
-class FriendsCell: UITableViewCell, SelfConfiguringCell {
+class FriendsCell: UITableViewCell {
     
-    static var reuseIdentifier: String = "FriendsCell"
+    static let reuseIdentifier: String = "FriendsCell"
     
     @IBOutlet weak var titleView: TitleView!
     
-    func configureCell(object: Any) {
-        guard type(of: object) == UserModelItem.self else { return }
-        var friend = object as! UserModelItem
-        
-        titleView.configureTitleView(titleImage: friend.image ?? UIImage(), titleLabel: friend.fullname, subtitleLabel: "")
+    func configureCell(image: UIImage?, name: String?) {
+        titleView.configureTitleView(titleImage: image, titleLabel: name, subtitleLabel: "")
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        titleView.configureTitleView(titleImage: UIImage(), titleLabel: "", subtitleLabel: "")
+        titleView.configureTitleView(titleImage: nil, titleLabel: nil, subtitleLabel: nil)
     }
     
 }
