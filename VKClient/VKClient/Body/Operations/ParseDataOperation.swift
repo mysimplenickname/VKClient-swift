@@ -11,12 +11,15 @@ class ParseDataOperation<T: Codable>: Operation {
     
     var outputData: Any?
     
-    var tempData: T?
+    private var tempData: T?
     
     override func main() {
-        guard let getDataOperation = dependencies.first as? GetDataOperation,
-              let data = getDataOperation.data
+        guard
+            let getDataOperation = dependencies.first as? GetDataOperation,
+            let data = getDataOperation.outputData
         else { return }
+        
+        print("data: ", data)
         
         do {
             self.tempData = try JSONDecoder().decode(T.self, from: data)
@@ -32,7 +35,7 @@ class ParseDataOperation<T: Codable>: Operation {
         converToReadableFormat()
     }
     
-    func converToReadableFormat() {
+    private func converToReadableFormat() {
         switch T.self {
         case is UserModel.Type:
             outputData = (tempData as? UserModel)?.response.items
@@ -41,7 +44,12 @@ class ParseDataOperation<T: Codable>: Operation {
         case is PhotoModel.Type:
             outputData = (tempData as? PhotoModel)?.response.items
         case is NewsModel.Type:
+            
             guard var preParsedData = (tempData as? NewsModel)?.response else { return }
+            
+            if preParsedData.items.isEmpty { return }
+            
+            print("groups: ", preParsedData.groups)
             
             var sources = [NewsModelItem]()
             

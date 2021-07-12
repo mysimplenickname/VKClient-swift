@@ -10,7 +10,7 @@ import WebKit
 
 class LoginViewController: UIViewController {
 
-    @IBOutlet weak var webView: WKWebView! {
+    @IBOutlet private weak var webView: WKWebView! {
         didSet {
             webView.navigationDelegate = self
         }

@@ -11,6 +11,12 @@ class NewsImageCell: UITableViewCell {
 
     static let reuseIdentifier: String = "ImageCell"
     
+    private var newsImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setConstraints()
@@ -19,12 +25,6 @@ class NewsImageCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    private var newsImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-    }()
     
     override func prepareForReuse() {
         super.prepareForReuse()

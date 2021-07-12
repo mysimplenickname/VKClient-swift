@@ -10,21 +10,17 @@ import PromiseKit
 import Alamofire
 
 func getGroups(for userId: Int) -> Promise<[GroupModelItem]> {
-    
-    let HOST = "https://api.vk.com"
-    let VERSION = "5.131"
-    let path = "/method/groups.get"
 
     let parameters: Parameters = [
         "extended": "1",
         "fields": "photo_200",
         "user_id": userId,
         "access_token": Session.shared.token,
-        "v": VERSION
+        "v": "5.131"
     ]
     
     return Promise { seal in
-        Alamofire.request(HOST + path, method: .get, parameters: parameters).responseData { response in
+        Alamofire.request("https://api.vk.com/method/groups.get", method: .get, parameters: parameters).responseData { response in
             switch response.result {
             case .success(let data):
                 do {

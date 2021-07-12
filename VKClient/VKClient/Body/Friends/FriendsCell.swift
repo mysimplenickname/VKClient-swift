@@ -9,17 +9,17 @@ import UIKit
 
 class FriendsCell: UITableViewCell {
     
+    @IBOutlet private weak var titleView: TitleView!
+    
     static let reuseIdentifier: String = "FriendsCell"
-    
-    @IBOutlet weak var titleView: TitleView!
-    
-    func configureCell(image: UIImage?, name: String?) {
-        titleView.configureTitleView(titleImage: image, titleLabel: name, subtitleLabel: "")
-    }
     
     override func prepareForReuse() {
         super.prepareForReuse()
         titleView.configureTitleView(titleImage: nil, titleLabel: nil, subtitleLabel: nil)
+    }
+    
+    func configureCell(image: UIImage?, name: String?) {
+        titleView.configureTitleView(titleImage: image, titleLabel: name, subtitleLabel: "")
     }
     
 }

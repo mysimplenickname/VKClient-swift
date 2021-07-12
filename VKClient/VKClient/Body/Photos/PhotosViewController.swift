@@ -12,11 +12,7 @@ class PhotosViewController: UICollectionViewController {
     
     var ownerId: Int!
     
-    var images: [PhotoModelItem] = []
-    
-    var imageService: ImageService?
-    
-    // MARK: - Life cycle
+    private var images: [PhotoModelItem] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,13 +21,21 @@ class PhotosViewController: UICollectionViewController {
             self.images = rawImages
             self.collectionView.reloadData()
         }
-        
-        imageService = ImageService(container: collectionView)
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return images.count
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotosCell.reuseIdentifier, for: indexPath) as! PhotosCell
+        guard let imageUrl = images[indexPath.row].imageUrl else { return UICollectionViewCell() }
+        cell.configureCell(imageUrl: imageUrl)
+        return cell
     }
 
 }
 
-// MARK: - Segues
 extension PhotosViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -47,22 +51,4 @@ extension PhotosViewController {
         performSegue(withIdentifier: "ToPhotoBrowsingSegue", sender: nil)
     }
 
-}
-
-// MARK: - UICollectionViewDataSource
-extension PhotosViewController {
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return images.count
-    }
-}
-
-// MARK: - UICollectionViewDelegate
-extension PhotosViewController {
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotosCell.reuseIdentifier, for: indexPath) as! PhotosCell
-        guard let imageUrl = images[indexPath.row].imageUrl else { return UICollectionViewCell() }
-        let image = imageService?.getImage(atIndexPath: indexPath, byUrl: imageUrl)
-        cell.configureCell(image: image)
-        return cell
-    }
 }

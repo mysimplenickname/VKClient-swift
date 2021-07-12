@@ -9,11 +9,11 @@ import UIKit
 
 class TitleView: UIView {
     
-    @IBOutlet weak var containerView: UIView!
-    @IBOutlet weak var titleImageView: UIImageView!
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var subtitleLabel: UILabel!
-    @IBOutlet weak var shadowView: UIView!
+    @IBOutlet private weak var containerView: UIView!
+    @IBOutlet private weak var titleImageView: UIImageView!
+    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var subtitleLabel: UILabel!
+    @IBOutlet private weak var shadowView: UIView!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -59,43 +59,43 @@ class TitleView: UIView {
     
     // MARK: - shadow properties
     
-    var shadowColor: UIColor = .systemBlue {
+    private var shadowColor: UIColor = .systemBlue {
         didSet {
             updateShadowColor()
         }
     }
     
-    var shadowRadius: CGFloat  = 6 {
+    private var shadowRadius: CGFloat  = 6 {
         didSet {
             updateShadowRadius()
         }
     }
-    
-    var shadowOpacity: Float = 0.8 {
+ 
+    private var shadowOpacity: Float = 0.8 {
         didSet {
             updateShadowOpacity()
         }
     }
-    
-    var shadowOffset: CGSize = .zero {
+ 
+    private var shadowOffset: CGSize = .zero {
         didSet {
             updateShadowOffset()
         }
     }
-    
-    func updateShadowColor() {
+ 
+    private func updateShadowColor() {
         shadowView.layer.shadowColor = shadowColor.cgColor
     }
-    
-    func updateShadowRadius() {
+ 
+    private func updateShadowRadius() {
         shadowView.layer.shadowRadius = shadowRadius
     }
-    
-    func updateShadowOpacity() {
+ 
+    private func updateShadowOpacity() {
         shadowView.layer.shadowOpacity = shadowOpacity
     }
-    
-    func updateShadowOffset() {
+ 
+    private func updateShadowOffset() {
         shadowView.layer.shadowOffset = shadowOffset
     }
     
@@ -105,7 +105,7 @@ class TitleView: UIView {
 
 extension TitleView {
     
-    @objc func animateTitleImageView() {
+    @objc private func animateTitleImageView() {
         UIImageView.animate(
             withDuration: 0.15,
             delay: 0,
