@@ -7,34 +7,53 @@
 
 import UIKit
 
-class FindGroupsViewController: UITableViewController {
+class FindGroupsViewController: UIViewController {
     
-    let groups: [Group] = [
-        Group(name: "Admins", image: nil),
-        Group(name: "Users",  image: nil)
-    ]
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
+    
+    var groups = [RealmGroupModelItem]()
     
     // MARK: - Life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         tableView.register(UINib(nibName: "FindGroupsCell", bundle: nil), forCellReuseIdentifier: FindGroupsCell.reuseIdentifier)
+        
+        tableView.keyboardDismissMode = .onDrag
+        
+        searchBar.delegate = self
     }
 
-    // MARK: - Table view data source
+}
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+// MARK: - Table view data source
+extension FindGroupsViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return groups.count
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: FindGroupsCell.reuseIdentifier, for: indexPath) as! FindGroupsCell
-        
-        let group = groups[indexPath.row]
-        
-        cell.configureCell(object: group)
-        
+        cell.configureCell(object: groups[indexPath.row])
         return cell
+    }
+    
+}
+
+extension FindGroupsViewController: UISearchBarDelegate {
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText == "" {
+            groups = []
+        } else {
+            searchGroups(for: Session.shared.userId, searchString: searchText) { [self] realmGroups in
+                groups = realmGroups
+            }
+        }
+        tableView.reloadData()
     }
     
 }

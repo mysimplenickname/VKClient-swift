@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		31331060265FD22200A48C28 /* Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3133105F265FD22200A48C28 /* Firebase.swift */; };
+		3139A132264C660800A796CB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3139A131264C660700A796CB /* GoogleService-Info.plist */; };
 		313B184E262310A900CD496C /* AnimatedDotsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 313B184D262310A900CD496C /* AnimatedDotsView.xib */; };
 		313B1851262310F000CD496C /* AnimatedDotsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313B1850262310F000CD496C /* AnimatedDotsView.swift */; };
 		313B185A262322D700CD496C /* TitleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 313B1859262322D700CD496C /* TitleView.xib */; };
@@ -50,6 +52,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3133105F265FD22200A48C28 /* Firebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Firebase.swift; sourceTree = "<group>"; };
+		3139A131264C660700A796CB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		313B184D262310A900CD496C /* AnimatedDotsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AnimatedDotsView.xib; sourceTree = "<group>"; };
 		313B1850262310F000CD496C /* AnimatedDotsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedDotsView.swift; sourceTree = "<group>"; };
 		313B1859262322D700CD496C /* TitleView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TitleView.xib; sourceTree = "<group>"; };
@@ -108,6 +112,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3133105E265FD20C00A48C28 /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+				3133105F265FD22200A48C28 /* Firebase.swift */,
+			);
+			path = Firebase;
+			sourceTree = "<group>";
+		};
 		313B187E26274DB000CD496C /* VKAPI */ = {
 			isa = PBXGroup;
 			children = (
@@ -138,9 +150,11 @@
 			isa = PBXGroup;
 			children = (
 				3147E22F25DDBAC4005A0306 /* Info.plist */,
+				3139A131264C660700A796CB /* GoogleService-Info.plist */,
 				3196DF4125EBFBF80014B9C4 /* App */,
 				313B187E26274DB000CD496C /* VKAPI */,
 				31925DB92639FB6A00196533 /* Realm */,
+				3133105E265FD20C00A48C28 /* Firebase */,
 				3168BE032646E36F00309528 /* Head */,
 				3168BE052646E41100309528 /* Body */,
 				3168BE0C2646E4F000309528 /* Tail */,
@@ -401,6 +415,7 @@
 				3147E22B25DDBAC3005A0306 /* Assets.xcassets in Resources */,
 				3147E22925DDBA84005A0306 /* Main.storyboard in Resources */,
 				313B185A262322D700CD496C /* TitleView.xib in Resources */,
+				3139A132264C660800A796CB /* GoogleService-Info.plist in Resources */,
 				313B184E262310A900CD496C /* AnimatedDotsView.xib in Resources */,
 				31DA9E6726060B9D00DB9390 /* FriendsCell.xib in Resources */,
 			);
@@ -455,6 +470,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				31331060265FD22200A48C28 /* Firebase.swift in Sources */,
 				3196DF3225EBF86A0014B9C4 /* FriendsViewController.swift in Sources */,
 				31E10DF4260E3BA20086C348 /* PhotoBrowsingViewController.swift in Sources */,
 				31E10DE8260B1B280086C348 /* TestViewController.swift in Sources */,
