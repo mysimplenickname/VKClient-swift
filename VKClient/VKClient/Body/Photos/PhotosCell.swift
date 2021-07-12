@@ -9,17 +9,17 @@ import UIKit
 
 class PhotosCell: UICollectionViewCell {
     
-    static let reuseIdentifier: String = "photosCell"
+    @IBOutlet private weak var photosImage: UIImageView!
     
-    @IBOutlet weak var photosImage: UIImageView!
+    static let reuseIdentifier: String = "photosCell"
 
     override func prepareForReuse() {
         super.prepareForReuse()
         photosImage.image = nil
     }
     
-    func configureCell(image: UIImage?) {
-        photosImage.image = image ?? UIImage()
+    func configureCell(imageUrl: String?) {
+        photosImage.loadImage(imageUrl: imageUrl)
     }
     
 }

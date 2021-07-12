@@ -10,43 +10,39 @@ import Alamofire
 
 class FriendsViewController: UIViewController {
     
-    var imageService: ImageService?
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet private weak var searchBar: UISearchBar!
     
     var friends: [UserModelItem] = []
     var friendsForUse: [UserModelItem] = []
     
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var searchBar: UISearchBar!
+    private var imageService: ImageService?
     
-    let myOwnQueue = OperationQueue()
+    private let myOwnQueue = OperationQueue()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.register(UINib(nibName: "FriendsCell", bundle: nil), forCellReuseIdentifier: FriendsCell.reuseIdentifier)
-
         getFriends()
         
         imageService = ImageService(container: tableView)
+        
+        tableView.register(UINib(nibName: "FriendsCell", bundle: nil), forCellReuseIdentifier: FriendsCell.reuseIdentifier)
         
         tableView.keyboardDismissMode = .onDrag
         
         searchBar.delegate = self
     }
     
-    func getFriends() {
-        let HOST = "https://api.vk.com"
-        let path = "/method/friends.get"
-        let VERSION = "5.131"
-        
+    private func getFriends() {
         let parameters: Parameters = [
             "fields": "photo_100",
             "user_id": Session.shared.userId,
             "access_token": Session.shared.token,
-            "v": VERSION
+            "v": "5.131"
         ]
         
-        let request = Alamofire.request(HOST + path, method: .get, parameters: parameters)
+        let request = Alamofire.request("https://api.vk.com/method/friends.get", method: .get, parameters: parameters)
         
         let getDataOperation = GetDataOperation(request: request)
         myOwnQueue.addOperation(getDataOperation)
@@ -55,14 +51,13 @@ class FriendsViewController: UIViewController {
         parseDataOperation.addDependency(getDataOperation)
         myOwnQueue.addOperation(parseDataOperation)
         
-        let reloadTableOperation = ReloadTableOperation<UserModel, FriendsViewController>(controller: self)
+        let reloadTableOperation = ReloadTableOperation<UserModel>(controller: self)
         reloadTableOperation.addDependency(parseDataOperation)
         OperationQueue.main.addOperation(reloadTableOperation)
     }
     
 }
 
-// MARK: - Segues
 extension FriendsViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -71,7 +66,7 @@ extension FriendsViewController {
         }
     }
     
-    @IBAction func unwindFromPhotos(_ segue: UIStoryboardSegue) {
+    @IBAction private func unwindFromPhotos(_ segue: UIStoryboardSegue) {
         performSegue(withIdentifier: "FromPhotosSegue", sender: nil)
     }
     
@@ -108,7 +103,7 @@ extension FriendsViewController: UISearchBarDelegate {
         tableView.reloadData()
     }
     
-    func hideKeyboard() {
+    private func hideKeyboard() {
         self.searchBar.endEditing(true)
     }
     

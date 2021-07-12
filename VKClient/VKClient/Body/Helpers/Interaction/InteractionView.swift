@@ -9,11 +9,11 @@ import UIKit
 
 class InteractionView: UIControl {
 
-    @IBOutlet weak var containerView: UIView!
-    @IBOutlet weak var likeButton: UIButton!
-    @IBOutlet weak var likeLabel: UILabel!
-    @IBOutlet weak var commentButton: UIButton!
-    @IBOutlet weak var shareButton: UIButton!
+    @IBOutlet private weak var containerView: UIView!
+    @IBOutlet private weak var likeButton: UIButton!
+    @IBOutlet private weak var likeLabel: UILabel!
+    @IBOutlet private weak var commentButton: UIButton!
+    @IBOutlet private weak var shareButton: UIButton!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -52,7 +52,7 @@ class InteractionView: UIControl {
         }
     }
     
-    @IBAction func buttonTapped(_ sender: UIButton) {
+    @IBAction private func buttonTapped(_ sender: UIButton) {
         isLiked.toggle()
     }
     

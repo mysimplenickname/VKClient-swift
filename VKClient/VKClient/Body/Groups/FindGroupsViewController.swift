@@ -7,33 +7,26 @@
 
 import UIKit
 
-class FindGroupsViewController: UIViewController {
+class FindGroupsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    var imageService: ImageService?
+    @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private weak var searchBar: UISearchBar!
     
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var searchBar: UISearchBar!
+    private var groups = [GroupModelItem]()
     
-    var groups = [GroupModelItem]()
-    
-    // MARK: - Life cycle
+    private var imageService: ImageService?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.register(UINib(nibName: "FindGroupsCell", bundle: nil), forCellReuseIdentifier: FindGroupsCell.reuseIdentifier)
-        
         imageService = ImageService(container: tableView)
+        
+        tableView.register(UINib(nibName: "FindGroupsCell", bundle: nil), forCellReuseIdentifier: FindGroupsCell.reuseIdentifier)
         
         tableView.keyboardDismissMode = .onDrag
         
         searchBar.delegate = self
     }
-
-}
-
-// MARK: - Table view data source
-extension FindGroupsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return groups.count
@@ -47,7 +40,7 @@ extension FindGroupsViewController: UITableViewDelegate, UITableViewDataSource {
         cell.configureCell(image: image, name: name)
         return cell
     }
-    
+
 }
 
 extension FindGroupsViewController: UISearchBarDelegate {

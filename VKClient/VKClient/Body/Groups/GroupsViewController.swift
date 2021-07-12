@@ -11,24 +11,22 @@ import PromiseKit
 
 class GroupsViewController: UIViewController {
     
-    var imageService: ImageService?
+    @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private weak var searchBar: UISearchBar!
     
-    var groups: [GroupModelItem] = []
-    var groupsForUse: [GroupModelItem] = []
+    private var groups: [GroupModelItem] = []
+    private var groupsForUse: [GroupModelItem] = []
     
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var searchBar: UISearchBar!
-    
-    // MARK: - Life cycle
+    private var imageService: ImageService?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.register(UINib(nibName: "GroupsCell", bundle: nil), forCellReuseIdentifier: GroupsCell.reuseIdentifier)
-        
         getGroupsWithPromise()
         
         imageService = ImageService(container: tableView)
+        
+        tableView.register(UINib(nibName: "GroupsCell", bundle: nil), forCellReuseIdentifier: GroupsCell.reuseIdentifier)
         
         tableView.keyboardDismissMode = .onDrag
         
@@ -49,17 +47,13 @@ class GroupsViewController: UIViewController {
         }
     }
     
-    @IBAction func workpls(sender: UIButton) {
+    @IBAction private func workpls(sender: UIButton) {
         performSegue(withIdentifier: "toFindGroupsViewController", sender: sender)
     }
 
 }
 
 extension GroupsViewController: UITableViewDelegate, UITableViewDataSource {
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return groupsForUse.count
@@ -85,7 +79,7 @@ extension GroupsViewController: UISearchBarDelegate {
         tableView.reloadData()
     }
     
-    func hideKeyboard() {
+    private func hideKeyboard() {
         self.searchBar.endEditing(true)
     }
     

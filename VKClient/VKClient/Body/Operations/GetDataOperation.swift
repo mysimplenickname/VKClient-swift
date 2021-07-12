@@ -16,11 +16,12 @@ class GetDataOperation: AsyncOperation {
         self.request = request
     }
     
-    var data: Data?
+    var outputData: Data?
     
     override func main() {
         request.responseData(queue: DispatchQueue.global()) { [self] response in
-            data = response.value
+            guard let data = response.value else { return }
+            outputData = data
             state = .finished
         }
     }

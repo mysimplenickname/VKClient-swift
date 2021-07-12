@@ -11,6 +11,12 @@ class NewsInteractionCell: UITableViewCell {
 
     static let reuseIdentifier = "InteractionCell"
     
+    private var interactionView: InteractionView = {
+        let interactionView = InteractionView()
+        interactionView.translatesAutoresizingMaskIntoConstraints = false
+        return interactionView
+    }()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setConstraints()
@@ -19,12 +25,6 @@ class NewsInteractionCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    private var interactionView: InteractionView = {
-        let interactionView = InteractionView()
-        interactionView.translatesAutoresizingMaskIntoConstraints = false
-        return interactionView
-    }()
     
     private func setConstraints() {
         contentView.addSubview(interactionView)

@@ -9,11 +9,11 @@ import UIKit
 
 class PhotoBrowsingViewController: UIViewController {
     
+    @IBOutlet private weak var centerContainerView: UIView!
+    @IBOutlet private weak var interactionView: InteractionView!
+    
     var images: [PhotoModelItem] = []
     var imagesIndex: Int!
-    
-    @IBOutlet weak var centerContainerView: UIView!
-    @IBOutlet weak var interactionView: InteractionView!
     
     private lazy var centerImageView: UIImageView = {
         let imageView = UIImageView()
@@ -33,6 +33,15 @@ class PhotoBrowsingViewController: UIViewController {
         return recognizer
     }()
     
+    private enum Side {
+        case left
+        case right
+    }
+    
+    private var currentState: Side!
+    private var runningAnimators: [UIViewPropertyAnimator] = []
+    private var shouldEnd: Bool = false
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -49,15 +58,6 @@ class PhotoBrowsingViewController: UIViewController {
         
         centerContainerView.addGestureRecognizer(panGestureRecognizer)
     }
-    
-    private enum Side {
-        case left
-        case right
-    }
-    
-    private var currentState: Side!
-    
-    private var runningAnimators: [UIViewPropertyAnimator] = []
     
     private func animateTransitionIfNeeded(duration: TimeInterval) {
         
@@ -145,8 +145,6 @@ class PhotoBrowsingViewController: UIViewController {
             runningAnimators.append(sideTransitionAnimator)
         }
     }
-    
-    private var shouldEnd: Bool = false
     
     @objc private func imageViewPanned(_ recognizer: UIPanGestureRecognizer) {
         

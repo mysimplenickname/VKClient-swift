@@ -30,17 +30,15 @@ struct PhotoModelItem: Codable {
         case sizes
     }
     
-    lazy var imageUrl: String? = {
-        return sizes.last?.url
-    }()
+    var imageUrl: String? { return sizes.last?.url }
+    
+    var aspectRatio: CGFloat { return CGFloat(sizes.last?.height ?? 1) / CGFloat(sizes.last?.width ?? 1) }
 }
 
 // MARK: - Size
 struct PhotoModelSize: Codable {
+    let type: String?
+    let url: String?
     let height: Int?
     let width: Int?
-    let url: String?
-    let type: String?
-    
-    var aspectRatio: CGFloat { return CGFloat(height ?? 1) / CGFloat(width ?? 1) }
 }
