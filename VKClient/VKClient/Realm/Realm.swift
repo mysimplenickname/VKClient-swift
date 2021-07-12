@@ -17,9 +17,8 @@ func convertToObjects(raw: [Any]) -> [Object] {
         for rawElem in rawUsers {
             let realmUser = RealmUserModelItem()
             realmUser.id = rawElem.id
-            realmUser.firstName = rawElem.firstName
-            realmUser.lastName = rawElem.lastName
-            realmUser.mainPhoto = rawElem.mainPhoto
+            realmUser.fullName = rawElem.firstName + " " + rawElem.lastName
+            realmUser.imageUrl = rawElem.imageUrl
             realmUsers.append(realmUser)
         }
         return realmUsers
@@ -32,23 +31,10 @@ func convertToObjects(raw: [Any]) -> [Object] {
             let realmGroup = RealmGroupModelItem()
             realmGroup.id = rawGroup.id
             realmGroup.name = rawGroup.name
-            realmGroup.mainPhoto = rawGroup.mainPhoto
+            realmGroup.imageUrl = rawGroup.imageUrl
             realmGroups.append(realmGroup)
         }
         return realmGroups
-    }
-    
-    if raw is [PhotoModelItem] {
-        let rawPhotos = raw as! [PhotoModelItem]
-        var realmPhotos = [RealmPhotoModelItem]()
-        for rawPhoto in rawPhotos {
-            let realmPhoto = RealmPhotoModelItem()
-            realmPhoto.id = rawPhoto.id
-            realmPhoto.ownerId = rawPhoto.ownerID
-            realmPhoto.url = rawPhoto.sizes[3].url
-            realmPhotos.append(realmPhoto)
-        }
-        return realmPhotos
     }
     
     return [Object()]

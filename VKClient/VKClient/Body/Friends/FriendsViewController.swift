@@ -12,10 +12,10 @@ import Alamofire
 
 class FriendsViewController: UIViewController {
     
-    var realmFriends: [RealmUserModelItem] = []
-    var realmFriendsForUse: [RealmUserModelItem] = []
+    var imageService: ImageService?
     
-    var token: NotificationToken?
+    var friends: [UserModelItem] = []
+    var friendsForUse: [UserModelItem] = []
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
@@ -45,75 +45,17 @@ class FriendsViewController: UIViewController {
         parseDataOperation.addDependency(getDataOperation)
         myOwnQueue.addOperation(parseDataOperation)
         
-        let convertDataToRealmObjects = ConvertDataToRealmObjects<UserModel>()
-        convertDataToRealmObjects.addDependency(parseDataOperation)
-        myOwnQueue.addOperation(convertDataToRealmObjects)
-        
         let reloadTableOperation = ReloadTableOperation<UserModel>(controller: self)
-        reloadTableOperation.addDependency(convertDataToRealmObjects)
+        reloadTableOperation.addDependency(parseDataOperation)
         OperationQueue.main.addOperation(reloadTableOperation)
         
-        let saveDataToRealmOperation = SaveDataToRealmOperation<UserModel>()
-        saveDataToRealmOperation.addDependency(convertDataToRealmObjects)
-        myOwnQueue.addOperation(saveDataToRealmOperation)
-        
-//        getFriends(for: Session.shared.userId) { realmFriends in
-//            self.realmFriends = realmFriends
-//            self.realmFriendsForUse = realmFriends
-//            self.tableView.reloadData()
-//        }
-//
-        updateFriends()
+        imageService = ImageService(container: tableView)
         
         tableView.register(UINib(nibName: "FriendsCell", bundle: nil), forCellReuseIdentifier: FriendsCell.reuseIdentifier)
         
         tableView.keyboardDismissMode = .onDrag
         
         searchBar.delegate = self
-    }
-    
-    func updateFriends() {
-        
-        guard let realm = try? Realm() else { return }
-        let results = realm.objects(RealmUserModelItem.self)
-        
-        token = results.observe { (changes: RealmCollectionChange) in
-            guard let tableView = self.tableView else { return }
-            switch changes {
-            case .initial:
-                tableView.reloadData()
-            case .update(_, let deletions, let insertions, let modifications):
-                tableView.beginUpdates()
-                tableView.insertRows(
-                    at: insertions.map(
-                        {
-                            IndexPath(row: $0, section: 0)
-                        }
-                    ),
-                    with: .automatic
-                )
-                tableView.deleteRows(
-                    at: deletions.map(
-                        {
-                            IndexPath(row: $0, section: 0)
-                        }
-                    ),
-                    with: .automatic
-                )
-                tableView.reloadRows(
-                    at: modifications.map(
-                        {
-                            IndexPath(row: $0, section: 0)
-                        }
-                    ),
-                    with: .automatic
-                )
-                tableView.endUpdates()
-            case .error(let error):
-                fatalError("\(error)")
-            }
-        }
-        
     }
     
 }
@@ -123,7 +65,7 @@ extension FriendsViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let controller = segue.destination as? PhotosViewController, let indexPath = tableView.indexPathForSelectedRow {
-            controller.ownerId = realmFriendsForUse[indexPath.row].id
+            controller.ownerId = friendsForUse[indexPath.row].id
         }
     }
     
@@ -136,12 +78,15 @@ extension FriendsViewController {
 extension FriendsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return realmFriendsForUse.count
+        return friendsForUse.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: FriendsCell.reuseIdentifier, for: indexPath) as! FriendsCell
-        cell.configureCell(object: realmFriendsForUse[indexPath.row])
+        
+        friendsForUse[indexPath.row].image = imageService?.getImage(atIndexPath: indexPath, byUrl: friendsForUse[indexPath.row].imageUrl) ?? UIImage()
+        
+        cell.configureCell(object: friendsForUse[indexPath.row])
         return cell
     }
     
@@ -155,7 +100,7 @@ extension FriendsViewController: UITableViewDelegate, UITableViewDataSource {
 extension FriendsViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        realmFriendsForUse = searchText.isEmpty ? realmFriends : realmFriends.filter { (item: RealmUserModelItem) -> Bool in
+        friendsForUse = searchText.isEmpty ? friends : friendsForUse.filter { (item: UserModelItem) -> Bool in
             return item.lastName.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
         }
         tableView.reloadData()

@@ -29,6 +29,12 @@ struct PhotoModelItem: Codable {
         case ownerID = "owner_id"
         case sizes
     }
+    
+    lazy var imageUrl: String? = {
+        return sizes.last?.url
+    }()
+    
+    var image: UIImage?
 }
 
 // MARK: - Size
@@ -37,11 +43,4 @@ struct PhotoModelSize: Codable {
     let url: String
     let type: String
     let width: Int
-}
-
-//MARK: - Realm object
-class RealmPhotoModelItem: Object {
-    @objc dynamic var id: Int = 0
-    @objc dynamic var ownerId: Int = 0
-    @objc dynamic var url: String = ""
 }

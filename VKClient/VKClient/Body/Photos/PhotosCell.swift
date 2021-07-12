@@ -17,4 +17,9 @@ class PhotosCell: UICollectionViewCell, SelfConfiguringCell {
         return
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        photosImage.image = nil
+    }
+    
 }

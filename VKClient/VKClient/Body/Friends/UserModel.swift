@@ -22,20 +22,25 @@ struct UserModelResponse: Codable {
 struct UserModelItem: Codable {
     let id: Int
     let firstName, lastName: String
-    let mainPhoto: String
+    let imageUrl: String
     
     enum CodingKeys: String, CodingKey {
         case id
         case firstName = "first_name"
         case lastName = "last_name"
-        case mainPhoto = "photo_100"
+        case imageUrl = "photo_100"
     }
+    
+    lazy var fullname = {
+        return firstName + " " + lastName
+    }()
+    
+    var image: UIImage?
 }
 
 //MARK: - Realm object
 class RealmUserModelItem: Object {
     @objc dynamic var id: Int = 0
-    @objc dynamic var firstName: String = ""
-    @objc dynamic var lastName: String = ""
-    @objc dynamic var mainPhoto: String = ""
+    @objc dynamic var fullName: String = ""
+    @objc dynamic var imageUrl: String = ""
 }

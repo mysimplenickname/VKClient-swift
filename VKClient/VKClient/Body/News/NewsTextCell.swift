@@ -21,4 +21,9 @@ class NewsTextCell: UITableViewCell, SelfConfiguringCell {
         newsTextLabel?.text = news.text
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        newsTextLabel?.text = ""
+    }
+    
 }

@@ -14,13 +14,15 @@ class GroupsCell: UITableViewCell, SelfConfiguringCell {
     @IBOutlet weak var titleView: TitleView!
     
     func configureCell(object: Any) {
-        guard type(of: object) == RealmGroupModelItem.self else { return }
-        let group = object as! RealmGroupModelItem
+        guard type(of: object) == GroupModelItem.self else { return }
+        let group = object as! GroupModelItem
         
-        guard let url = URL(string: group.mainPhoto) else { return }
-        loadPhoto(from: url) { [self] image in
-            titleView.configureTitleView(titleImage: image, titleLabel: group.name, subtitleLabel: "")
-        }
+        titleView.configureTitleView(titleImage: group.image ?? UIImage(), titleLabel: group.name, subtitleLabel: "")
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        titleView.configureTitleView(titleImage: UIImage(), titleLabel: "", subtitleLabel: "")
     }
     
 }

@@ -10,67 +10,23 @@ import RealmSwift
 
 class PhotosViewController: UICollectionViewController {
     
+    var imageService: ImageService?
+    
     var ownerId: Int!
     
-    var realmImages: [RealmPhotoModelItem] = []
-    
-    var token: NotificationToken?
+    var images: [PhotoModelItem] = []
     
     // MARK: - Life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
     
-        getPhotos(ownerId: ownerId) { realmImages in
-            self.realmImages = realmImages
+        getPhotos(ownerId: ownerId) { rawImages in
+            self.images = rawImages
             self.collectionView.reloadData()
         }
         
-        updatePhotos()
-    }
-    
-    func updatePhotos() {
-        
-        guard let realm = try? Realm() else { return }
-        let results = realm.objects(RealmUserModelItem.self)
-        
-        token = results.observe { (changes: RealmCollectionChange) in
-            guard let tableView = self.collectionView else { return }
-            switch changes {
-            case .initial:
-                tableView.reloadData()
-            case .update(_, let deletions, let insertions, let modifications):
-                self.collectionView.performBatchUpdates(
-                    {
-                        self.collectionView.insertItems(
-                            at: insertions.map(
-                                {
-                                    IndexPath(row: $0, section: 0)
-                                }
-                            )
-                        )
-                        self.collectionView.deleteItems(
-                            at: deletions.map(
-                                {
-                                    IndexPath(row: $0, section: 0)
-                                }
-                            )
-                        )
-                        self.collectionView.reloadItems(
-                            at: modifications.map(
-                                {
-                                    IndexPath(row: $0, section: 0)
-                                }
-                            )
-                        )
-                    },
-                    completion: nil
-                )
-            case .error(let error):
-                fatalError("\(error)")
-            }
-        }
-        
+        imageService = ImageService(container: collectionView)
     }
 
 }
@@ -82,8 +38,9 @@ extension PhotosViewController {
         if let controller = segue.destination as? PhotoBrowsingViewController,
            let indexPaths = self.collectionView.indexPathsForSelectedItems {
             let indexPath = indexPaths[0].row
-            controller.realmImages = realmImages
-            controller.realmImagesIndex = indexPath
+            controller.images = images
+            controller.imagesIndex = indexPath
+            controller.imageService = imageService
         }
     }
     
@@ -96,7 +53,7 @@ extension PhotosViewController {
 // MARK: - UICollectionViewDataSource
 extension PhotosViewController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return realmImages.count
+        return images.count
     }
 }
 
@@ -104,10 +61,9 @@ extension PhotosViewController {
 extension PhotosViewController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotosCell.reuseIdentifier, for: indexPath) as! PhotosCell
-        guard let url = URL(string: realmImages[indexPath.row].url) else { return cell }
-        loadPhoto(from: url) { image in
-            cell.photosImage.image = image
-        }
+        
+        cell.photosImage.image = imageService?.getImage(atIndexPath: indexPath, byUrl: images[indexPath.row].imageUrl ?? "")
+        
         return cell
     }
 }

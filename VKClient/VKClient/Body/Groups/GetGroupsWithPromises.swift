@@ -9,7 +9,7 @@ import Foundation
 import PromiseKit
 import Alamofire
 
-func getGroups(for userId: Int) -> Promise<[RealmGroupModelItem]> {
+func getGroups(for userId: Int) -> Promise<[GroupModelItem]> {
     
     let HOST = "https://api.vk.com"
     let VERSION = "5.131"
@@ -29,9 +29,7 @@ func getGroups(for userId: Int) -> Promise<[RealmGroupModelItem]> {
             case .success(let data):
                 do {
                     let rawData = try JSONDecoder().decode(GroupModel.self, from: data).response.items
-                    saveObjects(raw: rawData, type: RealmGroupModelItem.self)
-                    let readyData = convertToObjects(raw: rawData) as! [RealmGroupModelItem]
-                    seal.fulfill(readyData)
+                    seal.fulfill(rawData)
                 } catch {
                     return seal.reject(error)
                 }

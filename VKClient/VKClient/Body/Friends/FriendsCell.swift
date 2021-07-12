@@ -14,14 +14,15 @@ class FriendsCell: UITableViewCell, SelfConfiguringCell {
     @IBOutlet weak var titleView: TitleView!
     
     func configureCell(object: Any) {
-        guard type(of: object) == RealmUserModelItem.self else { return }
-        let friend = object as! RealmUserModelItem
+        guard type(of: object) == UserModelItem.self else { return }
+        var friend = object as! UserModelItem
         
-        let friendFullName: String = friend.firstName + " " + friend.lastName
-        guard let url = URL(string: friend.mainPhoto) else { return }
-        loadPhoto(from: url) { [self] image in
-            titleView.configureTitleView(titleImage: image, titleLabel: friendFullName, subtitleLabel: "")
-        }
+        titleView.configureTitleView(titleImage: friend.image ?? UIImage(), titleLabel: friend.fullname, subtitleLabel: "")
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        titleView.configureTitleView(titleImage: UIImage(), titleLabel: "", subtitleLabel: "")
     }
     
 }
