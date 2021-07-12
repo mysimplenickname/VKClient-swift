@@ -74,7 +74,7 @@ class ImageService {
             let image = UIImage(contentsOfFile: fileName)
         else { return nil }
         
-        DispatchQueue.main.async {
+        DispatchQueue.global(qos: .userInteractive).async {
             self.images[url] = image
         }
         
@@ -94,14 +94,14 @@ class ImageService {
     
     private func loadImage(atIndexPath indexPath: IndexPath, byUrl url: String) {
         
-        Alamofire.request(url).responseData(queue: DispatchQueue.global()) { response in
+        Alamofire.request(url).responseData(queue: DispatchQueue.global(qos: .userInteractive)) { response in
             
             guard
                 let data = response.data,
                 let image = UIImage(data: data)
             else { return }
             
-            DispatchQueue.main.async {
+            DispatchQueue.global(qos: .userInteractive).async {
                 self.images[url] = image
             }
             
