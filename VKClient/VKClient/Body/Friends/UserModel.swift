@@ -15,7 +15,6 @@ struct UserModel: Codable {
 
 //MARK: - Response
 struct UserModelResponse: Codable {
-//    let count: Int
     let items: [UserModelItem]
 }
 

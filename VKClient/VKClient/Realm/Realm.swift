@@ -54,7 +54,6 @@ func convertToObjects(raw: [Any]) -> [Object] {
     return [Object()]
 }
 
-// New. Only for groups. wip.
 func saveObjects(raw: [Any], type: Object.Type) {
     
     let newObjects = convertToObjects(raw: raw)
@@ -65,19 +64,6 @@ func saveObjects(raw: [Any], type: Object.Type) {
         realm.beginWrite()
         realm.delete(oldRealmGroups)
         realm.add(newObjects)
-        try realm.commitWrite()
-    } catch {
-        print(error)
-    }
-}
-
-// Old.
-func saveObject(object: Object) {
-    
-    do {
-        let realm = try Realm()
-        realm.beginWrite()
-        realm.add(object)
         try realm.commitWrite()
     } catch {
         print(error)

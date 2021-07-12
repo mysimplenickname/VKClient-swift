@@ -8,6 +8,7 @@
 import UIKit
 import RealmSwift
 import FirebaseDatabase
+import Alamofire
 
 class FriendsViewController: UIViewController {
     
@@ -19,17 +20,49 @@ class FriendsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     
-    // MARK: - Life cycle
+    let myOwnQueue = OperationQueue()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        getFriends(for: Session.shared.userId) { realmFriends in
-            self.realmFriends = realmFriends
-            self.realmFriendsForUse = realmFriends
-            self.tableView.reloadData()
-        }
+        let HOST = "https://api.vk.com"
+        let path = "/method/friends.get"
+        let VERSION = "5.131"
         
+        let parameters: Parameters = [
+            "fields": "photo_100",
+            "user_id": Session.shared.userId,
+            "access_token": Session.shared.token,
+            "v": VERSION
+        ]
+        
+        let request = AF.request(HOST + path, method: .get, parameters: parameters)
+        
+        let getDataOperation = GetDataOperation(request: request)
+        myOwnQueue.addOperation(getDataOperation)
+        
+        let parseDataOperation = ParseDataOperation<UserModel>()
+        parseDataOperation.addDependency(getDataOperation)
+        myOwnQueue.addOperation(parseDataOperation)
+        
+        let convertDataToRealmObjects = ConvertDataToRealmObjects<UserModel>()
+        convertDataToRealmObjects.addDependency(parseDataOperation)
+        myOwnQueue.addOperation(convertDataToRealmObjects)
+        
+        let reloadTableOperation = ReloadTableOperation<UserModel>(controller: self)
+        reloadTableOperation.addDependency(convertDataToRealmObjects)
+        OperationQueue.main.addOperation(reloadTableOperation)
+        
+        let saveDataToRealmOperation = SaveDataToRealmOperation<UserModel>()
+        saveDataToRealmOperation.addDependency(convertDataToRealmObjects)
+        myOwnQueue.addOperation(saveDataToRealmOperation)
+        
+//        getFriends(for: Session.shared.userId) { realmFriends in
+//            self.realmFriends = realmFriends
+//            self.realmFriendsForUse = realmFriends
+//            self.tableView.reloadData()
+//        }
+//
         updateFriends()
         
         tableView.register(UINib(nibName: "FriendsCell", bundle: nil), forCellReuseIdentifier: FriendsCell.reuseIdentifier)
