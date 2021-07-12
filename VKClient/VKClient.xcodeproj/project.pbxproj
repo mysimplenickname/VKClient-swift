@@ -44,6 +44,7 @@
 		3196F70226821D1600BAA5E2 /* SaveDataToRealmOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3196F70126821D1500BAA5E2 /* SaveDataToRealmOperation.swift */; };
 		3196F70526821F5500BAA5E2 /* ConvertDataToRealmObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3196F70426821F5500BAA5E2 /* ConvertDataToRealmObjects.swift */; };
 		3196F709268231B600BAA5E2 /* ReloadTableOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3196F708268231B600BAA5E2 /* ReloadTableOperation.swift */; };
+		3196F7152682868C00BAA5E2 /* GetGroupsWithPromises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3196F7142682868C00BAA5E2 /* GetGroupsWithPromises.swift */; };
 		31AC4504266E6C6D00E40115 /* NewsAuthorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AC4502266E6C6D00E40115 /* NewsAuthorCell.swift */; };
 		31AC4505266E6C6D00E40115 /* NewsAuthorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31AC4503266E6C6D00E40115 /* NewsAuthorCell.xib */; };
 		31AC450D266E6D1A00E40115 /* NewsTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AC450B266E6D1A00E40115 /* NewsTextCell.swift */; };
@@ -105,6 +106,7 @@
 		3196F70126821D1500BAA5E2 /* SaveDataToRealmOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveDataToRealmOperation.swift; sourceTree = "<group>"; };
 		3196F70426821F5500BAA5E2 /* ConvertDataToRealmObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertDataToRealmObjects.swift; sourceTree = "<group>"; };
 		3196F708268231B600BAA5E2 /* ReloadTableOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReloadTableOperation.swift; sourceTree = "<group>"; };
+		3196F7142682868C00BAA5E2 /* GetGroupsWithPromises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetGroupsWithPromises.swift; sourceTree = "<group>"; };
 		31AC4502266E6C6D00E40115 /* NewsAuthorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsAuthorCell.swift; sourceTree = "<group>"; };
 		31AC4503266E6C6D00E40115 /* NewsAuthorCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsAuthorCell.xib; sourceTree = "<group>"; };
 		31AC450B266E6D1A00E40115 /* NewsTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTextCell.swift; sourceTree = "<group>"; };
@@ -245,6 +247,7 @@
 				313B186A2623822800CD496C /* GroupsCell.xib */,
 				313B18692623822800CD496C /* GroupsCell.swift */,
 				3196DF3525EBFA0B0014B9C4 /* GroupsViewController.swift */,
+				3196F7142682868C00BAA5E2 /* GetGroupsWithPromises.swift */,
 				313B1871262385F400CD496C /* FindGroupsCell.xib */,
 				313B1870262385F400CD496C /* FindGroupsCell.swift */,
 				3196DF3925EBFAF10014B9C4 /* FindGroupsViewController.swift */,
@@ -416,6 +419,8 @@
 			dependencies = (
 			);
 			name = VKClient;
+			packageProductDependencies = (
+			);
 			productName = VKClient;
 			productReference = 3147E21E25DDBA82005A0306 /* VKClient.app */;
 			productType = "com.apple.product-type.application";
@@ -443,6 +448,8 @@
 				Base,
 			);
 			mainGroup = 3147E21525DDBA81005A0306;
+			packageReferences = (
+			);
 			productRefGroup = 3147E21F25DDBA82005A0306 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -557,6 +564,7 @@
 				3196F6F9267EB28B00BAA5E2 /* GetDataOperation.swift in Sources */,
 				31CA5C832622E64000E81A3A /* Session.swift in Sources */,
 				3196DF5825EF97A10014B9C4 /* PhotosCell.swift in Sources */,
+				3196F7152682868C00BAA5E2 /* GetGroupsWithPromises.swift in Sources */,
 				3147E22425DDBA82005A0306 /* SceneDelegate.swift in Sources */,
 				31AC4513266E6DDA00E40115 /* NewsPhotoCell.swift in Sources */,
 				313B188B263076E500CD496C /* GroupModel.swift in Sources */,

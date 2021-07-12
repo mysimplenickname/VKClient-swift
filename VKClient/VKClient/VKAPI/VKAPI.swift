@@ -7,16 +7,18 @@
 
 import Foundation
 import Alamofire
+import UIKit
 
 let HOST = "https://api.vk.com"
 let VERSION = "5.131"
 
-//func getUserInfo(for userId: Int, completion: @escaping (UserModelItem) -> Void) {
-//    let path = "/method/users.get"
+// Recreated with Operations
+//func getFriends(for userId: Int, completion: @escaping ([RealmUserModelItem]) -> Void ) {
+//    let path = "/method/friends.get"
 //
 //    let parameters: Parameters = [
-//        "user_ids": userId,
-//        "fields": "photo_200_orig",
+//        "fields": "photo_100",
+//        "user_id": userId,
 //        "access_token": Session.shared.token,
 //        "v": VERSION
 //    ]
@@ -25,25 +27,33 @@ let VERSION = "5.131"
 //
 //        guard let data = response.value else { return }
 //
-//        var user: UserModelItem?
+//        var rawFriends = [UserModelItem]()
 //
 //        do {
-//            user = try JSONDecoder().decode(UserModel.self, from: data).response.items[0]
+//            rawFriends = try JSONDecoder().decode(UserModel.self, from: data).response.items
 //        } catch {
 //            print(error)
+//            do {
+//                print(try JSONDecoder().decode(ErrorModel.self, from: data))
+//            } catch {
+//                print(error)
+//            }
 //        }
 //
-//        completion(user!)
-//    }
+//        saveObjects(raw: rawFriends, type: RealmUserModelItem.self)
 //
+//        completion(convertToObjects(raw: rawFriends) as! [RealmUserModelItem])
+//    }
 //}
 
-//func getGroupInfo(for groupId: Int, completion: @escaping (GroupModelItem) -> Void) {
-//    let path = "/mathod/groups.getById"
+// Recreated with PromiseKit
+//func getGroups(for userId: Int, completion: @escaping ([RealmGroupModelItem]) -> Void) {
+//    let path = "/method/groups.get"
 //
 //    let parameters: Parameters = [
-//        "group_id": groupId,
+//        "extended": "1",
 //        "fields": "photo_200",
+//        "user_id": userId,
 //        "access_token": Session.shared.token,
 //        "v": VERSION
 //    ]
@@ -52,87 +62,24 @@ let VERSION = "5.131"
 //
 //        guard let data = response.value else { return }
 //
-//        var group: GroupModelItem?
+//        var rawGroups = [GroupModelItem]()
 //
 //        do {
-//            group = try JSONDecoder().decode(SingleGroupModel.self, from: data).response[0]
+//            rawGroups = try JSONDecoder().decode(GroupModel.self, from: data).response.items
 //        } catch {
 //            print(error)
-//            print("error: ", try? JSONDecoder().decode(ErrorModel.self, from: data))
+//            do {
+//                print(try JSONDecoder().decode(ErrorModel.self, from: data))
+//            } catch {
+//                print(error)
+//            }
 //        }
 //
-//        DispatchQueue.main.async {
-//            completion(group ?? GroupModelItem(id: 0, name: "", mainPhoto: ""))
-//        }
+//        saveObjects(raw: rawGroups, type: RealmGroupModelItem.self)
+//
+//        completion(convertToObjects(raw: rawGroups) as! [RealmGroupModelItem])
 //    }
 //}
-
-func getFriends(for userId: Int, completion: @escaping ([RealmUserModelItem]) -> Void ) {
-    let path = "/method/friends.get"
-    
-    let parameters: Parameters = [
-        "fields": "photo_100",
-        "user_id": userId,
-        "access_token": Session.shared.token,
-        "v": VERSION
-    ]
-    
-    AF.request(HOST + path, method: .get, parameters: parameters).responseData { response in
-
-        guard let data = response.value else { return }
-        
-        var rawFriends = [UserModelItem]()
-        
-        do {
-            rawFriends = try JSONDecoder().decode(UserModel.self, from: data).response.items
-        } catch {
-            print(error)
-            do {
-                print(try JSONDecoder().decode(ErrorModel.self, from: data))
-            } catch {
-                print(error)
-            }
-        }
-        
-        saveObjects(raw: rawFriends, type: RealmUserModelItem.self)
-        
-        completion(convertToObjects(raw: rawFriends) as! [RealmUserModelItem])
-    }
-}
-
-func getGroups(for userId: Int, completion: @escaping ([RealmGroupModelItem]) -> Void) {
-    let path = "/method/groups.get"
-    
-    let parameters: Parameters = [
-        "extended": "1",
-        "fields": "photo_200",
-        "user_id": userId,
-        "access_token": Session.shared.token,
-        "v": VERSION
-    ]
-    
-    AF.request(HOST + path, method: .get, parameters: parameters).responseData { response in
-        
-        guard let data = response.value else { return }
-        
-        var rawGroups = [GroupModelItem]()
-        
-        do {
-            rawGroups = try JSONDecoder().decode(GroupModel.self, from: data).response.items
-        } catch {
-            print(error)
-            do {
-                print(try JSONDecoder().decode(ErrorModel.self, from: data))
-            } catch {
-                print(error)
-            }
-        }
-        
-        saveObjects(raw: rawGroups, type: RealmGroupModelItem.self)
-        
-        completion(convertToObjects(raw: rawGroups) as! [RealmGroupModelItem])
-    }
-}
 
 func searchGroups(for userId: Int, searchString: String, completion: @escaping ([RealmGroupModelItem]) -> Void) {
     let path = "/method/groups.search"
@@ -145,7 +92,7 @@ func searchGroups(for userId: Int, searchString: String, completion: @escaping (
         "v": VERSION
     ]
     
-    AF.request(HOST + path, method: .get, parameters: parameters).responseData { response in
+    Alamofire.request(HOST + path, method: .get, parameters: parameters).responseData { response in
         
         guard let data = response.value else { return }
         
@@ -177,7 +124,7 @@ func getPhotos(ownerId: Int, completion: @escaping ([RealmPhotoModelItem]) -> Vo
         "v": VERSION
     ]
     
-    AF.request(HOST + path, method: .get, parameters: parameters).responseData { response in
+    Alamofire.request(HOST + path, method: .get, parameters: parameters).responseData { response in
         
         guard let data = response.value else { return }
         
@@ -220,7 +167,7 @@ func getNews(ownerId: Int, completion: @escaping (NewsModelResponse) -> Void) {
         "v": VERSION
     ]
     
-    AF.request(HOST + path, method: .get, parameters: parameters).responseData { response in
+    Alamofire.request(HOST + path, method: .get, parameters: parameters).responseData { response in
         
         guard let data = response.value else { return }
         
