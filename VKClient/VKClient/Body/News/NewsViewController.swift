@@ -9,18 +9,18 @@ import UIKit
 
 class NewsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
-    let news = News(
-        authorImage: Photo(name: "johnsnow3", id: 0, owner_id: 0, likes: 0, isLiked: false),
-        authorLabel: "John Snow",
-        text: "Hello!",
-        image: Photo(name: "johnsnow1", id: 0, owner_id: 0, likes: 0, isLiked: false)
-    )
+    var news: NewsModelResponse?
     
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        getNews(ownerId: Session.shared.userId) { [self] rawNews in
+            news = rawNews
+            tableView.reloadData()
+        }
+        
         tableView.register(UINib(nibName: "NewsAuthorCell", bundle: nil), forCellReuseIdentifier: NewsAuthorCell.reuseIdentifier)
         tableView.register(UINib(nibName: "NewsTextCell", bundle: nil), forCellReuseIdentifier: NewsTextCell.reuseIdentifier)
         tableView.register(UINib(nibName: "NewsPhotoCell", bundle: nil), forCellReuseIdentifier: NewsPhotoCell.reuseIdentifier)
@@ -28,7 +28,7 @@ class NewsViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return news?.items.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -36,21 +36,21 @@ class NewsViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row == 0 {
+        if indexPath.row % 4 == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: NewsAuthorCell.reuseIdentifier, for: indexPath) as! NewsAuthorCell
-            cell.configureCell(object: news)
+            cell.configureCell(object: news?.groups[indexPath.section] ?? Void.self)
             return cell
-        } else if indexPath.row == 1 {
+        } else if indexPath.row - 1 % 4 == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: NewsTextCell.reuseIdentifier, for: indexPath) as! NewsTextCell
-            cell.configureCell(object: news)
+            cell.configureCell(object: news?.items[indexPath.section] ?? Void.self)
             return cell
-        } else if indexPath.row == 2 {
+        } else if indexPath.row - 2 % 4 == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: NewsPhotoCell.reuseIdentifier, for: indexPath) as! NewsPhotoCell
-            cell.configureCell(object: news)
+            cell.configureCell(object: news?.items[indexPath.section] ?? Void.self)
             return cell
-        } else if indexPath.row == 3 {
+        } else if indexPath.row - 3 % 4 == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: NewsInteractionCell.reuseIdentifier, for: indexPath) as! NewsInteractionCell
-            cell.configureCell(object: news)
+            cell.configureCell(object: Void.self)
             return cell
         }
         return NewsAuthorCell()

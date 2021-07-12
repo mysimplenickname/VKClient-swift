@@ -15,7 +15,7 @@ struct UserModel: Codable {
 
 //MARK: - Response
 struct UserModelResponse: Codable {
-    let count: Int
+//    let count: Int
     let items: [UserModelItem]
 }
 
@@ -29,7 +29,7 @@ struct UserModelItem: Codable {
         case id
         case firstName = "first_name"
         case lastName = "last_name"
-        case mainPhoto = "photo_200_orig"
+        case mainPhoto = "photo_100"
     }
 }
 

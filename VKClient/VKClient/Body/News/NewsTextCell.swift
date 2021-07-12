@@ -15,12 +15,10 @@ class NewsTextCell: UITableViewCell, SelfConfiguringCell {
     
     func configureCell(object: Any) {
         
-        guard type(of: object) == News.self else { return }
-        let news = object as! News
+        guard type(of: object) == NewsModelItem.self else { return }
+        let news = object as! NewsModelItem
         
-        if news.text != nil {
-            newsTextLabel?.text = news.text
-        }
+        newsTextLabel?.text = news.text
     }
     
 }
