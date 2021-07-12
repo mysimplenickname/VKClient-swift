@@ -14,8 +14,16 @@ struct NewsModel: Codable {
 
 struct NewsModelResponse: Codable {
     var items: [NewsModelItem]
-    let profiles: [UserModelItem]
+    var profiles: [UserModelItem]
     var groups: [GroupModelItem]
+    let nextFrom: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case items, profiles, groups
+        case nextFrom = "next_from"
+    }
+    
+    var sources: [NewsModelItem]?
 }
 
 struct NewsModelItem: Codable {
@@ -32,9 +40,12 @@ struct NewsModelItem: Codable {
         case text
         case attachments
     }
+    
+    var authorName: String?
+    var authorImageUrl: String?
 }
 
 struct NewsAttachmentItem: Codable {
-    let type: String?
+    var type: String?
     var photo: PhotoModelItem?
 }

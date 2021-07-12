@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import RealmSwift
 
 //MARK: - UserModel
 struct UserModel: Codable {
@@ -22,7 +21,7 @@ struct UserModelResponse: Codable {
 struct UserModelItem: Codable {
     let id: Int
     let firstName, lastName: String
-    let imageUrl: String
+    let imageUrl: String?
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -31,16 +30,7 @@ struct UserModelItem: Codable {
         case imageUrl = "photo_100"
     }
     
-    lazy var fullname = {
+    lazy var fullname: String? = {
         return firstName + " " + lastName
     }()
-    
-    var image: UIImage?
-}
-
-//MARK: - Realm object
-class RealmUserModelItem: Object {
-    @objc dynamic var id: Int = 0
-    @objc dynamic var fullName: String = ""
-    @objc dynamic var imageUrl: String = ""
 }

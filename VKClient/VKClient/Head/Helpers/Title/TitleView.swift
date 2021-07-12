@@ -37,10 +37,10 @@ class TitleView: UIView {
         ])
     }
     
-    func configureTitleView(titleImage: UIImage, titleLabel: String, subtitleLabel: String) {
-        self.titleImageView.image = titleImage
-        self.titleLabel.text = titleLabel
-        self.subtitleLabel.text = subtitleLabel
+    func configureTitleView(titleImage: UIImage?, titleLabel: String?, subtitleLabel: String?) {
+        self.titleImageView.image = titleImage ?? UIImage(systemName: "person.3")
+        self.titleLabel.text = titleLabel ?? ""
+        self.subtitleLabel.text = subtitleLabel ?? ""
         
         self.titleImageView.clipsToBounds = true
         self.titleImageView.layer.cornerRadius = self.titleImageView.frame.height / 2

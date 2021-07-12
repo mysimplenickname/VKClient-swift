@@ -9,12 +9,6 @@ target 'VKClient' do
 
   pod 'RealmSwift'
 
-  pod 'Firebase/Analytics'
-  pod 'Firebase/Database'
-  pod 'Firebase/Firestore'
-  pod 'Firebase/Auth'
-  pod 'Firebase/Crashlytics'
-
   pod 'PromiseKit/Alamofire', '~> 6.0'
 
   # Pods for VKClient

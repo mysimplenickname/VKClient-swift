@@ -7,19 +7,19 @@
 
 import UIKit
 
-class PhotosCell: UICollectionViewCell, SelfConfiguringCell {
+class PhotosCell: UICollectionViewCell {
     
-    static var reuseIdentifier: String = "photosCell"
+    static let reuseIdentifier: String = "photosCell"
     
     @IBOutlet weak var photosImage: UIImageView!
-    
-    func configureCell(object: Any) {
-        return
-    }
-    
+
     override func prepareForReuse() {
         super.prepareForReuse()
         photosImage.image = nil
+    }
+    
+    func configureCell(image: UIImage?) {
+        photosImage.image = image ?? UIImage()
     }
     
 }

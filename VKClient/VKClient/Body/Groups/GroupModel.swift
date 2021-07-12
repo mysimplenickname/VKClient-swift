@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import RealmSwift
 
 //MARK: - GroupModel
 struct GroupModel: Codable {
@@ -22,24 +21,15 @@ struct GroupModelResponse: Codable {
 struct GroupModelItem: Codable {
     let id: Int
     let name: String
-    let imageUrl: String
+    let imageUrl: String?
     
     enum CodingKeys: String, CodingKey {
         case id
         case name
         case imageUrl = "photo_200"
     }
-    
-    var image: UIImage?
 }
 
 struct SingleGroupModel: Codable {
     let response: [GroupModelItem]
-}
-
-//MARK: - Realm object
-class RealmGroupModelItem: Object {
-    @objc dynamic var id: Int = 0
-    @objc dynamic var name: String = ""
-    @objc dynamic var imageUrl: String = ""
 }

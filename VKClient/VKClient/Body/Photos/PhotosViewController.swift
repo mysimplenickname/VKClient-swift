@@ -10,11 +10,11 @@ import RealmSwift
 
 class PhotosViewController: UICollectionViewController {
     
-    var imageService: ImageService?
-    
     var ownerId: Int!
     
     var images: [PhotoModelItem] = []
+    
+    var imageService: ImageService?
     
     // MARK: - Life cycle
     
@@ -40,7 +40,6 @@ extension PhotosViewController {
             let indexPath = indexPaths[0].row
             controller.images = images
             controller.imagesIndex = indexPath
-            controller.imageService = imageService
         }
     }
     
@@ -61,9 +60,9 @@ extension PhotosViewController {
 extension PhotosViewController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotosCell.reuseIdentifier, for: indexPath) as! PhotosCell
-        
-        cell.photosImage.image = imageService?.getImage(atIndexPath: indexPath, byUrl: images[indexPath.row].imageUrl ?? "")
-        
+        guard let imageUrl = images[indexPath.row].imageUrl else { return UICollectionViewCell() }
+        let image = imageService?.getImage(atIndexPath: indexPath, byUrl: imageUrl)
+        cell.configureCell(image: image)
         return cell
     }
 }
